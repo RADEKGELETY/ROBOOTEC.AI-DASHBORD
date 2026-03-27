@@ -284,12 +284,12 @@
   </div>
 
   <script>
-    const fmtPct = (v) => (v * 100).toFixed(2).replace('.', ',') + '%';
+    const fmtPct = (v) => (v * 100).toFixed(2).replace('.', ',') + ' %';
     const fmtInt = (v) => {
       const n = Math.round(v ?? 0).toString();
       return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
-    const fmtUsd = (v) => `$${fmtInt(v ?? 0)}`;
+    const fmtUsd = (v) => `$ ${fmtInt(v ?? 0)}`;
 
     const posClass = (v) => (v ?? 0) >= 0 ? 'pos' : 'neg';
     const winClass = (v) => (v ?? 0) >= 0.5 ? 'pos' : 'neg';
@@ -456,7 +456,7 @@
                   <td>${fmtInt(summary.trades || 0)}</td>
                   <td>${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
                   <td>${fmtPct(summary.max_drawdown || 0)}</td>
-                  <td>${fmtUsd(summary.final_equity || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}">${fmtUsd(summary.final_equity || 0)}</td>
                 </tr>
               </tbody>
             </table>
