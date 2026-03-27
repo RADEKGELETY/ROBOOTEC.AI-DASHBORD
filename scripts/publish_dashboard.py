@@ -76,6 +76,16 @@ def strat_desc(name: str) -> str:
     if name.startswith("momentum"):
         parts = name.split("_")
         return f"Momentum (window={parts[-1]})"
+    if name.startswith("rg_"):
+        instrument = name.split("_", 1)[1]
+        label_map = {
+            "nasdaq": "Nasdaq futures (NY session)",
+            "gold": "Gold (NY session)",
+            "btc": "Bitcoin (NY session)",
+            "eurusd": "EUR/USD (NY session)",
+        }
+        label = label_map.get(instrument, instrument)
+        return f"RG liquidity sweep trend ({label}, SL 0.5% / TP 2%)"
     return name
 
 

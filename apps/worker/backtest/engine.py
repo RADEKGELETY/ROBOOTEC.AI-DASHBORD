@@ -66,7 +66,7 @@ def run_backtest(
                 trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="SHORT", pnl=pnl))
                 position = 0
 
-            if position == 0:
+            if signal.intent == "ENTER" and position == 0:
                 entry_equity_before = equity
                 equity -= equity * fee_rate
                 entry_equity_after = equity
@@ -83,7 +83,7 @@ def run_backtest(
                 trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="LONG", pnl=pnl))
                 position = 0
 
-            if position == 0:
+            if signal.intent == "ENTER" and position == 0:
                 entry_equity_before = equity
                 equity -= equity * fee_rate
                 entry_equity_after = equity

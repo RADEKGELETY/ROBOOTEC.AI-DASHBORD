@@ -118,6 +118,12 @@ def main():
     if args.task == "backtest_batch":
         markets = load_markets()
         interval = markets.get("interval", "d")
+        rg_map = {
+            "rg_nasdaq": "nasdaq_top10",
+            "rg_gold": "commodities",
+            "rg_btc": "crypto",
+            "rg_eurusd": "fx",
+        }
         if args.batch_symbols:
             symbols = [s.strip() for s in args.batch_symbols.split(",") if s.strip()]
         else:
@@ -138,6 +144,11 @@ def main():
             candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
             start, end, days = period_info(candles)
             for strat in strategies:
+                if strat.name in rg_map:
+                    allowed_group = rg_map[strat.name]
+                    allowed_symbols = markets.get("symbols", {}).get(allowed_group, [])
+                    if sym not in allowed_symbols:
+                        continue
                 metrics, trades = run_backtest(candles, strat, initial_cash=initial_cash)
                 payload = {
                     "strategy": strat.name,
