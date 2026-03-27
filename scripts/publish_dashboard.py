@@ -76,6 +76,12 @@ def strat_desc(name: str) -> str:
     if name.startswith("momentum"):
         parts = name.split("_")
         return f"Momentum (window={parts[-1]})"
+    if name.startswith("macd"):
+        parts = name.split("_")
+        return f"MACD trend (fast={parts[-3]}, slow={parts[-2]}, signal={parts[-1]})"
+    if name.startswith("atr_breakout"):
+        parts = name.split("_")
+        return f"ATR breakout (window={parts[-2]}, mult={parts[-1]})"
     if name.startswith("rg_"):
         instrument = name.split("_", 1)[1]
         label_map = {

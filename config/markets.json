@@ -1,6 +1,7 @@
 {
   "source": "stooq",
   "interval": "d",
+  "intraday_interval": "5m",
   "symbols": {
     "nasdaq_top10": [
       "aapl.us",
@@ -24,8 +25,40 @@
       "btcusd"
     ]
   },
+  "providers": {
+    "nasdaq_top10": {
+      "provider": "alpha_vantage",
+      "asset": "stock"
+    },
+    "fx": {
+      "provider": "alpha_vantage",
+      "asset": "fx"
+    },
+    "commodities": {
+      "provider": "alpha_vantage",
+      "asset": "fx"
+    },
+    "crypto": {
+      "provider": "binance",
+      "asset": "crypto"
+    }
+  },
+  "symbol_map": {
+    "aapl.us": "AAPL",
+    "msft.us": "MSFT",
+    "amzn.us": "AMZN",
+    "nvda.us": "NVDA",
+    "meta.us": "META",
+    "googl.us": "GOOGL",
+    "tsla.us": "TSLA",
+    "avgo.us": "AVGO",
+    "cost.us": "COST",
+    "peps.us": "PEP",
+    "btcusd": "BTCUSDT"
+  },
   "notes": [
-    "Symbols follow Stooq conventions; verify availability for each symbol.",
-    "If any symbol is missing or returns empty data, we will switch to Alpaca or another source."
+    "Daily data uses Stooq; intraday uses provider-specific sources where available.",
+    "Alpha Vantage intraday requires an API key; Binance crypto klines are public.",
+    "If intraday data is unavailable for a symbol, the system falls back to daily Stooq data."
   ]
 }

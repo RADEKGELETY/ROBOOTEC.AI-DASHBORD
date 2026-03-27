@@ -28,9 +28,12 @@ def load_ohlcv_csv(path: str) -> List[Candle]:
         reader = csv.DictReader(f)
         for row in reader:
             row_l = {k.lower(): v for k, v in row.items()}
+            dt_val = row_l.get("date") or row_l.get("timestamp") or row_l.get("time")
+            if not dt_val:
+                continue
             candles.append(
                 Candle(
-                    timestamp=_parse_dt(row_l["date"]),
+                    timestamp=_parse_dt(dt_val),
                     open=float(row_l["open"]),
                     high=float(row_l["high"]),
                     low=float(row_l["low"]),

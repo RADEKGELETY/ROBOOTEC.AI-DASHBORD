@@ -37,6 +37,7 @@ def run_backtest(
     initial_cash: float = 100000.0,
     fee_rate: float = 0.0005,
     slippage: float = 0.0005,
+    predictor=None,
 ) -> tuple[BacktestMetrics, List[Trade]]:
     # Full capital deployment per trade, long/short, with simple fees and slippage
     position = 0  # 1 long, -1 short, 0 flat
@@ -54,6 +55,8 @@ def run_backtest(
         return price * (1 - slippage)
 
     for i, bar in enumerate(candles):
+        if predictor is not None:
+            predictor.update(candles, i)
         signal = strategy.on_bar(i, candles)
 
         if signal.side == "BUY":
@@ -67,6 +70,9 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
+                if predictor is not None and not predictor.allow(candles, i, "BUY"):
+                    equity_curve.append(equity)
+                    continue
                 entry_equity_before = equity
                 equity -= equity * fee_rate
                 entry_equity_after = equity
@@ -84,6 +90,9 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
+                if predictor is not None and not predictor.allow(candles, i, "SELL"):
+                    equity_curve.append(equity)
+                    continue
                 entry_equity_before = equity
                 equity -= equity * fee_rate
                 entry_equity_after = equity

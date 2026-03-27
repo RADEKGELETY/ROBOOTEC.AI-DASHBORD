@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List, Dict
 
 from apps.worker.data.csv_loader import Candle
+from apps.worker.backtest.indicators import sma, ema, rsi, bollinger, donchian, roc, macd, atr
 
 
 @dataclass
@@ -16,64 +17,6 @@ class BaseStrategy:
 
     def on_bar(self, idx: int, candles: List[Candle]) -> StrategySignal:
         raise NotImplementedError
-
-
-def sma(values: List[float], window: int) -> float:
-    if len(values) < window:
-        return 0.0
-    return sum(values[-window:]) / window
-
-
-def ema(values: List[float], window: int) -> float:
-    if len(values) < window:
-        return 0.0
-    k = 2 / (window + 1)
-    e = values[-window]
-    for v in values[-window + 1 :]:
-        e = v * k + e * (1 - k)
-    return e
-
-
-def rsi(values: List[float], window: int) -> float:
-    if len(values) < window + 1:
-        return 50.0
-    gains = 0.0
-    losses = 0.0
-    for i in range(-window, 0):
-        diff = values[i] - values[i - 1]
-        if diff >= 0:
-            gains += diff
-        else:
-            losses -= diff
-    if losses == 0:
-        return 100.0
-    rs = gains / losses if losses else 0.0
-    return 100 - (100 / (1 + rs))
-
-
-def bollinger(values: List[float], window: int, mult: float) -> tuple[float, float, float]:
-    if len(values) < window:
-        return 0.0, 0.0, 0.0
-    w = values[-window:]
-    mean = sum(w) / window
-    variance = sum((x - mean) ** 2 for x in w) / window
-    std = variance ** 0.5
-    upper = mean + mult * std
-    lower = mean - mult * std
-    return lower, mean, upper
-
-
-def donchian(values: List[float], window: int) -> tuple[float, float]:
-    if len(values) < window:
-        return 0.0, 0.0
-    w = values[-window:]
-    return min(w), max(w)
-
-
-def roc(values: List[float], window: int) -> float:
-    if len(values) < window + 1:
-        return 0.0
-    return (values[-1] - values[-window - 1]) / values[-window - 1]
 
 
 class SmaCrossStrategy(BaseStrategy):
@@ -174,6 +117,46 @@ class MomentumStrategy(BaseStrategy):
             return StrategySignal("BUY", 0.6)
         if v < 0:
             return StrategySignal("SELL", 0.6)
+        return StrategySignal("NO_TRADE", 0.0)
+
+
+class MacdTrendStrategy(BaseStrategy):
+    def __init__(self, fast: int, slow: int, signal: int):
+        self.fast = fast
+        self.slow = slow
+        self.signal = signal
+        self.name = f"macd_{fast}_{slow}_{signal}"
+
+    def on_bar(self, idx: int, candles: List[Candle]) -> StrategySignal:
+        closes = [c.close for c in candles[: idx + 1]]
+        macd_line, signal_line, _ = macd(closes, self.fast, self.slow, self.signal)
+        if macd_line > signal_line:
+            return StrategySignal("BUY", 0.6)
+        if macd_line < signal_line:
+            return StrategySignal("SELL", 0.6)
+        return StrategySignal("NO_TRADE", 0.0)
+
+
+class AtrBreakoutStrategy(BaseStrategy):
+    def __init__(self, window: int, mult: float):
+        self.window = window
+        self.mult = mult
+        self.name = f"atr_breakout_{window}_{mult}"
+
+    def on_bar(self, idx: int, candles: List[Candle]) -> StrategySignal:
+        highs = [c.high for c in candles[: idx + 1]]
+        lows = [c.low for c in candles[: idx + 1]]
+        closes = [c.close for c in candles[: idx + 1]]
+        if len(closes) < self.window + 2:
+            return StrategySignal("NO_TRADE", 0.0)
+        a = atr(highs, lows, closes, self.window)
+        if a == 0.0:
+            return StrategySignal("NO_TRADE", 0.0)
+        prev_close = closes[-2]
+        if closes[-1] > prev_close + self.mult * a:
+            return StrategySignal("BUY", 0.55)
+        if closes[-1] < prev_close - self.mult * a:
+            return StrategySignal("SELL", 0.55)
         return StrategySignal("NO_TRADE", 0.0)
 
 
@@ -366,6 +349,8 @@ def get_all_strategies() -> List[BaseStrategy]:
         MomentumStrategy(10),
         MomentumStrategy(20),
         BollingerReversionStrategy(10, 2.5),
+        MacdTrendStrategy(12, 26, 9),
+        AtrBreakoutStrategy(14, 1.5),
         RgLiquiditySweepStrategy("nasdaq"),
         RgLiquiditySweepStrategy("gold"),
         RgLiquiditySweepStrategy("btc"),
@@ -373,8 +358,51 @@ def get_all_strategies() -> List[BaseStrategy]:
     ]
 
 
+def get_tuned_strategies() -> List[BaseStrategy]:
+    strategies: List[BaseStrategy] = []
+
+    for fast in [5, 8, 10, 20]:
+        for slow in [30, 50, 80]:
+            if fast < slow:
+                strategies.append(SmaCrossStrategy(fast, slow))
+
+    for fast in [8, 12, 21]:
+        for slow in [26, 50]:
+            if fast < slow:
+                strategies.append(EmaCrossStrategy(fast, slow))
+
+    for window, ob, os in [(7, 80, 20), (14, 70, 30), (21, 65, 35)]:
+        strategies.append(RsiReversionStrategy(window, ob, os))
+
+    for window, mult in [(10, 2.0), (20, 2.0), (20, 2.5), (30, 2.5)]:
+        strategies.append(BollingerReversionStrategy(window, mult))
+
+    for window in [20, 40, 55]:
+        strategies.append(DonchianBreakoutStrategy(window))
+
+    for window in [10, 20, 40]:
+        strategies.append(MomentumStrategy(window))
+
+    for fast, slow, signal in [(8, 21, 9), (12, 26, 9), (5, 35, 5)]:
+        strategies.append(MacdTrendStrategy(fast, slow, signal))
+
+    for window, mult in [(14, 1.0), (14, 1.5), (20, 1.5)]:
+        strategies.append(AtrBreakoutStrategy(window, mult))
+
+    strategies.extend(
+        [
+            RgLiquiditySweepStrategy("nasdaq"),
+            RgLiquiditySweepStrategy("gold"),
+            RgLiquiditySweepStrategy("btc"),
+            RgLiquiditySweepStrategy("eurusd"),
+        ]
+    )
+
+    return strategies
+
+
 def get_strategy(name: str) -> BaseStrategy:
-    for s in get_all_strategies():
+    for s in get_all_strategies() + get_tuned_strategies():
         if s.name == name:
             return s
     raise ValueError(f"Unknown strategy: {name}")
