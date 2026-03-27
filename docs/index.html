@@ -7,19 +7,21 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
     :root {
-      --bg: #0c0f14;
-      --surface: #0f141c;
+      --bg: #0b0f14;
+      --surface: #111826;
+      --surface-2: #0f151f;
       --text: #e9eef6;
       --muted: #93a1b4;
       --accent: #6dd3fb;
       --accent-2: #7ef2a1;
+      --danger: #ff6b6b;
       --grid: #1b2534;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Space Grotesk', Arial, sans-serif;
-      background: radial-gradient(1400px 900px at 10% -10%, #1b2432 0%, #0c0f14 60%);
+      background: radial-gradient(1400px 900px at 10% -10%, #1b2432 0%, #0b0f14 60%);
       color: var(--text);
     }
     .wrap {
@@ -45,7 +47,7 @@
     }
     .muted { color: var(--muted); }
     .section {
-      padding: 24px 0;
+      padding: 28px 0;
       border-bottom: 1px solid var(--grid);
     }
     .section:last-of-type { border-bottom: none; }
@@ -66,9 +68,9 @@
       gap: 12px;
     }
     .kpi {
-      padding: 14px 16px;
+      padding: 16px;
       border: 1px solid var(--grid);
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--surface);
     }
     .bar {
@@ -82,42 +84,6 @@
       height: 100%;
       background: var(--accent);
     }
-    .table-wrap {
-      width: 100%;
-      overflow-x: auto;
-      border: 1px solid var(--grid);
-      border-radius: 12px;
-      background: var(--surface);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-    }
-    th, td {
-      text-align: left;
-      padding: 10px 10px;
-      border-bottom: 1px solid var(--grid);
-      white-space: nowrap;
-    }
-    th { color: var(--muted); font-weight: 600; }
-    td.desc { white-space: normal; min-width: 220px; }
-    .rank {
-      font-weight: 700;
-      color: var(--accent-2);
-    }
-    .chart-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .chart {
-      width: 100%;
-      height: 180px;
-      border: 1px solid var(--grid);
-      border-radius: 12px;
-      background: #0a111c;
-    }
     .chip {
       display: inline-flex;
       align-items: center;
@@ -127,6 +93,89 @@
       padding: 4px 10px;
       font-size: 12px;
       color: var(--muted);
+    }
+    .banner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .banner {
+      background: linear-gradient(135deg, #141b26, #0f141c);
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+      min-height: 140px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    .banner-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .banner-metric {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .cards {
+      display: grid;
+      gap: 14px;
+    }
+    .card {
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 16px;
+      background: var(--surface);
+      display: grid;
+      gap: 10px;
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .card-desc {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .metric {
+      background: var(--surface-2);
+      border: 1px solid var(--grid);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+    }
+    .metric-label { color: var(--muted); font-size: 11px; }
+    .metric-value { font-weight: 600; font-size: 14px; }
+    .pos { color: var(--accent-2); }
+    .neg { color: var(--danger); }
+    .divider {
+      height: 1px;
+      background: var(--grid);
+      margin: 8px 0;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .chart {
+      width: 100%;
+      height: 200px;
+      border: 1px solid var(--grid);
+      border-radius: 12px;
+      background: #0a111c;
     }
   </style>
 </head>
@@ -142,15 +191,23 @@
     <section class="section" id="summary">
       <div class="section-head">
         <h2>Overview</h2>
-        <div class="chip">Initial capital per strategy: $100,000</div>
+        <div class="chip">Initial capital per strategy: $100.000</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="topMarkets">
+      <div class="section-head">
+        <h2>Top 3 Markets by Profit</h2>
+        <div class="muted">Best performing instrument categories.</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
 
     <section class="section" id="topOverall">
       <div class="section-head">
-        <h2>Top 3 Overall Strategies</h2>
-        <div class="muted">Best average results across all instruments.</div>
+        <h2>Top 3 Strategies (Overall)</h2>
+        <div class="muted">Sorted by highest return.</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
@@ -165,7 +222,7 @@
 
     <section class="section" id="topByMarket">
       <div class="section-head">
-        <h2>Top 5 Strategies per Instrument</h2>
+        <h2>Top 5 per Instrument</h2>
         <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
       </div>
       <div class="muted">Loading…</div>
@@ -197,13 +254,19 @@
   </div>
 
   <script>
-    const fmtPct = (v) => (v * 100).toFixed(2) + '%';
-    const fmt = (v) => (v ?? 0).toFixed(2);
-    const fmtUsd = (v) => (v ?? 0).toFixed(2);
+    const fmtPct = (v) => (v * 100).toFixed(2).replace('.', ',') + '%';
+    const fmt = (v) => (v ?? 0).toFixed(2).replace('.', ',');
+    const fmtInt = (v) => {
+      const n = Math.round(v ?? 0).toString();
+      return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+    const fmtUsd = (v) => `$${fmtInt(v ?? 0)}`;
+
+    const posClass = (v) => (v ?? 0) >= 0 ? 'pos' : 'neg';
 
     function renderLineChart(svgEl, data, color) {
       const w = svgEl.clientWidth || 600;
-      const h = svgEl.clientHeight || 180;
+      const h = svgEl.clientHeight || 200;
       const pad = 16;
       const max = Math.max(...data, 0.0001);
       const min = Math.min(...data, -0.0001);
@@ -214,66 +277,54 @@
       svgEl.innerHTML = `<polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />`;
     }
 
-    function renderStrategyTable(rows, includeRank) {
-      const bodyRows = rows.map((r, i) => `
-        <tr>
-          ${includeRank ? `<td class="rank">#${i + 1}</td>` : ''}
-          <td>${r.id}</td>
-          <td class="desc">${r.desc || ''}</td>
-          <td>${fmtPct(r.total_return || 0)}</td>
-          <td>${fmtUsd(r.return_usd || 0)}</td>
-          <td>${fmtPct(r.win_rate || 0)}</td>
-          <td>${fmt(r.profit_factor || 0)}</td>
-          <td>${fmtPct(r.max_drawdown || 0)}</td>
-          <td>${r.trades || 0}</td>
-          <td>${r.wins || 0}</td>
-          <td>${r.losses || 0}</td>
-          <td>${r.long_trades || 0}/${r.short_trades || 0}</td>
-          <td>${fmtUsd(r.initial_cash || 0)}</td>
-          <td>${fmtUsd(r.final_equity || 0)}</td>
-          <td>${r.start || ''}</td>
-          <td>${r.end || ''}</td>
-          <td>${r.period_days || 0}</td>
-        </tr>
-      `).join('');
-
-      return `
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                ${includeRank ? '<th>Rank</th>' : ''}
-                <th>ID</th>
-                <th>Description</th>
-                <th>Return %</th>
-                <th>Return USD</th>
-                <th>Win Rate</th>
-                <th>PF</th>
-                <th>Max DD</th>
-                <th>Trades</th>
-                <th>Wins</th>
-                <th>Losses</th>
-                <th>L/S</th>
-                <th>Initial USD</th>
-                <th>Final USD</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Days</th>
-              </tr>
-            </thead>
-            <tbody>${bodyRows || '<tr><td colspan="17" class="muted">No data yet.</td></tr>'}</tbody>
-          </table>
+    function renderStrategyCards(rows, showRank) {
+      if (!rows.length) return '<div class="muted">No data yet.</div>';
+      return `<div class="cards">${rows.map((r, i) => `
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">${showRank ? `#${i + 1} ` : ''}${r.id}</div>
+              <div class="card-desc">${r.desc || ''}</div>
+            </div>
+            <div class="metric-value ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label">Return USD</div><div class="metric-value ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Win Rate</div><div class="metric-value">${fmtPct(r.win_rate || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Profit Factor</div><div class="metric-value">${fmt(r.profit_factor || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Max Drawdown</div><div class="metric-value">${fmtPct(r.max_drawdown || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Trades</div><div class="metric-value">${fmtInt(r.trades || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Wins / Losses</div><div class="metric-value">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Long / Short</div><div class="metric-value">${fmtInt(r.long_trades || 0)} / ${fmtInt(r.short_trades || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Initial</div><div class="metric-value">${fmtUsd(r.initial_cash || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Final</div><div class="metric-value">${fmtUsd(r.final_equity || 0)}</div></div>
+            <div class="metric"><div class="metric-label">Period</div><div class="metric-value">${r.start || ''} → ${r.end || ''} (${fmtInt(r.period_days || 0)} days)</div></div>
+          </div>
         </div>
-      `;
+      `).join('')}</div>`;
     }
 
-    function renderMarketBlock(title, rows) {
-      return `
-        <div style="margin-bottom: 18px;">
-          <div class="muted" style="margin-bottom: 8px;"><strong>${title}</strong></div>
-          ${renderStrategyTable(rows, false)}
+    function renderMarketBanners(markets) {
+      if (!markets.length) return '<div class="muted">No data yet.</div>';
+      return `<div class="banner-grid">${markets.map(m => `
+        <div class="banner">
+          <div class="banner-title">${m.market}</div>
+          <div class="banner-metric ${posClass(m.total_return)}">${fmtPct(m.total_return || 0)}</div>
+          <div class="muted">Return USD: <span class="${posClass(m.return_usd)}">${fmtUsd(m.return_usd || 0)}</span></div>
+          <div class="muted">Win Rate: ${fmtPct(m.win_rate || 0)} | PF: ${fmt(m.profit_factor || 0)}</div>
+          <div class="muted">Max DD: ${fmtPct(m.max_drawdown || 0)}</div>
         </div>
-      `;
+      `).join('')}</div>`;
+    }
+
+    function marketLabel(code) {
+      const map = {
+        US_STOCKS: 'NASDAQ / US Stocks',
+        GOLD: 'Gold',
+        CRYPTO: 'Bitcoin',
+        FX: 'EUR/USD'
+      };
+      return map[code] || code;
     }
 
     fetch('data/dashboard.json')
@@ -290,7 +341,7 @@
         document.getElementById('summary').innerHTML = `
           <div class="section-head">
             <h2>Overview</h2>
-            <div class="chip">Initial capital per strategy: $${fmtUsd(s.initial_cash || 100000)}</div>
+            <div class="chip">Initial capital per strategy: ${fmtUsd(s.initial_cash || 100000)}</div>
           </div>
           <div class="kpi-grid">
             <div class="kpi">
@@ -312,16 +363,27 @@
               <div><strong>${fmtPct(s.avg_drawdown || 0)}</strong></div>
             </div>
           </div>
-          <div class="muted" style="margin-top:10px;">Strategies: ${s.strategies || 0} | Markets: ${s.markets || 0} | Records: ${s.records || 0}</div>
+          <div class="muted" style="margin-top:10px;">Strategies: ${fmtInt(s.strategies || 0)} | Markets: ${fmtInt(s.markets || 0)} | Records: ${fmtInt(s.records || 0)}</div>
         `;
 
-        const topOverall = data.top_overall || [];
+        const markets = (data.markets || []).map(m => ({ ...m, market: marketLabel(m.market) }));
+        markets.sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
+        const topMarkets = markets.slice(0, 3);
+        document.getElementById('topMarkets').innerHTML = `
+          <div class="section-head">
+            <h2>Top 3 Markets by Profit</h2>
+            <div class="muted">Best performing instrument categories.</div>
+          </div>
+          ${renderMarketBanners(topMarkets)}
+        `;
+
+        const topOverall = (data.top_overall || []).slice().sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
         document.getElementById('topOverall').innerHTML = `
           <div class="section-head">
-            <h2>Top 3 Overall Strategies</h2>
-            <div class="muted">Best average results across all instruments.</div>
+            <h2>Top 3 Strategies (Overall)</h2>
+            <div class="muted">Sorted by highest return.</div>
           </div>
-          ${renderStrategyTable(topOverall, true)}
+          ${renderStrategyCards(topOverall, true)}
         `;
 
         const rgFocus = data.rg_focus || [];
@@ -330,11 +392,18 @@
             <h2>RG Strategy (Focus)</h2>
             <div class="muted">Your custom RG variants across instruments.</div>
           </div>
-          ${renderStrategyTable(rgFocus, false)}
+          ${renderStrategyCards(rgFocus, false)}
         `;
 
         const tbm = data.top_by_market || {};
         let topHtml = '';
+        const renderMarketBlock = (title, rows) => `
+          <div class="card">
+            <div class="card-title">${title}</div>
+            <div class="divider"></div>
+            ${renderStrategyCards(rows || [], false)}
+          </div>
+        `;
         if (tbm.US_STOCKS) topHtml += renderMarketBlock('NASDAQ / US Stocks', tbm.US_STOCKS);
         if (tbm.GOLD) topHtml += renderMarketBlock('Gold', tbm.GOLD);
         if (tbm.CRYPTO) topHtml += renderMarketBlock('Bitcoin', tbm.CRYPTO);
@@ -342,10 +411,10 @@
 
         document.getElementById('topByMarket').innerHTML = `
           <div class="section-head">
-            <h2>Top 5 Strategies per Instrument</h2>
+            <h2>Top 5 per Instrument</h2>
             <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
           </div>
-          ${topHtml || '<div class="muted">No data yet.</div>'}
+          <div class="cards">${topHtml || '<div class="muted">No data yet.</div>'}</div>
         `;
 
         const charts = data.charts || {};
