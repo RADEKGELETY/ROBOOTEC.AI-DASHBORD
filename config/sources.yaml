@@ -1,0 +1,26 @@
+market_data:
+  provider: stooq
+  stooq:
+    base_url: https://stooq.com/q/d/l/
+    note: "Public free CSV download. Verify terms before commercial use."
+  alpaca:
+    api_key_env: ALPACA_API_KEY_ID
+    api_secret_env: ALPACA_API_SECRET_KEY
+    base_url: https://data.alpaca.markets
+    note: "Optional fallback; free plan uses IEX feed."
+
+macro_data:
+  fred:
+    api_key_env: FRED_API_KEY
+    base_url: https://api.stlouisfed.org/fred
+  ecb:
+    base_url: https://data-api.ecb.europa.eu/service
+
+news_data:
+  gdelt:
+    base_url: https://www.gdeltproject.org
+    gkg_base: https://data.gdeltproject.org/gkg
+
+social_data:
+  enabled: false
+  note: "Only public, ToS-compliant sources will be enabled."

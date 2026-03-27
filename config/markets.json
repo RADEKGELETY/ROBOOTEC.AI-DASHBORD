@@ -1,0 +1,31 @@
+{
+  "source": "stooq",
+  "interval": "d",
+  "symbols": {
+    "nasdaq_top10": [
+      "aapl.us",
+      "msft.us",
+      "amzn.us",
+      "nvda.us",
+      "meta.us",
+      "googl.us",
+      "tsla.us",
+      "avgo.us",
+      "cost.us",
+      "peps.us"
+    ],
+    "fx": [
+      "eurusd"
+    ],
+    "commodities": [
+      "xauusd"
+    ],
+    "crypto": [
+      "btcusd"
+    ]
+  },
+  "notes": [
+    "Symbols follow Stooq conventions; verify availability for each symbol.",
+    "If any symbol is missing or returns empty data, we will switch to Alpaca or another source."
+  ]
+}

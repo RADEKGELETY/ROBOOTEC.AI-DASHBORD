@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RoboOtec.ai – MVP architektura</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #151a21;
+      --text: #e8edf4;
+      --muted: #9aa7b3;
+      --accent: #6dd3fb;
+      --code: #c7d2fe;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 10% -10%, #1b2330 0%, #0f1115 60%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #243145;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    h1, h2, h3, h4 {
+      color: #eaf2ff;
+      letter-spacing: .2px;
+    }
+    h1 { font-size: 30px; margin: 0 0 8px; }
+    h2 { margin-top: 28px; }
+    p { color: var(--text); }
+    code { color: var(--code); background: #0b1322; padding: 2px 6px; border-radius: 6px; }
+    pre { background: #0b1322; padding: 16px; border-radius: 12px; overflow-x: auto; border: 1px solid #1f2a3a; }
+    ul, ol { padding-left: 22px; }
+    li { margin: 6px 0; }
+    .note { color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>RoboOtec.ai – MVP architektura</h1>
+      <div class="note">Lokální náhled z markdown souboru: robootec_mvp_architecture.md</div>
+    </div>
+    <h1>RoboOtec.ai – MVP architektura prediktivní AI trading platformy</h1>
+
+<p>Tento dokument shrnuje kompletní cílovou architekturu MVP pro plně autonomní prediktivní AI platformu RoboOtec.ai. Vychází z dodaných materiálů (projektová dokumentace MVP, POC objednávka) a rozšiřuje je o požadavek na plnou automatizaci, multi‑asset pokrytí a kontinuální učení strategií.</p>
+
+<h2>0) Zásady MVP (aktualizace)</h2>
+<ul>
+<li>Pouze veřejná data a bezplatné nástroje (open‑source nebo free‑tier).</li>
+<li>Žádné placené datové zdroje ani uzavřené komerční AI modely v MVP.</li>
+<li>Architektura musí umožnit rychlou výměnu zdrojů dat i modelů bez přepisu systému.</li>
+</ul>
+
+<h2>1) Cíl MVP</h2>
+<p>Postavit plně automatický systém, který:</p>
+<ul>
+<li>sbírá a zpracovává tržní, makro, news a sentiment data,</li>
+<li>tvoří predikce trhu pomocí AI a kvantitativních modelů,</li>
+<li>generuje, porovnává a vybírá nejlepší strategie,</li>
+<li>aplikuje risk management, provádí exekuci a spravuje pozice,</li>
+<li>vede auditní stopu, journal a poskytuje dashboard,</li>
+<li>umožňuje 6+ měsíců backtest a následný paper trading v reálném čase.</li>
+</ul>
+
+<h2>2) MVP rozsah a instrumenty</h2>
+<p>MVP bude schopné obsloužit tyto segmenty:</p>
+<ul>
+<li>NASDAQ (index a top 10 akcií)</li>
+<li>EUR/USD</li>
+<li>Zlato (XAU/USD)</li>
+<li>Bitcoin (BTC/USD)</li>
+<li>Vyhledávání podhodnocených akcií (value screener)</li>
+</ul>
+
+<p>Každá strategie má alokovaný budget 100 000 USD. Systém průběžně porovnává strategie, přiděluje kapitál a reportuje výsledky.</p>
+
+<h2>3) Architektura – high‑level</h2>
+
+<pre><code>
+flowchart LR
+  A[Data Sources] --&gt; B[Ingestion &amp; Normalization]
+  B --&gt; C[Raw Data Lake]
+  C --&gt; D[AI/ML Processing]
+  D --&gt; E[Feature Store]
+  E --&gt; F[Strategy Engine]
+  F --&gt; G[Portfolio &amp; Risk]
+  G --&gt; H[Execution]
+  H --&gt; I[Positions &amp; Orders]
+  I --&gt; J[Journal &amp; Audit]
+  J --&gt; K[Dashboard]
+  K --&gt; L[Feedback Loop]
+  L --&gt; D
+</code></pre>
+
+<h2>4) Funkční vrstvy a komponenty</h2>
+
+<h3>4.1 Datová vrstva (Ingestion)</h3>
+<ul>
+<li>Tržní data: realtime i historická data pro akcie, FX, komodity a krypto</li>
+<li>Makro data: kalendář událostí, CPI, NFP, FOMC, GDP, PMI, VIX</li>
+<li>News: finanční zpravodajství, RSS, licencované zdroje</li>
+<li>Sociální sítě a komunita: StockTwits, další relevantní zdroje</li>
+<li>Specifické zdroje: pouze legálně dostupné veřejné zdroje</li>
+</ul>
+
+<p>Moduly:</p>
+<ul>
+<li>konektory na API (REST, WebSocket)</li>
+<li>scraping/aggregace (tam, kde je legální)</li>
+<li>data quality gate (validace, deduplikace, anomálie)</li>
+<li>normalizace do jednotného schématu</li>
+</ul>
+
+<h3>4.2 Datové úložiště</h3>
+<ul>
+<li>Raw Data Lake pro nezpracovaná data</li>
+<li>Time‑series DB pro tick a bar data</li>
+<li>Document DB pro news/sentiment a texty</li>
+<li>Feature Store pro modelové vstupy</li>
+</ul>
+
+<h3>4.3 AI/ML vrstva</h3>
+<ul>
+<li>Sentiment a topic analysis (LLM + NLP pipeline)</li>
+<li>Predikční modely časových řad (statistické modely, ML, deep learning)</li>
+<li>Anomálie, event detection</li>
+<li>Model registry a orchestrace pro open‑weight modely + klasické NLP</li>
+</ul>
+
+<p>Výstupy:</p>
+<ul>
+<li>sentiment score + confidence</li>
+<li>price move prediction (horizonty 5m, 1h, 1d)</li>
+<li>klasifikace trhu (bull/bear/neutral)</li>
+</ul>
+
+<h3>4.4 Strategy Engine</h3>
+<ul>
+<li>Knihovna strategií: trend following, mean reversion, news‑event, breakout</li>
+<li>AI‑assisted strategy optimizer (parametrická optimalizace)</li>
+<li>Generátor nových strategií (kombinace signálů, modelových výstupů, filtrů)</li>
+<li>Standardizovaný formát strategie (vstup, logika, výstup)</li>
+</ul>
+
+<p>Každá strategie:</p>
+<ul>
+<li>má vlastní kapitál 100 000 USD</li>
+<li>má definované rizikové limity</li>
+<li>běží na společné datové vrstvě</li>
+</ul>
+
+<h3>4.5 Portfolio &amp; Risk Management</h3>
+<ul>
+<li>Pre‑trade kontrola: limity pozic, exposure, max drawdown</li>
+<li>Position sizing: Kelly/volatility‑based sizing</li>
+<li>SL/TP a trailing stop</li>
+<li>Globální pojistky (circuit breaker)</li>
+<li>Dynamická alokace kapitálu podle výkonu strategií</li>
+</ul>
+
+<h3>4.6 Execution Layer</h3>
+<ul>
+<li>Orchestrátor objednávek (Order Management System)</li>
+<li>Broker API (paper trading / live)</li>
+<li>Sledování slippage a transakčních nákladů</li>
+<li>Realtime pozice a P&amp;L</li>
+</ul>
+
+<h3>4.7 Backtesting &amp; Simulation</h3>
+<ul>
+<li>Event‑driven backtest</li>
+<li>Min. 6 měsíců historických dat</li>
+<li>Report: win rate, profit factor, drawdown, Sharpe</li>
+<li>Validace stability strategie (rolling windows)</li>
+</ul>
+
+<h3>4.8 Journal &amp; Audit</h3>
+<ul>
+<li>Plná auditní stopa každého rozhodnutí</li>
+<li>Log vstupů, AI výstupů, strategie, risk výpočtů</li>
+<li>Důvody vstupu/výstupu z pozice</li>
+<li>Zhodnocení a lessons learned</li>
+</ul>
+
+<h3>4.9 Dashboard &amp; Reporting</h3>
+<ul>
+<li>Live P&amp;L, pozice, signály</li>
+<li>Porovnání výkonu strategií</li>
+<li>Risk metriky (exposure, drawdown, VaR)</li>
+<li>Makro kalendář a sentiment heatmap</li>
+<li>Audit viewer</li>
+</ul>
+
+<h3>4.10 Model Selection &amp; Continuous Learning</h3>
+<ul>
+<li>Benchmarking modelů a strategií na společném valid datasetu</li>
+<li>Autom. re‑rank strategií podle výkonu a stability (rolling windows)</li>
+<li>Trvalé učení: feedback z paper tradingu a backtestu</li>
+</ul>
+
+<h2>5) Datové zdroje a integrace (MVP)</h2>
+<ul>
+<li>Tržní data: Stooq (public CSV) pro historické ceny; Alpaca jako fallback (free‑tier)</li>
+<li>News: otevřené datové zdroje (GDELT GKG)</li>
+<li>Makro: veřejné databáze (FRED, ECB Data Portal)</li>
+</ul>
+
+<p>Poznámka: všechny zdroje musí být licencované a v souladu s právními podmínkami.</p>
+
+<h2>6) Technologický stack (doporučený)</h2>
+<ul>
+<li>Frontend: React 18 + TypeScript</li>
+<li>Backend Core: .NET 8 nebo Python (MVP preferuje Python pro rychlost vývoje)</li>
+<li>AI Services: Python + FastAPI</li>
+<li>Message Queue: RabbitMQ</li>
+<li>Databáze: PostgreSQL + TimescaleDB, MongoDB, Redis</li>
+<li>Observability: Prometheus + Grafana</li>
+<li>Infrastructure: Docker + Kubernetes</li>
+</ul>
+
+<h2>7) Non‑functional požadavky</h2>
+<ul>
+<li>Latence signálu: &lt;5–10 sekund</li>
+<li>Auditovatelnost: 100% log vstupů a rozhodnutí</li>
+<li>Dostupnost: 99.5%+ (v MVP)</li>
+<li>Škálovatelnost: &gt;100k signálů denně</li>
+</ul>
+
+<h2>8) MVP roadmap (doporučení)</h2>
+<ul>
+<li>Fáze 1: Ingestion + Data Quality + Market Data</li>
+<li>Fáze 2: AI pipeline + sentiment + základní predikce</li>
+<li>Fáze 3: Strategy Engine + Backtest</li>
+<li>Fáze 4: Risk + Execution + Paper trading</li>
+<li>Fáze 5: Dashboard + Journal + Audit</li>
+</ul>
+
+<h2>9) Kritéria úspěchu MVP</h2>
+<ul>
+<li>Backtest min. 6 měsíců</li>
+<li>Paper trading v reálném čase</li>
+<li>Strategie s win rate &gt;60% a PF &gt;1.5</li>
+<li>Funkční audit log a dashboard</li>
+</ul>
+
+<h2>10) Bezpečnost a důvěrnost</h2>
+<ul>
+<li>Šifrování dat v klidu i při přenosu</li>
+<li>RBAC pro přístup</li>
+<li>Audit log a detekce změn</li>
+<li>Oddělená prostředí (dev / staging / prod)</li>
+</ul>
+
+<p>---</p>
+
+<p>Doporučení: po odsouhlasení této architektury vytvoříme detailní komponentní specifikace, API kontrakty a backlog pro implementaci.</p>
+  </div>
+</body>
+</html>
