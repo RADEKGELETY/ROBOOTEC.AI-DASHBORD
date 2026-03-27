@@ -99,6 +99,48 @@
       display: grid;
       gap: 12px;
     }
+    .table-block {
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: var(--surface);
+      display: grid;
+      gap: 10px;
+    }
+    .table-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--grid);
+      white-space: nowrap;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    td.strategy {
+      white-space: normal;
+      min-width: 200px;
+    }
+    .key-metric {
+      font-weight: 700;
+      font-size: 14px;
+    }
     .row {
       border: 1px solid var(--grid);
       border-radius: 14px;
@@ -234,6 +276,7 @@
     const fmtUsd = (v) => `$${fmtInt(v ?? 0)}`;
 
     const posClass = (v) => (v ?? 0) >= 0 ? 'pos' : 'neg';
+    const winClass = (v) => (v ?? 0) >= 0.5 ? 'pos' : 'neg';
 
     function renderLineChart(svgEl, data, color) {
       const w = svgEl.clientWidth || 600;
@@ -283,6 +326,49 @@
           <div class="muted">Max DD: ${fmtPct(m.max_drawdown || 0)}</div>
         </div>
       `).join('')}</div>`;
+    }
+
+    function renderMarketTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy"><strong>${r.id}</strong> — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}">${fmtPct(r.win_rate || 0)}</td>
+          <td>${(r.profit_factor || 0).toFixed(2)}</td>
+          <td>${fmtInt(r.trades || 0)}</td>
+          <td>${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td>${fmtPct(r.max_drawdown || 0)}</td>
+          <td>${fmtUsd(r.final_equity || 0)}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Return %</th>
+                  <th>Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins / Losses</th>
+                  <th>Drawdown</th>
+                  <th>Final</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
     }
 
     function marketLabel(code) {
@@ -350,18 +436,11 @@
           ${renderStrategyRows(rgFocus, false)}
         `;
 
-        const renderMarketBlock = (title, rows) => `
-          <div class="row">
-            <div class="row-title">${title}</div>
-            <div class="row-desc">Top 5 by highest return</div>
-          </div>
-          ${renderStrategyRows(rows || [], false)}
-        `;
         let topHtml = '';
-        if (tbm.US_STOCKS) topHtml += renderMarketBlock('NASDAQ / US Stocks', tbm.US_STOCKS);
-        if (tbm.GOLD) topHtml += renderMarketBlock('Gold', tbm.GOLD);
-        if (tbm.CRYPTO) topHtml += renderMarketBlock('Bitcoin', tbm.CRYPTO);
-        if (tbm.FX) topHtml += renderMarketBlock('EUR/USD', tbm.FX);
+        if (tbm.US_STOCKS) topHtml += renderMarketTable('NASDAQ / US Stocks', tbm.US_STOCKS);
+        if (tbm.GOLD) topHtml += renderMarketTable('Gold', tbm.GOLD);
+        if (tbm.CRYPTO) topHtml += renderMarketTable('Bitcoin', tbm.CRYPTO);
+        if (tbm.FX) topHtml += renderMarketTable('EUR/USD', tbm.FX);
 
         document.getElementById('topByMarket').innerHTML = `
           <div class="section-head">
