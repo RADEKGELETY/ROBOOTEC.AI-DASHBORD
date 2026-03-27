@@ -187,12 +187,48 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
     }
-    .chart {
-      width: 100%;
-      height: 200px;
+    .chart-block {
       border: 1px solid var(--grid);
-      border-radius: 12px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: var(--surface);
+      display: grid;
+      gap: 8px;
+    }
+    .chart-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .chart-sub {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .chart-svg {
+      width: 100%;
+      height: 220px;
+      border-radius: 14px;
       background: #0a111c;
+    }
+    .chart-svg.small {
+      height: 140px;
+    }
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
     }
     @media (max-width: 900px) {
       .row-metrics {
@@ -260,17 +296,35 @@
 
     <section class="section" id="charts">
       <div class="section-head">
-        <h2>Reference Charts</h2>
-        <div class="muted">Top strategy equity and drawdown curves.</div>
+        <h2>Strategy Visuals</h2>
+        <div class="muted">Composition, mix, and performance snapshots.</div>
       </div>
       <div class="chart-grid">
-        <div>
-          <div class="muted">Equity Curve</div>
-          <svg id="equityChart" class="chart"></svg>
+        <div class="chart-block">
+          <div class="chart-title">Top 10 Return Contribution</div>
+          <div class="chart-sub">USD by strategy (green/positive, red/negative).</div>
+          <svg id="top10Bar" class="chart-svg"></svg>
         </div>
-        <div>
-          <div class="muted">Drawdown Curve</div>
-          <svg id="drawdownChart" class="chart"></svg>
+        <div class="chart-block">
+          <div class="chart-title">Market Mix (Top 10)</div>
+          <div class="chart-sub">Share of strategies by market.</div>
+          <svg id="marketDonut" class="chart-svg"></svg>
+          <div id="marketLegend" class="chart-legend"></div>
+        </div>
+        <div class="chart-block">
+          <div class="chart-title">Win vs Loss Trades</div>
+          <div class="chart-sub">Aggregated across Top 10.</div>
+          <svg id="winLossStack" class="chart-svg small"></svg>
+        </div>
+        <div class="chart-block">
+          <div class="chart-title">Equity Curve</div>
+          <div class="chart-sub">Reference trajectory (top strategy).</div>
+          <svg id="equityChart" class="chart-svg"></svg>
+        </div>
+        <div class="chart-block">
+          <div class="chart-title">Drawdown Curve</div>
+          <div class="chart-sub">Reference risk profile.</div>
+          <svg id="drawdownChart" class="chart-svg"></svg>
         </div>
       </div>
     </section>
@@ -305,6 +359,101 @@
       const points = data.map((v, i) => `${scaleX(i)},${scaleY(v)}`).join(' ');
       svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
       svgEl.innerHTML = `<polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />`;
+    }
+
+    function renderBarChart(svgEl, items) {
+      if (!svgEl || !items.length) return;
+      const w = 640;
+      const rowH = 18;
+      const gap = 10;
+      const left = 170;
+      const right = w - 24;
+      const axisX = left + (right - left) / 2;
+      const height = items.length * (rowH + gap) + 30;
+      svgEl.setAttribute('viewBox', `0 0 ${w} ${height}`);
+      svgEl.style.height = `${Math.max(220, height)}px`;
+
+      const maxAbs = Math.max(...items.map(i => Math.abs(i.value || 0)), 1);
+      const scale = (right - left) / 2 / maxAbs;
+
+      let body = `<line x1="${axisX}" y1="12" x2="${axisX}" y2="${height - 8}" stroke="#1b2534" stroke-width="1"/>`;
+      items.forEach((item, i) => {
+        const y = 18 + i * (rowH + gap);
+        const value = item.value || 0;
+        const barW = Math.abs(value * scale);
+        const x = value >= 0 ? axisX : axisX - barW;
+        const color = value >= 0 ? '#6fdc8c' : '#ff6b6b';
+        body += `
+          <rect x="${x}" y="${y}" width="${barW}" height="${rowH}" rx="6" fill="${color}" opacity="0.85"/>
+          <text x="12" y="${y + rowH - 4}" fill="#cfd7e3" font-size="11">${item.label}</text>
+          <text x="${value >= 0 ? x + barW + 6 : x - 6}" y="${y + rowH - 4}" fill="${color}" font-size="11" text-anchor="${value >= 0 ? 'start' : 'end'}">${fmtUsd(value)}</text>
+        `;
+      });
+      svgEl.innerHTML = body;
+    }
+
+    function renderDonut(svgEl, legendEl, segments, colors) {
+      if (!svgEl || !segments.length) return;
+      const w = 200;
+      const h = 200;
+      const cx = 100;
+      const cy = 100;
+      const rOuter = 80;
+      const rInner = 52;
+      const total = segments.reduce((s, seg) => s + seg.value, 0) || 1;
+      let start = -Math.PI / 2;
+      let paths = '';
+      const legend = [];
+
+      segments.forEach((seg, i) => {
+        const slice = (seg.value / total) * Math.PI * 2;
+        const end = start + slice;
+        const large = slice > Math.PI ? 1 : 0;
+        const x1 = cx + rOuter * Math.cos(start);
+        const y1 = cy + rOuter * Math.sin(start);
+        const x2 = cx + rOuter * Math.cos(end);
+        const y2 = cy + rOuter * Math.sin(end);
+        const x3 = cx + rInner * Math.cos(end);
+        const y3 = cy + rInner * Math.sin(end);
+        const x4 = cx + rInner * Math.cos(start);
+        const y4 = cy + rInner * Math.sin(start);
+        const color = colors[i % colors.length];
+
+        paths += `
+          <path d="M ${x1} ${y1} A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${rInner} ${rInner} 0 ${large} 0 ${x4} ${y4} Z" fill="${color}" opacity="0.9"/>
+        `;
+        legend.push(`<span class="legend-item"><span class="legend-dot" style="background:${color}"></span>${seg.label} (${seg.value})</span>`);
+        start = end;
+      });
+
+      svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svgEl.innerHTML = `
+        ${paths}
+        <circle cx="${cx}" cy="${cy}" r="${rInner - 6}" fill="#0a111c"/>
+        <text x="${cx}" y="${cy + 4}" text-anchor="middle" fill="#cfd7e3" font-size="12">Top 10</text>
+      `;
+      if (legendEl) legendEl.innerHTML = legend.join('');
+    }
+
+    function renderStackedWinLoss(svgEl, wins, losses) {
+      if (!svgEl) return;
+      const w = 360;
+      const h = 100;
+      const barW = 240;
+      const x = 60;
+      const y = 40;
+      const total = wins + losses || 1;
+      const winW = (wins / total) * barW;
+      const lossW = (losses / total) * barW;
+      svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svgEl.innerHTML = `
+        <rect x="${x}" y="${y}" width="${barW}" height="18" rx="9" fill="#1b2534"/>
+        <rect x="${x}" y="${y}" width="${winW}" height="18" rx="9" fill="#6fdc8c"/>
+        <rect x="${x + winW}" y="${y}" width="${lossW}" height="18" rx="9" fill="#ff6b6b"/>
+        <text x="${x}" y="${y - 8}" fill="#cfd7e3" font-size="11">Wins: ${fmtInt(wins)}</text>
+        <text x="${x + barW}" y="${y - 8}" fill="#cfd7e3" font-size="11" text-anchor="end">Losses: ${fmtInt(losses)}</text>
+        <text x="${x + barW / 2}" y="${y + 32}" fill="#9db1c7" font-size="11" text-anchor="middle">${fmtInt(wins + losses)} trades</text>
+      `;
     }
 
     function renderStrategyRows(rows, showRank) {
@@ -616,8 +765,27 @@
         `;
 
         const charts = data.charts || {};
-        renderLineChart(document.getElementById('equityChart'), charts.equity_curve || [0], '#6dd3fb');
-        renderLineChart(document.getElementById('drawdownChart'), charts.drawdown_curve || [0], '#f28b8b');
+        renderLineChart(document.getElementById('equityChart'), charts.equity_curve || [0], '#6fdc8c');
+        renderLineChart(document.getElementById('drawdownChart'), charts.drawdown_curve || [0], '#ff6b6b');
+
+        const top10Bars = top10.map(r => ({
+          label: `${r.id}${r.market ? ` • ${r.market}` : ''}`,
+          value: r.return_usd || 0
+        }));
+        renderBarChart(document.getElementById('top10Bar'), top10Bars);
+
+        const marketCounts = {};
+        top10.forEach(r => {
+          const mk = r.market || 'OTHER';
+          marketCounts[mk] = (marketCounts[mk] || 0) + 1;
+        });
+        const donutSegments = Object.entries(marketCounts).map(([label, value]) => ({ label, value }));
+        const donutColors = ['#6dd3fb', '#f6c453', '#6fdc8c', '#c28bff', '#9db1c7'];
+        renderDonut(document.getElementById('marketDonut'), document.getElementById('marketLegend'), donutSegments, donutColors);
+
+        const wins = top10.reduce((acc, r) => acc + (r.wins || 0), 0);
+        const losses = top10.reduce((acc, r) => acc + (r.losses || 0), 0);
+        renderStackedWinLoss(document.getElementById('winLossStack'), wins, losses);
 
         document.getElementById('notes').innerHTML = `
           <div class="section-head"><h2>Notes</h2></div>
