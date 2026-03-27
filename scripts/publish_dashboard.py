@@ -57,10 +57,33 @@ def build_curves(trades, initial=100000.0):
     return norm, drawdowns
 
 
+def strat_desc(name: str) -> str:
+    if name.startswith("sma_cross"):
+        parts = name.split("_")
+        return f"SMA crossover (fast={parts[-2]}, slow={parts[-1]})"
+    if name.startswith("ema_cross"):
+        parts = name.split("_")
+        return f"EMA crossover (fast={parts[-2]}, slow={parts[-1]})"
+    if name.startswith("rsi_revert"):
+        parts = name.split("_")
+        return f"RSI mean reversion (window={parts[-3]}, OB={parts[-2]}, OS={parts[-1]})"
+    if name.startswith("bollinger_revert"):
+        parts = name.split("_")
+        return f"Bollinger mean reversion (window={parts[-2]}, mult={parts[-1]})"
+    if name.startswith("donchian_breakout"):
+        parts = name.split("_")
+        return f"Donchian breakout (window={parts[-1]})"
+    if name.startswith("momentum"):
+        parts = name.split("_")
+        return f"Momentum (window={parts[-1]})"
+    return name
+
+
 raw = load_backtests()
 
 # Anonymize strategies
 strategy_ids = {}
+strategy_desc = {}
 next_id = 1
 
 records = []
@@ -68,6 +91,7 @@ for r in raw:
     strat = r.get("strategy") or "unknown"
     if strat not in strategy_ids:
         strategy_ids[strat] = f"S{next_id}"
+        strategy_desc[strategy_ids[strat]] = strat_desc(strat)
         next_id += 1
     symbol = r.get("symbol") or "unknown"
     group = GROUP_MAP.get(symbol_group.get(symbol, ""), "OTHER")
@@ -76,7 +100,12 @@ for r in raw:
     records.append(
         {
             "strategy_id": strategy_ids[strat],
+            "strategy_desc": strategy_desc[strategy_ids[strat]],
             "market": group,
+            "initial_cash": r.get("initial_cash"),
+            "start": r.get("start"),
+            "end": r.get("end"),
+            "period_days": r.get("period_days"),
             "metrics": {
                 "win_rate": metrics.get("win_rate"),
                 "profit_factor": metrics.get("profit_factor"),
@@ -105,11 +134,15 @@ for sid, items in by_strategy.items():
     strategies.append(
         {
             "id": sid,
+            "desc": items[0].get("strategy_desc"),
             "win_rate": mean([i["metrics"]["win_rate"] for i in items]),
             "profit_factor": mean([i["metrics"]["profit_factor"] for i in items]),
             "max_drawdown": mean([i["metrics"]["max_drawdown"] for i in items]),
             "total_return": mean([i["metrics"]["total_return"] for i in items]),
             "return_usd": mean([i["metrics"]["return_usd"] for i in items]),
+            "final_equity": mean([i["metrics"]["final_equity"] for i in items]),
+            "initial_cash": mean([i.get("initial_cash") for i in items]),
+            "period_days": int(mean([i.get("period_days") or 0 for i in items])),
             "trades": int(mean([i["metrics"]["trades"] or 0 for i in items])),
             "wins": int(mean([i["metrics"]["wins"] or 0 for i in items])),
             "losses": int(mean([i["metrics"]["losses"] or 0 for i in items])),
@@ -135,6 +168,9 @@ for mk, items in by_market.items():
             "max_drawdown": mean([i["metrics"]["max_drawdown"] for i in items]),
             "total_return": mean([i["metrics"]["total_return"] for i in items]),
             "return_usd": mean([i["metrics"]["return_usd"] for i in items]),
+            "final_equity": mean([i["metrics"]["final_equity"] for i in items]),
+            "initial_cash": mean([i.get("initial_cash") for i in items]),
+            "period_days": int(mean([i.get("period_days") or 0 for i in items])),
             "samples": len(items),
         }
     )
@@ -153,6 +189,8 @@ def aggregate(items):
     max_drawdown = mean([i["metrics"]["max_drawdown"] for i in items])
     total_return = mean([i["metrics"]["total_return"] for i in items])
     return_usd = mean([i["metrics"]["return_usd"] for i in items])
+    final_equity = mean([i["metrics"]["final_equity"] for i in items])
+    initial_cash = mean([i.get("initial_cash") for i in items])
 
     trades = int(sum([i["metrics"]["trades"] or 0 for i in items]))
     wins = int(sum([i["metrics"]["wins"] or 0 for i in items]))
@@ -161,18 +199,30 @@ def aggregate(items):
     short_trades = int(sum([i["metrics"]["short_trades"] or 0 for i in items]))
     long_short_ratio = (long_trades / short_trades) if short_trades else None
 
+    # Period range
+    starts = [i.get("start") for i in items if i.get("start")]
+    ends = [i.get("end") for i in items if i.get("end")]
+    start = min(starts) if starts else None
+    end = max(ends) if ends else None
+    period_days = int(mean([i.get("period_days") or 0 for i in items]))
+
     return {
         "win_rate": win_rate,
         "profit_factor": profit_factor,
         "max_drawdown": max_drawdown,
         "total_return": total_return,
         "return_usd": return_usd,
+        "final_equity": final_equity,
+        "initial_cash": initial_cash,
         "trades": trades,
         "wins": wins,
         "losses": losses,
         "long_trades": long_trades,
         "short_trades": short_trades,
         "long_short_ratio": long_short_ratio,
+        "start": start,
+        "end": end,
+        "period_days": period_days,
         "samples": len(items),
     }
 
@@ -182,7 +232,7 @@ for mk, strat_map in by_market_strategy.items():
     rows = []
     for sid, items in strat_map.items():
         agg = aggregate(items)
-        rows.append({"id": sid, **agg})
+        rows.append({"id": sid, "desc": items[0].get("strategy_desc"), **agg})
     rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
     top_by_market[mk] = rows[:10]
 
@@ -194,6 +244,7 @@ summary = {
     "avg_profit_factor": mean([s["profit_factor"] for s in strategies]),
     "avg_drawdown": mean([s["max_drawdown"] for s in strategies]),
     "avg_return": mean([s["total_return"] for s in strategies]),
+    "initial_cash": 100000.0,
 }
 
 targets = {

@@ -22,6 +22,16 @@ def filter_last_months(candles, months=6):
     return [c for c in candles if c.timestamp >= start]
 
 
+def period_info(candles):
+    if not candles:
+        return None, None, None
+    candles = sorted(candles, key=lambda c: c.timestamp)
+    start = candles[0].timestamp.date().isoformat()
+    end = candles[-1].timestamp.date().isoformat()
+    days = (candles[-1].timestamp - candles[0].timestamp).days
+    return start, end, days
+
+
 def main():
     parser = argparse.ArgumentParser(description="RoboOtec MVP worker")
     parser.add_argument("--task", required=True, choices=["market", "macro", "news", "crypto", "backtest", "download", "backtest_batch"])
@@ -85,11 +95,17 @@ def main():
             cached = save_symbol_csv(symbol, interval=interval)
             args.csv = str(cached)
         candles = filter_last_months(load_ohlcv_csv(args.csv), months=6)
+        start, end, days = period_info(candles)
+        initial_cash = 100000.0
         strategy = get_strategy(args.strategy)
-        metrics, trades = run_backtest(candles, strategy)
+        metrics, trades = run_backtest(candles, strategy, initial_cash=initial_cash)
         payload = {
             "strategy": strategy.name,
             "symbol": args.download_symbol or "CSV",
+            "initial_cash": initial_cash,
+            "start": start,
+            "end": end,
+            "period_days": days,
             "metrics": metrics.__dict__,
             "trades": [t.__dict__ for t in trades],
         }
@@ -115,15 +131,21 @@ def main():
             strategies = [get_strategy(s.strip()) for s in args.strategies.split(",") if s.strip()]
 
         all_backtests = []
+        initial_cash = 100000.0
 
         for sym in symbols:
             csv_path = save_symbol_csv(sym, interval=interval)
             candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
+            start, end, days = period_info(candles)
             for strat in strategies:
-                metrics, trades = run_backtest(candles, strat)
+                metrics, trades = run_backtest(candles, strat, initial_cash=initial_cash)
                 payload = {
                     "strategy": strat.name,
                     "symbol": sym,
+                    "initial_cash": initial_cash,
+                    "start": start,
+                    "end": end,
+                    "period_days": days,
                     "metrics": metrics.__dict__,
                     "trades": [t.__dict__ for t in trades],
                 }
