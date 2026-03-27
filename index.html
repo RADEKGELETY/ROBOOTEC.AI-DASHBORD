@@ -154,6 +154,56 @@
       font-weight: 700;
       font-size: 14px;
     }
+    @media (max-width: 720px) {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 8px;
+      }
+      thead {
+        display: none;
+      }
+      tr {
+        display: block;
+        background: #0b1422;
+        border: 1px solid var(--grid);
+        border-radius: 12px;
+        padding: 8px 10px;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        white-space: normal;
+        border-bottom: none;
+        padding: 6px 2px;
+        gap: 12px;
+      }
+      td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        flex: 1 1 45%;
+      }
+      td > * {
+        text-align: right;
+        flex: 1 1 55%;
+      }
+      td.strategy {
+        display: block;
+      }
+      td.strategy::before {
+        content: "Strategy";
+      }
+      td.strategy strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      tr.summary-row {
+        border: 2px solid rgba(109, 211, 251, 0.4);
+      }
+    }
     .row {
       border: 1px solid var(--grid);
       border-radius: 14px;
@@ -313,15 +363,15 @@
       }
       const body = rows.map(r => `
         <tr>
-          <td class="strategy"><strong>${r.id}</strong> — ${r.desc || ''}</td>
-          <td class="key-metric ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</td>
-          <td class="key-metric ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</td>
-          <td class="key-metric ${winClass(r.win_rate)}">${fmtPct(r.win_rate || 0)}</td>
-          <td>${(r.profit_factor || 0).toFixed(2)}</td>
-          <td>${fmtInt(r.trades || 0)}</td>
-          <td>${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
-          <td>${fmtPct(r.max_drawdown || 0)}</td>
-          <td>${fmtUsd(r.final_equity || 0)}</td>
+          <td class="strategy" data-label="Strategy"><strong>${r.id}</strong> — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
         </tr>
       `).join('');
 
@@ -356,15 +406,15 @@
       }
       const body = rows.map((r, i) => `
         <tr>
-          <td class="strategy"><strong>#${i + 1} ${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
-          <td class="key-metric ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</td>
-          <td class="key-metric ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</td>
-          <td class="key-metric ${winClass(r.win_rate)}">${fmtPct(r.win_rate || 0)}</td>
-          <td>${(r.profit_factor || 0).toFixed(2)}</td>
-          <td>${fmtInt(r.trades || 0)}</td>
-          <td>${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
-          <td>${fmtPct(r.max_drawdown || 0)}</td>
-          <td>${fmtUsd(r.final_equity || 0)}</td>
+          <td class="strategy" data-label="Strategy"><strong>#${i + 1} ${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
         </tr>
       `).join('');
 
@@ -424,15 +474,15 @@
       const summary = aggregateTop10(rows);
       const body = rows.map(r => `
         <tr>
-          <td class="strategy"><strong>${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
-          <td class="key-metric ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</td>
-          <td class="key-metric ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</td>
-          <td class="key-metric ${winClass(r.win_rate)}">${fmtPct(r.win_rate || 0)}</td>
-          <td>${(r.profit_factor || 0).toFixed(2)}</td>
-          <td>${fmtInt(r.trades || 0)}</td>
-          <td>${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
-          <td>${fmtPct(r.max_drawdown || 0)}</td>
-          <td>${fmtUsd(r.final_equity || 0)}</td>
+          <td class="strategy" data-label="Strategy"><strong>${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
         </tr>
       `).join('');
 
@@ -455,14 +505,14 @@
               </thead>
               <tbody>
                 <tr class="summary-row">
-                  <td class="key-metric ${posClass(summary.total_return)}">${fmtPct(summary.total_return || 0)}</td>
-                  <td class="key-metric ${posClass(summary.return_usd)}">${fmtUsd(summary.return_usd || 0)}</td>
-                  <td class="key-metric ${winClass(summary.win_rate)}">${fmtPct(summary.win_rate || 0)}</td>
-                  <td>${summary.profit_factor.toFixed(2)}</td>
-                  <td>${fmtInt(summary.trades || 0)}</td>
-                  <td>${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
-                  <td>${fmtPct(summary.max_drawdown || 0)}</td>
-                  <td class="key-metric ${posClass(summary.return_usd)}">${fmtUsd(summary.final_equity || 0)}</td>
+                  <td class="key-metric ${posClass(summary.total_return)}" data-label="Total Return %">${fmtPct(summary.total_return || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}" data-label="Total Return USD">${fmtUsd(summary.return_usd || 0)}</td>
+                  <td class="key-metric ${winClass(summary.win_rate)}" data-label="Win Rate">${fmtPct(summary.win_rate || 0)}</td>
+                  <td data-label="Profit Factor">${summary.profit_factor.toFixed(2)}</td>
+                  <td data-label="Trades">${fmtInt(summary.trades || 0)}</td>
+                  <td data-label="Wins / Losses">${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
+                  <td data-label="Max Drawdown">${fmtPct(summary.max_drawdown || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}" data-label="Final Equity">${fmtUsd(summary.final_equity || 0)}</td>
                 </tr>
               </tbody>
             </table>
