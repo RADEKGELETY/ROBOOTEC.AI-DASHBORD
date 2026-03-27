@@ -387,6 +387,49 @@
       `;
     }
 
+    function renderListTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map((r, i) => `
+        <tr>
+          <td class="strategy"><strong>#${i + 1} ${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}">${fmtPct(r.win_rate || 0)}</td>
+          <td>${(r.profit_factor || 0).toFixed(2)}</td>
+          <td>${fmtInt(r.trades || 0)}</td>
+          <td>${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td>${fmtPct(r.max_drawdown || 0)}</td>
+          <td>${fmtUsd(r.final_equity || 0)}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Return %</th>
+                  <th>Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins / Losses</th>
+                  <th>Drawdown</th>
+                  <th>Final</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
     function aggregateTop10(rows) {
       const initial = rows.reduce((acc, r) => acc + (r.initial_cash || 0), 0);
       const final = rows.reduce((acc, r) => acc + (r.final_equity || 0), 0);
@@ -548,7 +591,7 @@
             <div class="muted">Best strategy from each market, then ranked by return.</div>
           </div>
           <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
-          ${renderStrategyRows(topPerMarket, true)}
+          ${renderListTable('Top 3 (One per Market)', topPerMarket)}
         `;
 
         const rgFocus = data.rg_focus || [];
@@ -557,7 +600,7 @@
             <h2>RG Strategy (Focus)</h2>
             <div class="muted">Your custom RG variants across instruments.</div>
           </div>
-          ${renderStrategyRows(rgFocus, false)}
+          ${renderListTable('RG Strategy (Focus)', rgFocus)}
         `;
 
         let topHtml = '';
