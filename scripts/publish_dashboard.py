@@ -227,6 +227,7 @@ def aggregate(items):
     period_days = int(mean([i.get("period_days") or 0 for i in items]))
 
     return {
+        "market": items[0].get("market"),
         "win_rate": win_rate,
         "profit_factor": profit_factor,
         "max_drawdown": max_drawdown,
@@ -247,6 +248,7 @@ def aggregate(items):
 
 
 top_by_market = {}
+market_strategy_rows = []
 for mk, strat_map in by_market_strategy.items():
     rows = []
     for sid, items in strat_map.items():
@@ -254,12 +256,14 @@ for mk, strat_map in by_market_strategy.items():
         rows.append({"id": sid, "desc": items[0].get("strategy_desc"), **agg})
     rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
     top_by_market[mk] = rows[:5]
+    market_strategy_rows.extend(rows)
 
-# Top 3 overall strategies across all markets
+# Top 3 overall strategies across all market-strategy combinations
+market_strategy_rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+top_overall = market_strategy_rows[:3]
+
 strategies_sorted = sorted(strategies, key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
-
-top_overall = strategies_sorted[:3]
-rg_focus = [s for s in strategies_sorted if (s.get("desc") or "").startswith("RG ")]
+rg_focus = [s for s in market_strategy_rows if (s.get("desc") or "").startswith("RG ")]
 
 summary = {
     "strategies": len(strategies),
@@ -270,6 +274,10 @@ summary = {
     "avg_drawdown": mean([s["max_drawdown"] for s in strategies]),
     "avg_return": mean([s["total_return"] for s in strategies]),
     "initial_cash": 100000.0,
+    "test_period": {
+        "start": min([r.get("start") for r in records if r.get("start")], default=None),
+        "end": max([r.get("end") for r in records if r.get("end")], default=None),
+    },
 }
 
 targets = {
