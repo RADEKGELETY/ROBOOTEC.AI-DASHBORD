@@ -260,7 +260,7 @@ for mk, strat_map in by_market_strategy.items():
 
 # Top 3 overall strategies across all market-strategy combinations
 market_strategy_rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
-top_overall = market_strategy_rows[:3]
+top_overall = market_strategy_rows
 
 strategies_sorted = sorted(strategies, key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
 rg_focus = [s for s in market_strategy_rows if (s.get("desc") or "").startswith("RG ")]
