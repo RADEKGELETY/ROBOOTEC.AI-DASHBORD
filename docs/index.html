@@ -522,7 +522,10 @@
           </div>
         `;
 
-        const topOverall = (data.top_overall || []).slice().sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
+        const tbm = data.top_by_market || {};
+        const tbmRows = Object.values(tbm).flat();
+        const topOverall = (tbmRows.length ? tbmRows : (data.top_overall || [])).slice()
+          .sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
         const top10 = topOverall.slice(0, 10);
         document.getElementById('top10Overall').innerHTML = `
           <div class="section-head">
@@ -532,7 +535,6 @@
           <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
           ${renderTop10Table(top10)}
         `;
-        const tbm = data.top_by_market || {};
         const perMarket = [];
         if (tbm.US_STOCKS && tbm.US_STOCKS[0]) perMarket.push({ ...tbm.US_STOCKS[0], market: marketLabel('US_STOCKS') });
         if (tbm.GOLD && tbm.GOLD[0]) perMarket.push({ ...tbm.GOLD[0], market: marketLabel('GOLD') });
