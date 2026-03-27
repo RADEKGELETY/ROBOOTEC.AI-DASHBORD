@@ -253,6 +253,7 @@ for mk, strat_map in by_market_strategy.items():
 strategies_sorted = sorted(strategies, key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
 
 top_overall = strategies_sorted[:3]
+rg_focus = [s for s in strategies_sorted if (s.get("desc") or "").startswith("RG ")]
 
 summary = {
     "strategies": len(strategies),
@@ -287,6 +288,7 @@ payload = {
     "summary": summary,
     "targets": targets,
     "top_overall": top_overall,
+    "rg_focus": rg_focus,
     "strategies": strategies_sorted,
     "markets": sorted(markets_out, key=lambda x: x["profit_factor"], reverse=True),
     "top_by_market": top_by_market,
