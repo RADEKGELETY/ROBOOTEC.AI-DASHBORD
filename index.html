@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RoboOtec – Public Dashboard (Anonymized)</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #151a21;
+      --text: #e8edf4;
+      --muted: #9aa7b3;
+      --accent: #6dd3fb;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 10% -10%, #1b2330 0%, #0f1115 60%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #243145;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid #243145;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .muted { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>RoboOtec – Public Dashboard (Anonymized)</h1>
+      <div class="muted">Veřejná anonymizovaná verze. Bez kódu, bez strategií, bez symbolů.</div>
+    </div>
+
+    <div class="card" id="summary">
+      <h2>Latest Backtest</h2>
+      <div class="muted">Loading…</div>
+    </div>
+  </div>
+
+  <script>
+    fetch('data/last_backtest.json')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('summary');
+        if (!data || !data.metrics) {
+          el.innerHTML = '<h2>Latest Backtest</h2><div class="muted">No data yet. Run backtest and publish.</div>';
+          return;
+        }
+        const m = data.metrics;
+        el.innerHTML = `
+          <h2>Latest Backtest</h2>
+          <div class="grid">
+            <div>Win rate: ${(m.win_rate * 100).toFixed(2)}%</div>
+            <div>Profit factor: ${m.profit_factor?.toFixed(2)}</div>
+            <div>Max drawdown: ${(m.max_drawdown * 100).toFixed(2)}%</div>
+            <div>Total return: ${(m.total_return * 100).toFixed(2)}%</div>
+          </div>
+          <div class="muted" style="margin-top:10px;">Updated: ${data.generated_at}</div>
+        `;
+      });
+  </script>
+</body>
+</html>
