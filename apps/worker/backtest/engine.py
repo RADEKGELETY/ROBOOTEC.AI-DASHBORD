@@ -19,6 +19,12 @@ class BacktestMetrics:
     profit_factor: float
     max_drawdown: float
     total_return: float
+    trades: int
+    wins: int
+    losses: int
+    avg_win: float
+    avg_loss: float
+    expectancy: float
 
 
 def run_backtest(
@@ -50,10 +56,16 @@ def run_backtest(
 
     wins = [t for t in trades if t.pnl > 0]
     losses = [t for t in trades if t.pnl < 0]
-    win_rate = (len(wins) / len(trades)) if trades else 0.0
+    trades_count = len(trades)
+    wins_count = len(wins)
+    losses_count = len(losses)
+    win_rate = (wins_count / trades_count) if trades_count else 0.0
     gross_profit = sum(t.pnl for t in wins)
     gross_loss = abs(sum(t.pnl for t in losses))
     profit_factor = (gross_profit / gross_loss) if gross_loss > 0 else 0.0
+    avg_win = (gross_profit / wins_count) if wins_count else 0.0
+    avg_loss = (gross_loss / losses_count) if losses_count else 0.0
+    expectancy = win_rate * avg_win - (1 - win_rate) * avg_loss
 
     peak = equity_curve[0]
     max_dd = 0.0
@@ -71,4 +83,10 @@ def run_backtest(
         profit_factor=profit_factor,
         max_drawdown=max_dd,
         total_return=total_return,
+        trades=trades_count,
+        wins=wins_count,
+        losses=losses_count,
+        avg_win=avg_win,
+        avg_loss=avg_loss,
+        expectancy=expectancy,
     ), trades

@@ -9,13 +9,13 @@ from apps.worker.data.csv_loader import load_ohlcv_csv
 from apps.worker.data.stooq_cache import save_symbol_csv
 from apps.worker.backtest.engine import run_backtest
 from apps.worker.backtest.strategies import get_strategy
-from apps.shared.storage import write_json
+from apps.shared.storage import write_json, read_json
 from apps.shared.config import load_markets
 
 
 def main():
     parser = argparse.ArgumentParser(description="RoboOtec MVP worker")
-    parser.add_argument("--task", required=True, choices=["market", "macro", "news", "crypto", "backtest", "download"])
+    parser.add_argument("--task", required=True, choices=["market", "macro", "news", "crypto", "backtest", "download", "backtest_batch"])
     parser.add_argument("--symbols", default="AAPL")
     parser.add_argument("--start")
     parser.add_argument("--end")
@@ -24,10 +24,12 @@ def main():
     parser.add_argument("--crypto_symbols", default="BTC/USD")
     parser.add_argument("--csv", help="Path to OHLCV CSV with columns: date,open,high,low,close,volume")
     parser.add_argument("--strategy", default="sma_cross")
+    parser.add_argument("--strategies", default="sma_cross,mean_reversion")
     parser.add_argument("--fred_series", default="CPIAUCSL")
     parser.add_argument("--ecb_flow", default="EXR")
     parser.add_argument("--ecb_key", default="D.USD.EUR.SP00.A")
     parser.add_argument("--download_symbol", help="Download a single symbol from Stooq")
+    parser.add_argument("--batch_symbols", help="Comma-separated symbol list for batch backtest")
     args = parser.parse_args()
 
     if args.task == "market":
@@ -79,12 +81,47 @@ def main():
         metrics, trades = run_backtest(candles, strategy)
         payload = {
             "strategy": strategy.name,
-            "symbol": "CSV",
+            "symbol": args.download_symbol or "CSV",
             "metrics": metrics.__dict__,
             "trades": [t.__dict__ for t in trades],
         }
         path = write_json("last_backtest.json", payload)
+        all_backtests = read_json("backtests.json", default=[])
+        all_backtests.append(payload)
+        write_json("backtests.json", all_backtests)
         print(f"Backtest saved to {path}")
+
+    if args.task == "backtest_batch":
+        markets = load_markets()
+        interval = markets.get("interval", "d")
+        if args.batch_symbols:
+            symbols = [s.strip() for s in args.batch_symbols.split(",") if s.strip()]
+        else:
+            symbols = []
+            for group in markets.get("symbols", {}).values():
+                symbols.extend(group)
+
+        strategies = [s.strip() for s in args.strategies.split(",") if s.strip()]
+        all_backtests = read_json("backtests.json", default=[])
+
+        for sym in symbols:
+            csv_path = save_symbol_csv(sym, interval=interval)
+            candles = load_ohlcv_csv(str(csv_path))
+            for strat_name in strategies:
+                strategy = get_strategy(strat_name)
+                metrics, trades = run_backtest(candles, strategy)
+                payload = {
+                    "strategy": strategy.name,
+                    "symbol": sym,
+                    "metrics": metrics.__dict__,
+                    "trades": [t.__dict__ for t in trades],
+                }
+                all_backtests.append(payload)
+                write_json("last_backtest.json", payload)
+                print(f"Backtest {sym} / {strategy.name} done")
+
+        write_json("backtests.json", all_backtests)
+        print(f"Batch backtest saved ({len(all_backtests)} total)")
 
     print("Done", datetime.utcnow().isoformat())
 

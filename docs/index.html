@@ -11,6 +11,9 @@
       --text: #e8edf4;
       --muted: #9aa7b3;
       --accent: #6dd3fb;
+      --good: #7ef29d;
+      --warn: #f2d27e;
+      --bad: #f28b8b;
     }
     body {
       margin: 0;
@@ -19,7 +22,7 @@
       color: var(--text);
     }
     .wrap {
-      max-width: 980px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
@@ -43,7 +46,36 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
     }
+    .kpi {
+      background: #101621;
+      border: 1px solid #1f2a3a;
+      border-radius: 12px;
+      padding: 14px;
+    }
     .muted { color: var(--muted); }
+    .bar {
+      height: 8px;
+      background: #0b1322;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .bar > div {
+      height: 100%;
+      background: var(--accent);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid #243145;
+    }
+    th { color: var(--muted); }
+    .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #0b1322; border: 1px solid #1f2a3a; }
   </style>
 </head>
 <body>
@@ -54,30 +86,129 @@
     </div>
 
     <div class="card" id="summary">
-      <h2>Latest Backtest</h2>
+      <h2>Overview</h2>
+      <div class="muted">Loading…</div>
+    </div>
+
+    <div class="card" id="strategies">
+      <h2>Strategies</h2>
+      <div class="muted">Loading…</div>
+    </div>
+
+    <div class="card" id="markets">
+      <h2>Markets</h2>
+      <div class="muted">Loading…</div>
+    </div>
+
+    <div class="card" id="notes">
+      <h2>Notes</h2>
       <div class="muted">Loading…</div>
     </div>
   </div>
 
   <script>
-    fetch('data/last_backtest.json')
+    const fmtPct = (v) => (v * 100).toFixed(2) + '%';
+    const fmt = (v) => (v ?? 0).toFixed(2);
+
+    fetch('data/dashboard.json')
       .then(r => r.json())
       .then(data => {
-        const el = document.getElementById('summary');
-        if (!data || !data.metrics) {
-          el.innerHTML = '<h2>Latest Backtest</h2><div class="muted">No data yet. Run backtest and publish.</div>';
-          return;
-        }
-        const m = data.metrics;
-        el.innerHTML = `
-          <h2>Latest Backtest</h2>
+        // Summary
+        const s = data.summary || {};
+        const targets = data.targets || { win_rate: 0.6, total_return: 0.5 };
+
+        const winProgress = Math.min(100, (s.avg_win_rate || 0) / targets.win_rate * 100);
+        const retProgress = Math.min(100, (s.avg_return || 0) / targets.total_return * 100);
+
+        document.getElementById('summary').innerHTML = `
+          <h2>Overview</h2>
           <div class="grid">
-            <div>Win rate: ${(m.win_rate * 100).toFixed(2)}%</div>
-            <div>Profit factor: ${m.profit_factor?.toFixed(2)}</div>
-            <div>Max drawdown: ${(m.max_drawdown * 100).toFixed(2)}%</div>
-            <div>Total return: ${(m.total_return * 100).toFixed(2)}%</div>
+            <div class="kpi">
+              <div class="muted">Avg Win Rate</div>
+              <div><strong>${fmtPct(s.avg_win_rate || 0)}</strong> <span class="tag">Target ${fmtPct(targets.win_rate)}</span></div>
+              <div class="bar"><div style="width:${winProgress}%;"></div></div>
+            </div>
+            <div class="kpi">
+              <div class="muted">Avg Return</div>
+              <div><strong>${fmtPct(s.avg_return || 0)}</strong> <span class="tag">Target ${fmtPct(targets.total_return)}</span></div>
+              <div class="bar"><div style="width:${retProgress}%;"></div></div>
+            </div>
+            <div class="kpi">
+              <div class="muted">Avg Profit Factor</div>
+              <div><strong>${fmt(s.avg_profit_factor || 0)}</strong></div>
+            </div>
+            <div class="kpi">
+              <div class="muted">Avg Max Drawdown</div>
+              <div><strong>${fmtPct(s.avg_drawdown || 0)}</strong></div>
+            </div>
           </div>
-          <div class="muted" style="margin-top:10px;">Updated: ${data.generated_at}</div>
+          <div class="muted" style="margin-top:10px;">Strategies: ${s.strategies || 0} | Markets: ${s.markets || 0} | Records: ${s.records || 0}</div>
+        `;
+
+        // Strategies table
+        const rows = (data.strategies || []).map(r => `
+          <tr>
+            <td>${r.id}</td>
+            <td>${fmtPct(r.win_rate || 0)}</td>
+            <td>${fmt(r.profit_factor || 0)}</td>
+            <td>${fmtPct(r.max_drawdown || 0)}</td>
+            <td>${fmtPct(r.total_return || 0)}</td>
+            <td>${r.trades || 0}</td>
+            <td>${r.samples || 0}</td>
+          </tr>
+        `).join('');
+
+        document.getElementById('strategies').innerHTML = `
+          <h2>Strategies</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Win Rate</th>
+                <th>Profit Factor</th>
+                <th>Max DD</th>
+                <th>Total Return</th>
+                <th>Trades</th>
+                <th>Samples</th>
+              </tr>
+            </thead>
+            <tbody>${rows || '<tr><td colspan="7" class="muted">No data yet.</td></tr>'}</tbody>
+          </table>
+        `;
+
+        // Markets table
+        const mrows = (data.markets || []).map(r => `
+          <tr>
+            <td>${r.market}</td>
+            <td>${fmtPct(r.win_rate || 0)}</td>
+            <td>${fmt(r.profit_factor || 0)}</td>
+            <td>${fmtPct(r.max_drawdown || 0)}</td>
+            <td>${fmtPct(r.total_return || 0)}</td>
+            <td>${r.samples || 0}</td>
+          </tr>
+        `).join('');
+
+        document.getElementById('markets').innerHTML = `
+          <h2>Markets</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Market</th>
+                <th>Win Rate</th>
+                <th>Profit Factor</th>
+                <th>Max DD</th>
+                <th>Total Return</th>
+                <th>Samples</th>
+              </tr>
+            </thead>
+            <tbody>${mrows || '<tr><td colspan="6" class="muted">No data yet.</td></tr>'}</tbody>
+          </table>
+        `;
+
+        document.getElementById('notes').innerHTML = `
+          <h2>Notes</h2>
+          <div class="muted">Updated: ${data.generated_at}</div>
+          <div style="margin-top:8px;">${(data.notes || []).map(n => `<div>• ${n}</div>`).join('')}</div>
         `;
       });
   </script>
