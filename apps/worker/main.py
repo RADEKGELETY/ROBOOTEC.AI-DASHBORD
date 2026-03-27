@@ -12,6 +12,7 @@ from apps.worker.providers.alpha_vantage_intraday import download_equity_intrada
 from apps.worker.backtest.engine import run_backtest
 from apps.worker.backtest.strategies import get_strategy, get_all_strategies, get_tuned_strategies
 from apps.worker.backtest.predictor import HistoricalOutcomeFilter
+from apps.worker.news.red_news import load_red_news
 from apps.shared.storage import write_json, read_json
 from apps.shared.config import load_markets
 
@@ -111,6 +112,8 @@ def main():
     parser.add_argument("--predict", default="on", choices=["on", "off"])
     parser.add_argument("--intraday", default="on", choices=["on", "off"])
     parser.add_argument("--interval")
+    parser.add_argument("--avoid_news", default="off", choices=["on", "off"])
+    parser.add_argument("--skip_open_minutes", type=int, default=0)
     parser.add_argument("--keywords", help="Comma-separated keywords for news calendar")
     parser.add_argument("--fred_series", default="CPIAUCSL")
     parser.add_argument("--ecb_flow", default="EXR")
@@ -187,7 +190,15 @@ def main():
         initial_cash = 100000.0
         strategy = get_strategy(args.strategy)
         predictor = HistoricalOutcomeFilter() if args.predict == "on" else None
-        metrics, trades = run_backtest(candles, strategy, initial_cash=initial_cash, predictor=predictor)
+        news_days = load_red_news() if args.avoid_news == "on" else None
+        metrics, trades = run_backtest(
+            candles,
+            strategy,
+            initial_cash=initial_cash,
+            predictor=predictor,
+            skip_open_minutes=args.skip_open_minutes,
+            news_days=news_days,
+        )
         payload = {
             "strategy": strategy.name,
             "symbol": args.download_symbol or "CSV",
@@ -253,7 +264,15 @@ def main():
                     if sym not in allowed_symbols:
                         continue
                 predictor = HistoricalOutcomeFilter() if args.predict == "on" else None
-                metrics, trades = run_backtest(candles, strat, initial_cash=initial_cash, predictor=predictor)
+                news_days = load_red_news() if args.avoid_news == "on" else None
+                metrics, trades = run_backtest(
+                    candles,
+                    strat,
+                    initial_cash=initial_cash,
+                    predictor=predictor,
+                    skip_open_minutes=args.skip_open_minutes,
+                    news_days=news_days,
+                )
                 payload = {
                     "strategy": strat.name,
                     "symbol": sym,

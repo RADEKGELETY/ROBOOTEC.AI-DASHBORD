@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import List
 
 from apps.worker.data.csv_loader import Candle
@@ -38,6 +39,9 @@ def run_backtest(
     fee_rate: float = 0.0005,
     slippage: float = 0.0005,
     predictor=None,
+    skip_open_minutes: int = 0,
+    news_days: set | None = None,
+    session_open: tuple[int, int] = (14, 30),
 ) -> tuple[BacktestMetrics, List[Trade]]:
     # Full capital deployment per trade, long/short, with simple fees and slippage
     position = 0  # 1 long, -1 short, 0 flat
@@ -53,6 +57,22 @@ def run_backtest(
         if side == "BUY":
             return price * (1 + slippage)
         return price * (1 - slippage)
+
+    def _is_intraday(ts) -> bool:
+        return not (ts.hour == 0 and ts.minute == 0 and ts.second == 0)
+
+    def _in_open_window(ts) -> bool:
+        if skip_open_minutes <= 0 or not _is_intraday(ts):
+            return False
+        open_ts = ts.replace(hour=session_open[0], minute=session_open[1], second=0, microsecond=0)
+        return open_ts <= ts < (open_ts + timedelta(minutes=skip_open_minutes))
+
+    def _allow_entry(ts) -> bool:
+        if news_days and ts.date() in news_days:
+            return False
+        if _in_open_window(ts):
+            return False
+        return True
 
     for i, bar in enumerate(candles):
         if predictor is not None:
@@ -70,6 +90,9 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
+                if not _allow_entry(bar.timestamp):
+                    equity_curve.append(equity)
+                    continue
                 if predictor is not None and not predictor.allow(candles, i, "BUY"):
                     equity_curve.append(equity)
                     continue
@@ -90,6 +113,9 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
+                if not _allow_entry(bar.timestamp):
+                    equity_curve.append(equity)
+                    continue
                 if predictor is not None and not predictor.allow(candles, i, "SELL"):
                     equity_curve.append(equity)
                     continue
