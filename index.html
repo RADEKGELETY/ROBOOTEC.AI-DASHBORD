@@ -1,75 +1,93 @@
 <!doctype html>
-<html lang="cs">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RoboOtec – Public Dashboard (Anonymized)</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
     :root {
-      --bg: #0f1115;
-      --panel: #151a21;
-      --text: #e8edf4;
-      --muted: #9aa7b3;
+      --bg: #0c0f14;
+      --surface: #0f141c;
+      --text: #e9eef6;
+      --muted: #93a1b4;
       --accent: #6dd3fb;
-      --accent-2: #7ef29d;
-      --grid: #1f2a3a;
+      --accent-2: #7ef2a1;
+      --grid: #1b2534;
     }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Space Grotesk', Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 10% -10%, #1b2330 0%, #0f1115 60%);
+      background: radial-gradient(1400px 900px at 10% -10%, #1b2432 0%, #0c0f14 60%);
       color: var(--text);
     }
     .wrap {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 44px 24px 80px;
     }
-    .header {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid #243145;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    header {
+      display: grid;
+      gap: 8px;
+      padding: 28px 0 20px;
+      border-bottom: 1px solid var(--grid);
     }
-    .card {
-      background: var(--panel);
-      border: 1px solid #243145;
-      border-radius: 16px;
-      padding: 20px;
+    .brand {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .muted { color: var(--muted); }
+    .section {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--grid);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
       margin-bottom: 16px;
     }
-    .grid {
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
     }
     .kpi {
-      background: #101621;
-      border: 1px solid #1f2a3a;
+      padding: 14px 16px;
+      border: 1px solid var(--grid);
       border-radius: 12px;
-      padding: 14px;
+      background: var(--surface);
     }
-    .muted { color: var(--muted); }
     .bar {
-      height: 8px;
-      background: #0b1322;
+      height: 6px;
+      background: #0a111c;
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .bar > div {
       height: 100%;
       background: var(--accent);
     }
-    .chart {
+    .table-wrap {
       width: 100%;
-      height: 180px;
-      border: 1px solid #1f2a3a;
+      overflow-x: auto;
+      border: 1px solid var(--grid);
       border-radius: 12px;
-      background: #0b1322;
+      background: var(--surface);
     }
     table {
       width: 100%;
@@ -78,79 +96,96 @@
     }
     th, td {
       text-align: left;
-      padding: 8px 6px;
+      padding: 10px 10px;
       border-bottom: 1px solid var(--grid);
       white-space: nowrap;
     }
-    th { color: var(--muted); }
-    td.desc { white-space: normal; max-width: 220px; }
-    .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #0b1322; border: 1px solid #1f2a3a; }
-    .bars {
+    th { color: var(--muted); font-weight: 600; }
+    td.desc { white-space: normal; min-width: 220px; }
+    .rank {
+      font-weight: 700;
+      color: var(--accent-2);
+    }
+    .chart-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
-    .bar-row {
-      background: #0b1322;
-      border: 1px solid #1f2a3a;
-      border-radius: 10px;
-      padding: 10px;
+    .chart {
+      width: 100%;
+      height: 180px;
+      border: 1px solid var(--grid);
+      border-radius: 12px;
+      background: #0a111c;
     }
-    .bar-row .fill {
-      height: 6px;
-      background: var(--accent-2);
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--grid);
       border-radius: 999px;
-      margin-top: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--muted);
     }
-    .section-title { margin-bottom: 8px; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="header">
-      <h1>RoboOtec – Public Dashboard (Anonymized)</h1>
-      <div class="muted">Veřejná anonymizovaná verze. Bez kódu, bez strategií, bez symbolů.</div>
-    </div>
+    <header>
+      <div class="brand">RoboOtec</div>
+      <h1>Public Dashboard (Anonymized)</h1>
+      <div class="muted">Public results only. No code, no symbols, no proprietary logic.</div>
+      <div class="muted" id="updatedAt">Updated: –</div>
+    </header>
 
-    <div class="card" id="summary">
-      <h2>Overview</h2>
+    <section class="section" id="summary">
+      <div class="section-head">
+        <h2>Overview</h2>
+        <div class="chip">Initial capital per strategy: $100,000</div>
+      </div>
       <div class="muted">Loading…</div>
-    </div>
+    </section>
 
-    <div class="card" id="charts">
-      <h2>Charts</h2>
-      <div class="grid">
+    <section class="section" id="topOverall">
+      <div class="section-head">
+        <h2>Top 3 Overall Strategies</h2>
+        <div class="muted">Best average results across all instruments.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="topByMarket">
+      <div class="section-head">
+        <h2>Top 5 Strategies per Instrument</h2>
+        <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="charts">
+      <div class="section-head">
+        <h2>Reference Charts</h2>
+        <div class="muted">Top strategy equity and drawdown curves.</div>
+      </div>
+      <div class="chart-grid">
         <div>
-          <div class="muted">Equity Curve (Top Strategy)</div>
+          <div class="muted">Equity Curve</div>
           <svg id="equityChart" class="chart"></svg>
         </div>
         <div>
-          <div class="muted">Drawdown Curve (Top Strategy)</div>
+          <div class="muted">Drawdown Curve</div>
           <svg id="drawdownChart" class="chart"></svg>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="card" id="strategies">
-      <h2>Strategies (Global)</h2>
+    <section class="section" id="notes">
+      <div class="section-head">
+        <h2>Notes</h2>
+      </div>
       <div class="muted">Loading…</div>
-    </div>
-
-    <div class="card" id="markets">
-      <h2>Markets (Global)</h2>
-      <div class="muted">Loading…</div>
-    </div>
-
-    <div class="card" id="topByMarket">
-      <h2>Top 10 Strategies by Market</h2>
-      <div class="muted">Loading…</div>
-    </div>
-
-    <div class="card" id="notes">
-      <h2>Notes</h2>
-      <div class="muted">Loading…</div>
-    </div>
+    </section>
   </div>
 
   <script>
@@ -168,28 +203,26 @@
       const scaleY = (v) => pad + (h - pad * 2) * (1 - (v - min) / (max - min || 1));
       const points = data.map((v, i) => `${scaleX(i)},${scaleY(v)}`).join(' ');
       svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
-      svgEl.innerHTML = `
-        <polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />
-      `;
+      svgEl.innerHTML = `<polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />`;
     }
 
-    function renderTopMarketTable(title, rows) {
-      const bodyRows = rows.map(r => `
+    function renderStrategyTable(rows, includeRank) {
+      const bodyRows = rows.map((r, i) => `
         <tr>
+          ${includeRank ? `<td class="rank">#${i + 1}</td>` : ''}
           <td>${r.id}</td>
           <td class="desc">${r.desc || ''}</td>
           <td>${fmtPct(r.total_return || 0)}</td>
           <td>${fmtUsd(r.return_usd || 0)}</td>
-          <td>${fmtUsd(r.initial_cash || 0)}</td>
-          <td>${fmtUsd(r.final_equity || 0)}</td>
           <td>${fmtPct(r.win_rate || 0)}</td>
           <td>${fmt(r.profit_factor || 0)}</td>
           <td>${fmtPct(r.max_drawdown || 0)}</td>
           <td>${r.trades || 0}</td>
           <td>${r.wins || 0}</td>
           <td>${r.losses || 0}</td>
-          <td>${r.long_trades || 0}</td>
-          <td>${r.short_trades || 0}</td>
+          <td>${r.long_trades || 0}/${r.short_trades || 0}</td>
+          <td>${fmtUsd(r.initial_cash || 0)}</td>
+          <td>${fmtUsd(r.final_equity || 0)}</td>
           <td>${r.start || ''}</td>
           <td>${r.end || ''}</td>
           <td>${r.period_days || 0}</td>
@@ -197,31 +230,41 @@
       `).join('');
 
       return `
-        <div class="section-title"><strong>${title}</strong></div>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Description</th>
-              <th>Return %</th>
-              <th>Return USD</th>
-              <th>Initial USD</th>
-              <th>Final USD</th>
-              <th>Win Rate</th>
-              <th>PF</th>
-              <th>Max DD</th>
-              <th>Trades</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Long</th>
-              <th>Short</th>
-              <th>Start</th>
-              <th>End</th>
-              <th>Days</th>
-            </tr>
-          </thead>
-          <tbody>${bodyRows || '<tr><td colspan="17" class="muted">No data yet.</td></tr>'}</tbody>
-        </table>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                ${includeRank ? '<th>Rank</th>' : ''}
+                <th>ID</th>
+                <th>Description</th>
+                <th>Return %</th>
+                <th>Return USD</th>
+                <th>Win Rate</th>
+                <th>PF</th>
+                <th>Max DD</th>
+                <th>Trades</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>L/S</th>
+                <th>Initial USD</th>
+                <th>Final USD</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Days</th>
+              </tr>
+            </thead>
+            <tbody>${bodyRows || '<tr><td colspan="17" class="muted">No data yet.</td></tr>'}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderMarketBlock(title, rows) {
+      return `
+        <div style="margin-bottom: 18px;">
+          <div class="muted" style="margin-bottom: 8px;"><strong>${title}</strong></div>
+          ${renderStrategyTable(rows, false)}
+        </div>
       `;
     }
 
@@ -234,17 +277,22 @@
         const winProgress = Math.min(100, (s.avg_win_rate || 0) / targets.win_rate * 100);
         const retProgress = Math.min(100, (s.avg_return || 0) / targets.total_return * 100);
 
+        document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at}`;
+
         document.getElementById('summary').innerHTML = `
-          <h2>Overview</h2>
-          <div class="grid">
+          <div class="section-head">
+            <h2>Overview</h2>
+            <div class="chip">Initial capital per strategy: $${fmtUsd(s.initial_cash || 100000)}</div>
+          </div>
+          <div class="kpi-grid">
             <div class="kpi">
               <div class="muted">Avg Win Rate</div>
-              <div><strong>${fmtPct(s.avg_win_rate || 0)}</strong> <span class="tag">Target ${fmtPct(targets.win_rate)}</span></div>
+              <div><strong>${fmtPct(s.avg_win_rate || 0)}</strong> <span class="muted">Target ${fmtPct(targets.win_rate)}</span></div>
               <div class="bar"><div style="width:${winProgress}%;"></div></div>
             </div>
             <div class="kpi">
               <div class="muted">Avg Return</div>
-              <div><strong>${fmtPct(s.avg_return || 0)}</strong> <span class="tag">Target ${fmtPct(targets.total_return)}</span></div>
+              <div><strong>${fmtPct(s.avg_return || 0)}</strong> <span class="muted">Target ${fmtPct(targets.total_return)}</span></div>
               <div class="bar"><div style="width:${retProgress}%;"></div></div>
             </div>
             <div class="kpi">
@@ -256,123 +304,40 @@
               <div><strong>${fmtPct(s.avg_drawdown || 0)}</strong></div>
             </div>
           </div>
-          <div class="muted" style="margin-top:10px;">Initial capital per strategy: ${fmtUsd(s.initial_cash || 100000)}</div>
-          <div class="muted" style="margin-top:6px;">Strategies: ${s.strategies || 0} | Markets: ${s.markets || 0} | Records: ${s.records || 0}</div>
+          <div class="muted" style="margin-top:10px;">Strategies: ${s.strategies || 0} | Markets: ${s.markets || 0} | Records: ${s.records || 0}</div>
+        `;
+
+        const topOverall = data.top_overall || [];
+        document.getElementById('topOverall').innerHTML = `
+          <div class="section-head">
+            <h2>Top 3 Overall Strategies</h2>
+            <div class="muted">Best average results across all instruments.</div>
+          </div>
+          ${renderStrategyTable(topOverall, true)}
+        `;
+
+        const tbm = data.top_by_market || {};
+        let topHtml = '';
+        if (tbm.US_STOCKS) topHtml += renderMarketBlock('NASDAQ / US Stocks', tbm.US_STOCKS);
+        if (tbm.GOLD) topHtml += renderMarketBlock('Gold', tbm.GOLD);
+        if (tbm.CRYPTO) topHtml += renderMarketBlock('Bitcoin', tbm.CRYPTO);
+        if (tbm.FX) topHtml += renderMarketBlock('EUR/USD', tbm.FX);
+
+        document.getElementById('topByMarket').innerHTML = `
+          <div class="section-head">
+            <h2>Top 5 Strategies per Instrument</h2>
+            <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+          </div>
+          ${topHtml || '<div class="muted">No data yet.</div>'}
         `;
 
         const charts = data.charts || {};
         renderLineChart(document.getElementById('equityChart'), charts.equity_curve || [0], '#6dd3fb');
         renderLineChart(document.getElementById('drawdownChart'), charts.drawdown_curve || [0], '#f28b8b');
 
-        const rows = (data.strategies || []).map(r => `
-          <tr>
-            <td>${r.id}</td>
-            <td class="desc">${r.desc || ''}</td>
-            <td>${fmtPct(r.total_return || 0)}</td>
-            <td>${fmtUsd(r.return_usd || 0)}</td>
-            <td>${fmtUsd(r.initial_cash || 0)}</td>
-            <td>${fmtUsd(r.final_equity || 0)}</td>
-            <td>${fmtPct(r.win_rate || 0)}</td>
-            <td>${fmt(r.profit_factor || 0)}</td>
-            <td>${fmtPct(r.max_drawdown || 0)}</td>
-            <td>${r.trades || 0}</td>
-            <td>${r.wins || 0}</td>
-            <td>${r.losses || 0}</td>
-            <td>${r.long_trades || 0}</td>
-            <td>${r.short_trades || 0}</td>
-            <td>${r.period_days || 0}</td>
-            <td>${r.samples || 0}</td>
-          </tr>
-        `).join('');
-
-        const maxPF = Math.max(...(data.strategies || []).map(s => s.profit_factor || 0), 1);
-        const bars = (data.strategies || []).map(r => `
-          <div class="bar-row">
-            <div class="muted">${r.id} • PF ${fmt(r.profit_factor || 0)}</div>
-            <div class="fill" style="width:${(r.profit_factor || 0) / maxPF * 100}%;"></div>
-          </div>
-        `).join('');
-
-        document.getElementById('strategies').innerHTML = `
-          <h2>Strategies (Global)</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Description</th>
-                <th>Return %</th>
-                <th>Return USD</th>
-                <th>Initial USD</th>
-                <th>Final USD</th>
-                <th>Win Rate</th>
-                <th>PF</th>
-                <th>Max DD</th>
-                <th>Trades</th>
-                <th>Wins</th>
-                <th>Losses</th>
-                <th>Long</th>
-                <th>Short</th>
-                <th>Days</th>
-                <th>Samples</th>
-              </tr>
-            </thead>
-            <tbody>${rows || '<tr><td colspan="16" class="muted">No data yet.</td></tr>'}</tbody>
-          </table>
-          <div class="bars">${bars}</div>
-        `;
-
-        const mrows = (data.markets || []).map(r => `
-          <tr>
-            <td>${r.market}</td>
-            <td>${fmtPct(r.total_return || 0)}</td>
-            <td>${fmtUsd(r.return_usd || 0)}</td>
-            <td>${fmtUsd(r.initial_cash || 0)}</td>
-            <td>${fmtUsd(r.final_equity || 0)}</td>
-            <td>${fmtPct(r.win_rate || 0)}</td>
-            <td>${fmt(r.profit_factor || 0)}</td>
-            <td>${fmtPct(r.max_drawdown || 0)}</td>
-            <td>${r.samples || 0}</td>
-            <td>${r.period_days || 0}</td>
-          </tr>
-        `).join('');
-
-        document.getElementById('markets').innerHTML = `
-          <h2>Markets (Global)</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Market</th>
-                <th>Return %</th>
-                <th>Return USD</th>
-                <th>Initial USD</th>
-                <th>Final USD</th>
-                <th>Win Rate</th>
-                <th>PF</th>
-                <th>Max DD</th>
-                <th>Samples</th>
-                <th>Days</th>
-              </tr>
-            </thead>
-            <tbody>${mrows || '<tr><td colspan="10" class="muted">No data yet.</td></tr>'}</tbody>
-          </table>
-        `;
-
-        const tbm = data.top_by_market || {};
-        let topHtml = '';
-        if (tbm.US_STOCKS) topHtml += renderTopMarketTable('NASDAQ / US Stocks', tbm.US_STOCKS);
-        if (tbm.GOLD) topHtml += renderTopMarketTable('Gold', tbm.GOLD);
-        if (tbm.CRYPTO) topHtml += renderTopMarketTable('Bitcoin', tbm.CRYPTO);
-        if (tbm.FX) topHtml += renderTopMarketTable('EUR/USD', tbm.FX);
-
-        document.getElementById('topByMarket').innerHTML = `
-          <h2>Top 10 Strategies by Market</h2>
-          ${topHtml || '<div class="muted">No data yet.</div>'}
-        `;
-
         document.getElementById('notes').innerHTML = `
-          <h2>Notes</h2>
-          <div class="muted">Updated: ${data.generated_at}</div>
-          <div style="margin-top:8px;">${(data.notes || []).map(n => `<div>• ${n}</div>`).join('')}</div>
+          <div class="section-head"><h2>Notes</h2></div>
+          <div class="muted">${(data.notes || []).map(n => `• ${n}`).join('<br>')}</div>
         `;
       });
   </script>
