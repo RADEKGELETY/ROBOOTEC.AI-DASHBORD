@@ -37,6 +37,26 @@ def mean(values):
     return sum(values) / len(values) if values else 0.0
 
 
+def build_curves(trades, initial=100000.0):
+    equity = initial
+    curve = [equity]
+    for t in trades:
+        pnl = t.get("pnl", 0.0) or 0.0
+        equity += pnl
+        curve.append(equity)
+
+    peak = curve[0]
+    drawdowns = []
+    for e in curve:
+        if e > peak:
+            peak = e
+        dd = (e - peak) / peak if peak else 0.0
+        drawdowns.append(dd)
+
+    norm = [(e / initial) - 1.0 for e in curve] if initial else [0.0]
+    return norm, drawdowns
+
+
 raw = load_backtests()
 
 # Anonymize strategies
@@ -62,32 +82,17 @@ for r in raw:
                 "profit_factor": metrics.get("profit_factor"),
                 "max_drawdown": metrics.get("max_drawdown"),
                 "total_return": metrics.get("total_return"),
+                "return_usd": metrics.get("return_usd"),
                 "trades": metrics.get("trades"),
+                "wins": metrics.get("wins"),
+                "losses": metrics.get("losses"),
+                "long_trades": metrics.get("long_trades"),
+                "short_trades": metrics.get("short_trades"),
+                "final_equity": metrics.get("final_equity"),
             },
             "trades": r.get("trades") or [],
         }
     )
-
-# Equity/drawdown curve from trades (normalized returns)
-def build_curves(trades, initial=100000.0):
-    equity = initial
-    curve = [equity]
-    for t in trades:
-        pnl = t.get("pnl", 0.0) or 0.0
-        equity += pnl
-        curve.append(equity)
-
-    peak = curve[0]
-    drawdowns = []
-    for e in curve:
-        if e > peak:
-            peak = e
-        dd = (e - peak) / peak if peak else 0.0
-        drawdowns.append(dd)
-
-    # Normalize equity curve to returns
-    norm = [(e / initial) - 1.0 for e in curve] if initial else [0.0]
-    return norm, drawdowns
 
 # Aggregate per strategy
 by_strategy = {}
@@ -104,7 +109,12 @@ for sid, items in by_strategy.items():
             "profit_factor": mean([i["metrics"]["profit_factor"] for i in items]),
             "max_drawdown": mean([i["metrics"]["max_drawdown"] for i in items]),
             "total_return": mean([i["metrics"]["total_return"] for i in items]),
+            "return_usd": mean([i["metrics"]["return_usd"] for i in items]),
             "trades": int(mean([i["metrics"]["trades"] or 0 for i in items])),
+            "wins": int(mean([i["metrics"]["wins"] or 0 for i in items])),
+            "losses": int(mean([i["metrics"]["losses"] or 0 for i in items])),
+            "long_trades": int(mean([i["metrics"]["long_trades"] or 0 for i in items])),
+            "short_trades": int(mean([i["metrics"]["short_trades"] or 0 for i in items])),
             "samples": len(items),
         }
     )
@@ -124,9 +134,57 @@ for mk, items in by_market.items():
             "profit_factor": mean([i["metrics"]["profit_factor"] for i in items]),
             "max_drawdown": mean([i["metrics"]["max_drawdown"] for i in items]),
             "total_return": mean([i["metrics"]["total_return"] for i in items]),
+            "return_usd": mean([i["metrics"]["return_usd"] for i in items]),
             "samples": len(items),
         }
     )
+
+# Top 10 strategies per market
+by_market_strategy = {}
+for rec in records:
+    mk = rec["market"]
+    sid = rec["strategy_id"]
+    by_market_strategy.setdefault(mk, {}).setdefault(sid, []).append(rec)
+
+
+def aggregate(items):
+    win_rate = mean([i["metrics"]["win_rate"] for i in items])
+    profit_factor = mean([i["metrics"]["profit_factor"] for i in items])
+    max_drawdown = mean([i["metrics"]["max_drawdown"] for i in items])
+    total_return = mean([i["metrics"]["total_return"] for i in items])
+    return_usd = mean([i["metrics"]["return_usd"] for i in items])
+
+    trades = int(sum([i["metrics"]["trades"] or 0 for i in items]))
+    wins = int(sum([i["metrics"]["wins"] or 0 for i in items]))
+    losses = int(sum([i["metrics"]["losses"] or 0 for i in items]))
+    long_trades = int(sum([i["metrics"]["long_trades"] or 0 for i in items]))
+    short_trades = int(sum([i["metrics"]["short_trades"] or 0 for i in items]))
+    long_short_ratio = (long_trades / short_trades) if short_trades else None
+
+    return {
+        "win_rate": win_rate,
+        "profit_factor": profit_factor,
+        "max_drawdown": max_drawdown,
+        "total_return": total_return,
+        "return_usd": return_usd,
+        "trades": trades,
+        "wins": wins,
+        "losses": losses,
+        "long_trades": long_trades,
+        "short_trades": short_trades,
+        "long_short_ratio": long_short_ratio,
+        "samples": len(items),
+    }
+
+
+top_by_market = {}
+for mk, strat_map in by_market_strategy.items():
+    rows = []
+    for sid, items in strat_map.items():
+        agg = aggregate(items)
+        rows.append({"id": sid, **agg})
+    rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+    top_by_market[mk] = rows[:10]
 
 summary = {
     "strategies": len(strategies),
@@ -161,6 +219,7 @@ payload = {
     "targets": targets,
     "strategies": sorted(strategies, key=lambda x: x["profit_factor"], reverse=True),
     "markets": sorted(markets_out, key=lambda x: x["profit_factor"], reverse=True),
+    "top_by_market": top_by_market,
     "charts": {
         "equity_curve": equity_curve,
         "drawdown_curve": drawdown_curve,

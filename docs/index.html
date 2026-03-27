@@ -22,7 +22,7 @@
       color: var(--text);
     }
     .wrap {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
@@ -74,12 +74,13 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 14px;
+      font-size: 13px;
     }
     th, td {
       text-align: left;
       padding: 10px 8px;
       border-bottom: 1px solid var(--grid);
+      white-space: nowrap;
     }
     th { color: var(--muted); }
     .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #0b1322; border: 1px solid #1f2a3a; }
@@ -101,6 +102,7 @@
       border-radius: 999px;
       margin-top: 6px;
     }
+    .section-title { margin-bottom: 8px; }
   </style>
 </head>
 <body>
@@ -130,12 +132,17 @@
     </div>
 
     <div class="card" id="strategies">
-      <h2>Strategies</h2>
+      <h2>Strategies (Global)</h2>
       <div class="muted">Loading…</div>
     </div>
 
     <div class="card" id="markets">
-      <h2>Markets</h2>
+      <h2>Markets (Global)</h2>
+      <div class="muted">Loading…</div>
+    </div>
+
+    <div class="card" id="topByMarket">
+      <h2>Top 10 Strategies by Market</h2>
       <div class="muted">Loading…</div>
     </div>
 
@@ -148,6 +155,7 @@
   <script>
     const fmtPct = (v) => (v * 100).toFixed(2) + '%';
     const fmt = (v) => (v ?? 0).toFixed(2);
+    const fmtUsd = (v) => (v ?? 0).toFixed(2);
 
     function renderLineChart(svgEl, data, color) {
       const w = svgEl.clientWidth || 600;
@@ -161,6 +169,46 @@
       svgEl.setAttribute('viewBox', `0 0 ${w} ${h}`);
       svgEl.innerHTML = `
         <polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />
+      `;
+    }
+
+    function renderTopMarketTable(title, rows) {
+      const bodyRows = rows.map(r => `
+        <tr>
+          <td>${r.id}</td>
+          <td>${fmtPct(r.total_return || 0)}</td>
+          <td>${fmtUsd(r.return_usd || 0)}</td>
+          <td>${fmtPct(r.win_rate || 0)}</td>
+          <td>${fmt(r.profit_factor || 0)}</td>
+          <td>${fmtPct(r.max_drawdown || 0)}</td>
+          <td>${r.trades || 0}</td>
+          <td>${r.wins || 0}</td>
+          <td>${r.losses || 0}</td>
+          <td>${r.long_trades || 0}</td>
+          <td>${r.short_trades || 0}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="section-title"><strong>${title}</strong></div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Return %</th>
+              <th>Return USD</th>
+              <th>Win Rate</th>
+              <th>PF</th>
+              <th>Max DD</th>
+              <th>Trades</th>
+              <th>Wins</th>
+              <th>Losses</th>
+              <th>Long</th>
+              <th>Short</th>
+            </tr>
+          </thead>
+          <tbody>${bodyRows || '<tr><td colspan="11" class="muted">No data yet.</td></tr>'}</tbody>
+        </table>
       `;
     }
 
@@ -212,6 +260,7 @@
             <td>${fmt(r.profit_factor || 0)}</td>
             <td>${fmtPct(r.max_drawdown || 0)}</td>
             <td>${fmtPct(r.total_return || 0)}</td>
+            <td>${fmtUsd(r.return_usd || 0)}</td>
             <td>${r.trades || 0}</td>
             <td>${r.samples || 0}</td>
           </tr>
@@ -226,20 +275,21 @@
         `).join('');
 
         document.getElementById('strategies').innerHTML = `
-          <h2>Strategies</h2>
+          <h2>Strategies (Global)</h2>
           <table>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Win Rate</th>
-                <th>Profit Factor</th>
+                <th>PF</th>
                 <th>Max DD</th>
                 <th>Total Return</th>
+                <th>Return USD</th>
                 <th>Trades</th>
                 <th>Samples</th>
               </tr>
             </thead>
-            <tbody>${rows || '<tr><td colspan="7" class="muted">No data yet.</td></tr>'}</tbody>
+            <tbody>${rows || '<tr><td colspan="8" class="muted">No data yet.</td></tr>'}</tbody>
           </table>
           <div class="bars">${bars}</div>
         `;
@@ -252,25 +302,40 @@
             <td>${fmt(r.profit_factor || 0)}</td>
             <td>${fmtPct(r.max_drawdown || 0)}</td>
             <td>${fmtPct(r.total_return || 0)}</td>
+            <td>${fmtUsd(r.return_usd || 0)}</td>
             <td>${r.samples || 0}</td>
           </tr>
         `).join('');
 
         document.getElementById('markets').innerHTML = `
-          <h2>Markets</h2>
+          <h2>Markets (Global)</h2>
           <table>
             <thead>
               <tr>
                 <th>Market</th>
                 <th>Win Rate</th>
-                <th>Profit Factor</th>
+                <th>PF</th>
                 <th>Max DD</th>
                 <th>Total Return</th>
+                <th>Return USD</th>
                 <th>Samples</th>
               </tr>
             </thead>
-            <tbody>${mrows || '<tr><td colspan="6" class="muted">No data yet.</td></tr>'}</tbody>
+            <tbody>${mrows || '<tr><td colspan="7" class="muted">No data yet.</td></tr>'}</tbody>
           </table>
+        `;
+
+        // Top 10 by market
+        const tbm = data.top_by_market || {};
+        let topHtml = '';
+        if (tbm.US_STOCKS) topHtml += renderTopMarketTable('NASDAQ / US Stocks', tbm.US_STOCKS);
+        if (tbm.GOLD) topHtml += renderTopMarketTable('Gold', tbm.GOLD);
+        if (tbm.CRYPTO) topHtml += renderTopMarketTable('Bitcoin', tbm.CRYPTO);
+        if (tbm.FX) topHtml += renderTopMarketTable('EUR/USD', tbm.FX);
+
+        document.getElementById('topByMarket').innerHTML = `
+          <h2>Top 10 Strategies by Market</h2>
+          ${topHtml || '<div class="muted">No data yet.</div>'}
         `;
 
         document.getElementById('notes').innerHTML = `

@@ -8,9 +8,18 @@ from apps.worker.providers.gdelt import fetch_latest_gkg_url
 from apps.worker.data.csv_loader import load_ohlcv_csv
 from apps.worker.data.stooq_cache import save_symbol_csv
 from apps.worker.backtest.engine import run_backtest
-from apps.worker.backtest.strategies import get_strategy
+from apps.worker.backtest.strategies import get_strategy, get_all_strategies
 from apps.shared.storage import write_json, read_json
 from apps.shared.config import load_markets
+
+
+def filter_last_months(candles, months=6):
+    if not candles:
+        return candles
+    candles = sorted(candles, key=lambda c: c.timestamp)
+    end = candles[-1].timestamp
+    start = end - timedelta(days=30 * months)
+    return [c for c in candles if c.timestamp >= start]
 
 
 def main():
@@ -23,8 +32,8 @@ def main():
     parser.add_argument("--feed", default="iex")
     parser.add_argument("--crypto_symbols", default="BTC/USD")
     parser.add_argument("--csv", help="Path to OHLCV CSV with columns: date,open,high,low,close,volume")
-    parser.add_argument("--strategy", default="sma_cross")
-    parser.add_argument("--strategies", default="sma_cross,mean_reversion")
+    parser.add_argument("--strategy", default="sma_cross_10_30")
+    parser.add_argument("--strategies", default="all")
     parser.add_argument("--fred_series", default="CPIAUCSL")
     parser.add_argument("--ecb_flow", default="EXR")
     parser.add_argument("--ecb_key", default="D.USD.EUR.SP00.A")
@@ -70,13 +79,12 @@ def main():
 
     if args.task == "backtest":
         if not args.csv:
-            # Try to use cached Stooq CSV
             markets = load_markets()
             interval = markets.get("interval", "d")
             symbol = args.download_symbol or "aapl.us"
             cached = save_symbol_csv(symbol, interval=interval)
             args.csv = str(cached)
-        candles = load_ohlcv_csv(args.csv)
+        candles = filter_last_months(load_ohlcv_csv(args.csv), months=6)
         strategy = get_strategy(args.strategy)
         metrics, trades = run_backtest(candles, strategy)
         payload = {
@@ -101,24 +109,27 @@ def main():
             for group in markets.get("symbols", {}).values():
                 symbols.extend(group)
 
-        strategies = [s.strip() for s in args.strategies.split(",") if s.strip()]
-        all_backtests = read_json("backtests.json", default=[])
+        if args.strategies == "all":
+            strategies = get_all_strategies()
+        else:
+            strategies = [get_strategy(s.strip()) for s in args.strategies.split(",") if s.strip()]
+
+        all_backtests = []
 
         for sym in symbols:
             csv_path = save_symbol_csv(sym, interval=interval)
-            candles = load_ohlcv_csv(str(csv_path))
-            for strat_name in strategies:
-                strategy = get_strategy(strat_name)
-                metrics, trades = run_backtest(candles, strategy)
+            candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
+            for strat in strategies:
+                metrics, trades = run_backtest(candles, strat)
                 payload = {
-                    "strategy": strategy.name,
+                    "strategy": strat.name,
                     "symbol": sym,
                     "metrics": metrics.__dict__,
                     "trades": [t.__dict__ for t in trades],
                 }
                 all_backtests.append(payload)
                 write_json("last_backtest.json", payload)
-                print(f"Backtest {sym} / {strategy.name} done")
+                print(f"Backtest {sym} / {strat.name} done")
 
         write_json("backtests.json", all_backtests)
         print(f"Batch backtest saved ({len(all_backtests)} total)")

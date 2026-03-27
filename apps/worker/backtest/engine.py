@@ -9,7 +9,7 @@ from apps.worker.backtest.strategies import BaseStrategy
 class Trade:
     entry_price: float
     exit_price: float
-    side: str
+    side: str  # LONG/SHORT
     pnl: float
 
 
@@ -25,6 +25,10 @@ class BacktestMetrics:
     avg_win: float
     avg_loss: float
     expectancy: float
+    long_trades: int
+    short_trades: int
+    final_equity: float
+    return_usd: float
 
 
 def run_backtest(
@@ -32,7 +36,7 @@ def run_backtest(
     strategy: BaseStrategy,
     initial_cash: float = 100000.0,
 ) -> tuple[BacktestMetrics, List[Trade]]:
-    position = 0
+    position = 0  # 1 long, -1 short, 0 flat
     entry = 0.0
     cash = initial_cash
     equity_curve = [initial_cash]
@@ -41,18 +45,47 @@ def run_backtest(
     for i, bar in enumerate(candles):
         signal = strategy.on_bar(i, candles)
 
-        if signal.side == "BUY" and position == 0:
-            position = 1
-            entry = bar.close
-        elif signal.side == "SELL" and position == 1:
-            pnl = bar.close - entry
-            cash += pnl
-            trades.append(Trade(entry_price=entry, exit_price=bar.close, side="LONG", pnl=pnl))
-            position = 0
-            entry = 0.0
+        # Open/close logic
+        if signal.side == "BUY":
+            if position == -1:
+                pnl = entry - bar.close
+                cash += pnl
+                trades.append(Trade(entry_price=entry, exit_price=bar.close, side="SHORT", pnl=pnl))
+                position = 0
+            if position == 0:
+                position = 1
+                entry = bar.close
 
-        equity = cash + (bar.close - entry if position == 1 else 0)
+        elif signal.side == "SELL":
+            if position == 1:
+                pnl = bar.close - entry
+                cash += pnl
+                trades.append(Trade(entry_price=entry, exit_price=bar.close, side="LONG", pnl=pnl))
+                position = 0
+            if position == 0:
+                position = -1
+                entry = bar.close
+
+        # Mark-to-market
+        if position == 1:
+            equity = cash + (bar.close - entry)
+        elif position == -1:
+            equity = cash + (entry - bar.close)
+        else:
+            equity = cash
         equity_curve.append(equity)
+
+    # Close any open position at last price
+    if candles:
+        last = candles[-1].close
+        if position == 1:
+            pnl = last - entry
+            cash += pnl
+            trades.append(Trade(entry_price=entry, exit_price=last, side="LONG", pnl=pnl))
+        elif position == -1:
+            pnl = entry - last
+            cash += pnl
+            trades.append(Trade(entry_price=entry, exit_price=last, side="SHORT", pnl=pnl))
 
     wins = [t for t in trades if t.pnl > 0]
     losses = [t for t in trades if t.pnl < 0]
@@ -76,7 +109,11 @@ def run_backtest(
         if dd > max_dd:
             max_dd = dd
 
-    total_return = (equity_curve[-1] - initial_cash) / initial_cash if initial_cash else 0.0
+    final_equity = cash
+    total_return = (final_equity - initial_cash) / initial_cash if initial_cash else 0.0
+
+    long_trades = len([t for t in trades if t.side == "LONG"])
+    short_trades = len([t for t in trades if t.side == "SHORT"])
 
     return BacktestMetrics(
         win_rate=win_rate,
@@ -89,4 +126,8 @@ def run_backtest(
         avg_win=avg_win,
         avg_loss=avg_loss,
         expectancy=expectancy,
+        long_trades=long_trades,
+        short_trades=short_trades,
+        final_equity=final_equity,
+        return_usd=final_equity - initial_cash,
     ), trades
