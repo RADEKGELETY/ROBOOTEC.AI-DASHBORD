@@ -575,7 +575,6 @@
             <h2>Top 10 Strategies (Overall)</h2>
             <div class="muted">Each strategy trades 100,000 USD. Summary row shows combined 1,000,000 USD portfolio.</div>
           </div>
-          <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
           ${renderTop10Table(top10)}
         `;
         const perMarket = [];
@@ -590,7 +589,6 @@
             <h2>Top 3 Strategies (One per Market)</h2>
             <div class="muted">Best strategy from each market, then ranked by return.</div>
           </div>
-          <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
           ${renderListTable('Top 3 (One per Market)', topPerMarket)}
         `;
 
