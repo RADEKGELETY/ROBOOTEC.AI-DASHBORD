@@ -285,14 +285,6 @@
       <div class="muted">Loading…</div>
     </section>
 
-    <section class="section" id="rgFocus">
-      <div class="section-head">
-        <h2>RG Strategy (Focus)</h2>
-        <div class="muted">Your custom RG variants across instruments.</div>
-      </div>
-      <div class="muted">Loading…</div>
-    </section>
-
     <section class="section" id="topByMarket">
       <div class="section-head">
         <h2>Top 5 per Instrument</h2>
@@ -603,15 +595,6 @@
             <div class="muted">Best strategy from each market, then ranked by return.</div>
           </div>
           ${renderListTable('Top 3 (One per Market)', topPerMarket)}
-        `;
-
-        const rgFocus = data.rg_focus || [];
-        document.getElementById('rgFocus').innerHTML = `
-          <div class="section-head">
-            <h2>RG Strategy (Focus)</h2>
-            <div class="muted">Your custom RG variants across instruments.</div>
-          </div>
-          ${renderListTable('RG Strategy (Focus)', rgFocus)}
         `;
 
         let topHtml = '';
