@@ -430,23 +430,43 @@
         </tr>
       `).join('');
 
-      const summaryRow = `
-        <tr class="summary-row">
-          <td class="strategy">Summary (Top 10 combined)</td>
-          <td class="key-metric ${posClass(summary.total_return)}">${fmtPct(summary.total_return || 0)}</td>
-          <td class="key-metric ${posClass(summary.return_usd)}">${fmtUsd(summary.return_usd || 0)}</td>
-          <td class="key-metric ${winClass(summary.win_rate)}">${fmtPct(summary.win_rate || 0)}</td>
-          <td>${summary.profit_factor.toFixed(2)}</td>
-          <td>${fmtInt(summary.trades || 0)}</td>
-          <td>${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
-          <td>${fmtPct(summary.max_drawdown || 0)}</td>
-          <td>${fmtUsd(summary.final_equity || 0)}</td>
-        </tr>
+      const summaryTable = `
+        <div class="table-block">
+          <div class="table-title">Top 10 Combined Summary (1,000,000 USD)</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Total Return %</th>
+                  <th>Total Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins/Losses</th>
+                  <th>Max Drawdown</th>
+                  <th>Final Equity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="summary-row">
+                  <td class="key-metric ${posClass(summary.total_return)}">${fmtPct(summary.total_return || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}">${fmtUsd(summary.return_usd || 0)}</td>
+                  <td class="key-metric ${winClass(summary.win_rate)}">${fmtPct(summary.win_rate || 0)}</td>
+                  <td>${summary.profit_factor.toFixed(2)}</td>
+                  <td>${fmtInt(summary.trades || 0)}</td>
+                  <td>${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
+                  <td>${fmtPct(summary.max_drawdown || 0)}</td>
+                  <td>${fmtUsd(summary.final_equity || 0)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       `;
 
-      return `
+      const detailsTable = `
         <div class="table-block">
-          <div class="table-title">Top 10 (Overall)</div>
+          <div class="table-title">Top 10 Strategies (Overall)</div>
           <div class="table-wrap">
             <table>
               <thead>
@@ -464,12 +484,13 @@
               </thead>
               <tbody>
                 ${body}
-                ${summaryRow}
               </tbody>
             </table>
           </div>
         </div>
       `;
+
+      return `${summaryTable}${detailsTable}`;
     }
 
     function marketLabel(code) {
