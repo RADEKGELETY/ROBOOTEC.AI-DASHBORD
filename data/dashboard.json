@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-03-27T13:36:55.062329Z",
+  "scope": "anonymized",
+  "summary": {
+    "strategies": 2,
+    "markets": 4,
+    "records": 26,
+    "avg_win_rate": 0.5592712779841602,
+    "avg_profit_factor": 2.7520627518450578,
+    "avg_drawdown": 0.022342830304563008,
+    "avg_return": 0.03460113072342321
+  },
+  "targets": {
+    "win_rate": 0.6,
+    "total_return": 0.5
+  },
+  "strategies": [
+    {
+      "id": "S1",
+      "win_rate": 0.47311307755811555,
+      "profit_factor": 2.7638004792416186,
+      "max_drawdown": 0.011564350036187014,
+      "total_return": 0.07775790591853848,
+      "trades": 132,
+      "samples": 13
+    },
+    {
+      "id": "S2",
+      "win_rate": 0.6454294784102049,
+      "profit_factor": 2.740325024448497,
+      "max_drawdown": 0.033121310572939,
+      "total_return": -0.008555644471692056,
+      "trades": 115,
+      "samples": 13
+    }
+  ],
+  "markets": [
+    {
+      "market": "US_STOCKS",
+      "win_rate": 0.5701726283121757,
+      "profit_factor": 3.0908287185365713,
+      "max_drawdown": 0.0011926950872851653,
+      "total_return": 0.0018382294854501087,
+      "samples": 20
+    },
+    {
+      "market": "GOLD",
+      "win_rate": 0.5386544933316715,
+      "profit_factor": 1.9107352091743437,
+      "max_drawdown": 0.0063113934265586705,
+      "total_return": 0.021240275000000183,
+      "samples": 2
+    },
+    {
+      "market": "CRYPTO",
+      "win_rate": 0.5368650217706821,
+      "profit_factor": 1.779283627684158,
+      "max_drawdown": 0.27221059415610965,
+      "total_return": 0.4101891741500003,
+      "samples": 2
+    },
+    {
+      "market": "FX",
+      "win_rate": 0.49328081556997216,
+      "profit_factor": 1.1785097517615364,
+      "max_drawdown": 7.855503799121556e-06,
+      "total_return": 2.95540000020992e-06,
+      "samples": 2
+    }
+  ],
+  "notes": [
+    "Public anonymized dashboard export.",
+    "No symbols or strategy code included."
+  ]
+}
