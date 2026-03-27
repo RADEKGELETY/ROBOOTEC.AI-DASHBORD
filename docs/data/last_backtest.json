@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-03-27T13:18:30.536961Z",
+  "scope": "anonymized",
+  "demo": false,
+  "metrics": {
+    "win_rate": 0.4585635359116022,
+    "profit_factor": 1.8663289250327006,
+    "max_drawdown": 0.000699332893955107,
+    "total_return": 0.0013662534949991096
+  },
+  "notes": [
+    "Anonymized export for GitHub Pages.",
+    "No strategy code or symbols included."
+  ]
+}
