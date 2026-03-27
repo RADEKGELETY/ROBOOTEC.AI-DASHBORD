@@ -22,7 +22,12 @@ def save_symbol_csv(
     provider: str = "stooq",
     asset: str = "stock",
     month: str | None = None,
+    use_cache: bool = True,
 ) -> Path:
+    out = cache_dir() / f"{symbol}_{interval}.csv"
+    if use_cache and out.exists():
+        return out
+
     if provider == "stooq":
         csv_text = download_csv(symbol, start=start, end=end, interval=interval)
     elif provider == "alpha_vantage":
@@ -37,6 +42,5 @@ def save_symbol_csv(
     else:
         raise ValueError(f"Unknown provider: {provider}")
 
-    out = cache_dir() / f"{symbol}_{interval}.csv"
     out.write_text(csv_text, encoding="utf-8")
     return out

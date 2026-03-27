@@ -187,7 +187,7 @@ def main():
             if provider == "alpha_vantage" and interval.endswith("min"):
                 cached = _save_alpha_intraday(provider_symbol, interval, start_dt.date(), end_dt.date(), asset, symbol)
             else:
-                cached = save_symbol_csv(symbol, interval=interval, start=start_dt, end=end_dt, provider=provider, asset=asset)
+                cached = save_symbol_csv(symbol, interval=interval, start=start_dt, end=end_dt, provider=provider, asset=asset, use_cache=True)
             args.csv = str(cached)
         candles = filter_last_months(load_ohlcv_csv(args.csv), months=6)
         start, end, days = period_info(candles)
@@ -262,7 +262,7 @@ def main():
             if provider == "alpha_vantage" and interval_use.endswith("min"):
                 csv_path = _save_alpha_intraday(provider_symbol, interval_use, start_dt.date(), end_dt.date(), asset, sym)
             else:
-                csv_path = save_symbol_csv(sym, interval=interval_use, start=start_dt, end=end_dt, provider=provider, asset=asset)
+                csv_path = save_symbol_csv(sym, interval=interval_use, start=start_dt, end=end_dt, provider=provider, asset=asset, use_cache=True)
             candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
             start, end, days = period_info(candles)
             for strat in strategies:
