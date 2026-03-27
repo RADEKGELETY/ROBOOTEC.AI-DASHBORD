@@ -62,37 +62,15 @@
       margin: 0;
       font-size: 20px;
     }
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    .note-banner {
+      background: linear-gradient(135deg, #141b26, #0f141c);
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
       gap: 12px;
-    }
-    .kpi {
-      padding: 16px;
-      border: 1px solid var(--grid);
-      border-radius: 14px;
-      background: var(--surface);
-    }
-    .bar {
-      height: 6px;
-      background: #0a111c;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .bar > div {
-      height: 100%;
-      background: var(--accent);
-    }
-    .chip {
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid var(--grid);
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 12px;
-      color: var(--muted);
     }
     .banner-grid {
       display: grid;
@@ -119,52 +97,41 @@
     }
     .cards {
       display: grid;
-      gap: 14px;
+      gap: 12px;
     }
-    .card {
+    .row {
       border: 1px solid var(--grid);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 14px;
+      padding: 12px 14px;
       background: var(--surface);
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
-    .card-head {
+    .row-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
-    .card-title {
+    .row-title {
       font-weight: 700;
-      font-size: 16px;
+      font-size: 15px;
     }
-    .card-desc {
+    .row-desc {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12.5px;
     }
-    .metrics {
+    .row-metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: 2fr repeat(8, minmax(90px, 1fr));
       gap: 10px;
-    }
-    .metric {
-      background: var(--surface-2);
-      border: 1px solid var(--grid);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: grid;
-      gap: 4px;
+      align-items: center;
+      font-size: 12.5px;
     }
     .metric-label { color: var(--muted); font-size: 11px; }
-    .metric-value { font-weight: 600; font-size: 14px; }
+    .metric-value { font-weight: 600; }
     .pos { color: var(--accent-2); }
     .neg { color: var(--danger); }
-    .divider {
-      height: 1px;
-      background: var(--grid);
-      margin: 8px 0;
-    }
     .chart-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -176,6 +143,11 @@
       border: 1px solid var(--grid);
       border-radius: 12px;
       background: #0a111c;
+    }
+    @media (max-width: 900px) {
+      .row-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
@@ -191,7 +163,7 @@
     <section class="section" id="summary">
       <div class="section-head">
         <h2>Overview</h2>
-        <div class="chip">Initial capital per strategy: $100.000</div>
+        <div class="muted">Demo backtest summary</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
@@ -255,7 +227,6 @@
 
   <script>
     const fmtPct = (v) => (v * 100).toFixed(2).replace('.', ',') + '%';
-    const fmt = (v) => (v ?? 0).toFixed(2).replace('.', ',');
     const fmtInt = (v) => {
       const n = Math.round(v ?? 0).toString();
       return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -277,28 +248,25 @@
       svgEl.innerHTML = `<polyline fill="none" stroke="${color}" stroke-width="2" points="${points}" />`;
     }
 
-    function renderStrategyCards(rows, showRank) {
+    function renderStrategyRows(rows, showRank) {
       if (!rows.length) return '<div class="muted">No data yet.</div>';
       return `<div class="cards">${rows.map((r, i) => `
-        <div class="card">
-          <div class="card-head">
+        <div class="row">
+          <div class="row-head">
             <div>
-              <div class="card-title">${showRank ? `#${i + 1} ` : ''}${r.id}</div>
-              <div class="card-desc">${r.desc || ''}</div>
+              <div class="row-title">${showRank ? `#${i + 1} ` : ''}${r.id}${r.market ? ` • ${r.market}` : ''}</div>
+              <div class="row-desc">${r.desc || ''}</div>
             </div>
-            <div class="metric-value ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</div>
           </div>
-          <div class="metrics">
-            <div class="metric"><div class="metric-label">Return USD</div><div class="metric-value ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Win Rate</div><div class="metric-value">${fmtPct(r.win_rate || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Profit Factor</div><div class="metric-value">${fmt(r.profit_factor || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Max Drawdown</div><div class="metric-value">${fmtPct(r.max_drawdown || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Trades</div><div class="metric-value">${fmtInt(r.trades || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Wins / Losses</div><div class="metric-value">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Long / Short</div><div class="metric-value">${fmtInt(r.long_trades || 0)} / ${fmtInt(r.short_trades || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Initial</div><div class="metric-value">${fmtUsd(r.initial_cash || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Final</div><div class="metric-value">${fmtUsd(r.final_equity || 0)}</div></div>
-            <div class="metric"><div class="metric-label">Period</div><div class="metric-value">${r.start || ''} → ${r.end || ''} (${fmtInt(r.period_days || 0)} days)</div></div>
+          <div class="row-metrics">
+            <div class="metric-value ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</div>
+            <div class="metric-value ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</div>
+            <div class="metric-value">${fmtPct(r.win_rate || 0)}</div>
+            <div class="metric-value">${(r.profit_factor || 0).toFixed(2)}</div>
+            <div class="metric-value">${fmtInt(r.trades || 0)}</div>
+            <div class="metric-value">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</div>
+            <div class="metric-value">${fmtPct(r.max_drawdown || 0)}</div>
+            <div class="metric-value">${fmtUsd(r.final_equity || 0)}</div>
           </div>
         </div>
       `).join('')}</div>`;
@@ -311,7 +279,7 @@
           <div class="banner-title">${m.market}</div>
           <div class="banner-metric ${posClass(m.total_return)}">${fmtPct(m.total_return || 0)}</div>
           <div class="muted">Return USD: <span class="${posClass(m.return_usd)}">${fmtUsd(m.return_usd || 0)}</span></div>
-          <div class="muted">Win Rate: ${fmtPct(m.win_rate || 0)} | PF: ${fmt(m.profit_factor || 0)}</div>
+          <div class="muted">Win Rate: ${fmtPct(m.win_rate || 0)} | PF: ${(m.profit_factor || 0).toFixed(2)}</div>
           <div class="muted">Max DD: ${fmtPct(m.max_drawdown || 0)}</div>
         </div>
       `).join('')}</div>`;
@@ -331,39 +299,19 @@
       .then(r => r.json())
       .then(data => {
         const s = data.summary || {};
-        const targets = data.targets || { win_rate: 0.6, total_return: 0.5 };
-
-        const winProgress = Math.min(100, (s.avg_win_rate || 0) / targets.win_rate * 100);
-        const retProgress = Math.min(100, (s.avg_return || 0) / targets.total_return * 100);
+        const period = s.test_period || {};
 
         document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at}`;
 
         document.getElementById('summary').innerHTML = `
           <div class="section-head">
             <h2>Overview</h2>
-            <div class="chip">Initial capital per strategy: ${fmtUsd(s.initial_cash || 100000)}</div>
+            <div class="muted">Demo backtest summary</div>
           </div>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <div class="muted">Avg Win Rate</div>
-              <div><strong>${fmtPct(s.avg_win_rate || 0)}</strong> <span class="muted">Target ${fmtPct(targets.win_rate)}</span></div>
-              <div class="bar"><div style="width:${winProgress}%;"></div></div>
-            </div>
-            <div class="kpi">
-              <div class="muted">Avg Return</div>
-              <div><strong>${fmtPct(s.avg_return || 0)}</strong> <span class="muted">Target ${fmtPct(targets.total_return)}</span></div>
-              <div class="bar"><div style="width:${retProgress}%;"></div></div>
-            </div>
-            <div class="kpi">
-              <div class="muted">Avg Profit Factor</div>
-              <div><strong>${fmt(s.avg_profit_factor || 0)}</strong></div>
-            </div>
-            <div class="kpi">
-              <div class="muted">Avg Max Drawdown</div>
-              <div><strong>${fmtPct(s.avg_drawdown || 0)}</strong></div>
-            </div>
+          <div class="note-banner">
+            <div class="muted">Period: <strong>${period.start || '—'} → ${period.end || '—'}</strong></div>
+            <div class="muted">Initial capital per strategy: <strong>${fmtUsd(s.initial_cash || 100000)}</strong></div>
           </div>
-          <div class="muted" style="margin-top:10px;">Strategies: ${fmtInt(s.strategies || 0)} | Markets: ${fmtInt(s.markets || 0)} | Records: ${fmtInt(s.records || 0)}</div>
         `;
 
         const markets = (data.markets || []).map(m => ({ ...m, market: marketLabel(m.market) }));
@@ -383,7 +331,8 @@
             <h2>Top 3 Strategies (Overall)</h2>
             <div class="muted">Sorted by highest return.</div>
           </div>
-          ${renderStrategyCards(topOverall, true)}
+          <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
+          ${renderStrategyRows(topOverall, true)}
         `;
 
         const rgFocus = data.rg_focus || [];
@@ -392,18 +341,18 @@
             <h2>RG Strategy (Focus)</h2>
             <div class="muted">Your custom RG variants across instruments.</div>
           </div>
-          ${renderStrategyCards(rgFocus, false)}
+          ${renderStrategyRows(rgFocus, false)}
         `;
 
         const tbm = data.top_by_market || {};
-        let topHtml = '';
         const renderMarketBlock = (title, rows) => `
-          <div class="card">
-            <div class="card-title">${title}</div>
-            <div class="divider"></div>
-            ${renderStrategyCards(rows || [], false)}
+          <div class="row">
+            <div class="row-title">${title}</div>
+            <div class="row-desc">Top 5 by highest return</div>
           </div>
+          ${renderStrategyRows(rows || [], false)}
         `;
+        let topHtml = '';
         if (tbm.US_STOCKS) topHtml += renderMarketBlock('NASDAQ / US Stocks', tbm.US_STOCKS);
         if (tbm.GOLD) topHtml += renderMarketBlock('Gold', tbm.GOLD);
         if (tbm.CRYPTO) topHtml += renderMarketBlock('Bitcoin', tbm.CRYPTO);
