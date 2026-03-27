@@ -114,6 +114,10 @@ def main():
     parser.add_argument("--interval")
     parser.add_argument("--avoid_news", default="off", choices=["on", "off"])
     parser.add_argument("--skip_open_minutes", type=int, default=0)
+    parser.add_argument("--avoid_events", default="off", choices=["on", "off"])
+    parser.add_argument("--atr_window", type=int, default=14)
+    parser.add_argument("--atr_mult", type=float, default=2.5)
+    parser.add_argument("--gap_pct", type=float, default=0.03)
     parser.add_argument("--keywords", help="Comma-separated keywords for news calendar")
     parser.add_argument("--fred_series", default="CPIAUCSL")
     parser.add_argument("--ecb_flow", default="EXR")
@@ -198,6 +202,10 @@ def main():
             predictor=predictor,
             skip_open_minutes=args.skip_open_minutes,
             news_days=news_days,
+            avoid_events=args.avoid_events == "on",
+            atr_window=args.atr_window,
+            atr_mult=args.atr_mult,
+            gap_pct=args.gap_pct,
         )
         payload = {
             "strategy": strategy.name,
@@ -272,6 +280,10 @@ def main():
                     predictor=predictor,
                     skip_open_minutes=args.skip_open_minutes,
                     news_days=news_days,
+                    avoid_events=args.avoid_events == "on",
+                    atr_window=args.atr_window,
+                    atr_mult=args.atr_mult,
+                    gap_pct=args.gap_pct,
                 )
                 payload = {
                     "strategy": strat.name,

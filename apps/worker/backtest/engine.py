@@ -4,6 +4,7 @@ from typing import List
 
 from apps.worker.data.csv_loader import Candle
 from apps.worker.backtest.strategies import BaseStrategy
+from apps.worker.backtest.indicators import atr
 
 
 @dataclass
@@ -42,6 +43,10 @@ def run_backtest(
     skip_open_minutes: int = 0,
     news_days: set | None = None,
     session_open: tuple[int, int] = (14, 30),
+    avoid_events: bool = False,
+    atr_window: int = 14,
+    atr_mult: float = 2.5,
+    gap_pct: float = 0.03,
 ) -> tuple[BacktestMetrics, List[Trade]]:
     # Full capital deployment per trade, long/short, with simple fees and slippage
     position = 0  # 1 long, -1 short, 0 flat
@@ -67,10 +72,33 @@ def run_backtest(
         open_ts = ts.replace(hour=session_open[0], minute=session_open[1], second=0, microsecond=0)
         return open_ts <= ts < (open_ts + timedelta(minutes=skip_open_minutes))
 
-    def _allow_entry(ts) -> bool:
+    def _is_event_day(idx: int) -> bool:
+        if not avoid_events:
+            return False
+        if idx < atr_window + 2:
+            return False
+        highs = [c.high for c in candles[: idx + 1]]
+        lows = [c.low for c in candles[: idx + 1]]
+        closes = [c.close for c in candles[: idx + 1]]
+        a = atr(highs, lows, closes, atr_window)
+        if a <= 0:
+            return False
+        bar = candles[idx]
+        prev_close = closes[-2]
+        gap = abs(bar.open - prev_close) / prev_close if prev_close else 0
+        range_val = bar.high - bar.low
+        if gap >= gap_pct:
+            return True
+        if range_val >= atr_mult * a:
+            return True
+        return False
+
+    def _allow_entry(ts, idx: int) -> bool:
         if news_days and ts.date() in news_days:
             return False
         if _in_open_window(ts):
+            return False
+        if _is_event_day(idx):
             return False
         return True
 
@@ -90,7 +118,7 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
-                if not _allow_entry(bar.timestamp):
+                if not _allow_entry(bar.timestamp, i):
                     equity_curve.append(equity)
                     continue
                 if predictor is not None and not predictor.allow(candles, i, "BUY"):
@@ -113,7 +141,7 @@ def run_backtest(
                 position = 0
 
             if signal.intent == "ENTER" and position == 0:
-                if not _allow_entry(bar.timestamp):
+                if not _allow_entry(bar.timestamp, i):
                     equity_curve.append(equity)
                     continue
                 if predictor is not None and not predictor.allow(candles, i, "SELL"):
