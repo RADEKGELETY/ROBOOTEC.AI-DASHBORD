@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-27T13:36:55.062329Z",
+  "generated_at": "2026-03-27T14:13:37.650784Z",
   "scope": "anonymized",
   "summary": {
     "strategies": 2,
@@ -68,6 +68,19 @@
       "samples": 2
     }
   ],
+  "charts": {
+    "equity_curve": [
+      0.0,
+      -4.094000000010034e-06,
+      4.667799999991118e-05
+    ],
+    "drawdown_curve": [
+      0.0,
+      -4.094000000040978e-06,
+      0.0
+    ],
+    "label": "S1"
+  },
   "notes": [
     "Public anonymized dashboard export.",
     "No symbols or strategy code included."

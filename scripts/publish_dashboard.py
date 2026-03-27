@@ -64,8 +64,30 @@ for r in raw:
                 "total_return": metrics.get("total_return"),
                 "trades": metrics.get("trades"),
             },
+            "trades": r.get("trades") or [],
         }
     )
+
+# Equity/drawdown curve from trades (normalized returns)
+def build_curves(trades, initial=100000.0):
+    equity = initial
+    curve = [equity]
+    for t in trades:
+        pnl = t.get("pnl", 0.0) or 0.0
+        equity += pnl
+        curve.append(equity)
+
+    peak = curve[0]
+    drawdowns = []
+    for e in curve:
+        if e > peak:
+            peak = e
+        dd = (e - peak) / peak if peak else 0.0
+        drawdowns.append(dd)
+
+    # Normalize equity curve to returns
+    norm = [(e / initial) - 1.0 for e in curve] if initial else [0.0]
+    return norm, drawdowns
 
 # Aggregate per strategy
 by_strategy = {}
@@ -121,6 +143,17 @@ targets = {
     "total_return": 0.50,
 }
 
+# Select top strategy record for charts
+best_record = None
+best_pf = -1.0
+for rec in records:
+    pf = rec["metrics"].get("profit_factor") or 0.0
+    if pf > best_pf:
+        best_pf = pf
+        best_record = rec
+
+equity_curve, drawdown_curve = build_curves(best_record["trades"] if best_record else [])
+
 payload = {
     "generated_at": datetime.utcnow().isoformat() + "Z",
     "scope": "anonymized",
@@ -128,6 +161,11 @@ payload = {
     "targets": targets,
     "strategies": sorted(strategies, key=lambda x: x["profit_factor"], reverse=True),
     "markets": sorted(markets_out, key=lambda x: x["profit_factor"], reverse=True),
+    "charts": {
+        "equity_curve": equity_curve,
+        "drawdown_curve": drawdown_curve,
+        "label": best_record["strategy_id"] if best_record else "N/A",
+    },
     "notes": [
         "Public anonymized dashboard export.",
         "No symbols or strategy code included.",
