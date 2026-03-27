@@ -49,6 +49,7 @@
     .section {
       padding: 28px 0;
       border-bottom: 1px solid var(--grid);
+      margin-bottom: 32px;
     }
     .section:last-of-type { border-bottom: none; }
     .section-head {
@@ -106,6 +107,10 @@
       background: var(--surface);
       display: grid;
       gap: 10px;
+    }
+    .market-grid {
+      display: grid;
+      gap: 26px;
     }
     .table-title {
       font-weight: 700;
@@ -570,7 +575,7 @@
             <h2>Top 5 per Instrument</h2>
             <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
           </div>
-          <div class="cards">${topHtml || '<div class="muted">No data yet.</div>'}</div>
+          <div class="market-grid">${topHtml || '<div class="muted">No data yet.</div>'}</div>
         `;
 
 
