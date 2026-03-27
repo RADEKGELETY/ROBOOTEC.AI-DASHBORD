@@ -107,22 +107,6 @@
       display: grid;
       gap: 10px;
     }
-    .summary-block {
-      border: 2px solid rgba(109, 211, 251, 0.4);
-      box-shadow: 0 10px 24px rgba(109, 211, 251, 0.12);
-    }
-    .summary-block .table-title {
-      font-size: 18px;
-    }
-    .summary-block table {
-      font-size: 14.5px;
-    }
-    .summary-block th, .summary-block td {
-      padding: 14px 10px;
-    }
-    .summary-block .key-metric {
-      font-size: 16px;
-    }
     .table-title {
       font-weight: 700;
       font-size: 16px;
@@ -447,7 +431,7 @@
       `).join('');
 
       const summaryTable = `
-        <div class="table-block summary-block">
+        <div class="table-block">
           <div class="table-title">Top 10 Combined Summary (1,000,000 USD)</div>
           <div class="table-wrap">
             <table>
@@ -554,7 +538,7 @@
             <div class="muted">Sorted by highest return.</div>
           </div>
           <div class="muted" style="margin-bottom:8px;">Order: Return %, Return USD, Win Rate, PF, Trades, Wins/Losses, Drawdown, Final</div>
-          ${renderStrategyRows(topOverall.slice(0, 3), true)}
+          ${renderStrategyRows(topOverall, true)}
         `;
 
         const tbm = data.top_by_market || {};
