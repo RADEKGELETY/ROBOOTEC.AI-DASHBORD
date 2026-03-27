@@ -123,7 +123,7 @@ for r in raw:
         }
     )
 
-# Aggregate per strategy
+# Aggregate per strategy (global)
 by_strategy = {}
 for rec in records:
     sid = rec["strategy_id"]
@@ -131,6 +131,10 @@ for rec in records:
 
 strategies = []
 for sid, items in by_strategy.items():
+    starts = [i.get("start") for i in items if i.get("start")]
+    ends = [i.get("end") for i in items if i.get("end")]
+    start = min(starts) if starts else None
+    end = max(ends) if ends else None
     strategies.append(
         {
             "id": sid,
@@ -142,6 +146,8 @@ for sid, items in by_strategy.items():
             "return_usd": mean([i["metrics"]["return_usd"] for i in items]),
             "final_equity": mean([i["metrics"]["final_equity"] for i in items]),
             "initial_cash": mean([i.get("initial_cash") for i in items]),
+            "start": start,
+            "end": end,
             "period_days": int(mean([i.get("period_days") or 0 for i in items])),
             "trades": int(mean([i["metrics"]["trades"] or 0 for i in items])),
             "wins": int(mean([i["metrics"]["wins"] or 0 for i in items])),
@@ -175,7 +181,7 @@ for mk, items in by_market.items():
         }
     )
 
-# Top 10 strategies per market
+# Top 5 strategies per market
 by_market_strategy = {}
 for rec in records:
     mk = rec["market"]
@@ -197,9 +203,7 @@ def aggregate(items):
     losses = int(sum([i["metrics"]["losses"] or 0 for i in items]))
     long_trades = int(sum([i["metrics"]["long_trades"] or 0 for i in items]))
     short_trades = int(sum([i["metrics"]["short_trades"] or 0 for i in items]))
-    long_short_ratio = (long_trades / short_trades) if short_trades else None
 
-    # Period range
     starts = [i.get("start") for i in items if i.get("start")]
     ends = [i.get("end") for i in items if i.get("end")]
     start = min(starts) if starts else None
@@ -219,7 +223,6 @@ def aggregate(items):
         "losses": losses,
         "long_trades": long_trades,
         "short_trades": short_trades,
-        "long_short_ratio": long_short_ratio,
         "start": start,
         "end": end,
         "period_days": period_days,
@@ -234,7 +237,12 @@ for mk, strat_map in by_market_strategy.items():
         agg = aggregate(items)
         rows.append({"id": sid, "desc": items[0].get("strategy_desc"), **agg})
     rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
-    top_by_market[mk] = rows[:10]
+    top_by_market[mk] = rows[:5]
+
+# Top 3 overall strategies across all markets
+strategies_sorted = sorted(strategies, key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+
+top_overall = strategies_sorted[:3]
 
 summary = {
     "strategies": len(strategies),
@@ -268,7 +276,8 @@ payload = {
     "scope": "anonymized",
     "summary": summary,
     "targets": targets,
-    "strategies": sorted(strategies, key=lambda x: x["profit_factor"], reverse=True),
+    "top_overall": top_overall,
+    "strategies": strategies_sorted,
     "markets": sorted(markets_out, key=lambda x: x["profit_factor"], reverse=True),
     "top_by_market": top_by_market,
     "charts": {
