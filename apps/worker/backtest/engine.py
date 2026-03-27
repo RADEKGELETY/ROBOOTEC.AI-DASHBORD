@@ -35,57 +35,87 @@ def run_backtest(
     candles: List[Candle],
     strategy: BaseStrategy,
     initial_cash: float = 100000.0,
+    fee_rate: float = 0.0005,
+    slippage: float = 0.0005,
 ) -> tuple[BacktestMetrics, List[Trade]]:
+    # Full capital deployment per trade, long/short, with simple fees and slippage
     position = 0  # 1 long, -1 short, 0 flat
-    entry = 0.0
-    cash = initial_cash
-    equity_curve = [initial_cash]
+    entry_price = 0.0
+    equity = initial_cash
+    entry_equity_before = initial_cash
+    entry_equity_after = initial_cash
+
+    equity_curve = [equity]
     trades: List[Trade] = []
+
+    def px(price: float, side: str) -> float:
+        if side == "BUY":
+            return price * (1 + slippage)
+        return price * (1 - slippage)
 
     for i, bar in enumerate(candles):
         signal = strategy.on_bar(i, candles)
 
-        # Open/close logic
         if signal.side == "BUY":
             if position == -1:
-                pnl = entry - bar.close
-                cash += pnl
-                trades.append(Trade(entry_price=entry, exit_price=bar.close, side="SHORT", pnl=pnl))
+                exit_price = px(bar.close, "BUY")
+                equity_after = entry_equity_after * (entry_price / exit_price)
+                equity_after -= equity_after * fee_rate
+                pnl = equity_after - entry_equity_before
+                equity = equity_after
+                trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="SHORT", pnl=pnl))
                 position = 0
+
             if position == 0:
+                entry_equity_before = equity
+                equity -= equity * fee_rate
+                entry_equity_after = equity
+                entry_price = px(bar.close, "BUY")
                 position = 1
-                entry = bar.close
 
         elif signal.side == "SELL":
             if position == 1:
-                pnl = bar.close - entry
-                cash += pnl
-                trades.append(Trade(entry_price=entry, exit_price=bar.close, side="LONG", pnl=pnl))
+                exit_price = px(bar.close, "SELL")
+                equity_after = entry_equity_after * (exit_price / entry_price)
+                equity_after -= equity_after * fee_rate
+                pnl = equity_after - entry_equity_before
+                equity = equity_after
+                trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="LONG", pnl=pnl))
                 position = 0
+
             if position == 0:
+                entry_equity_before = equity
+                equity -= equity * fee_rate
+                entry_equity_after = equity
+                entry_price = px(bar.close, "SELL")
                 position = -1
-                entry = bar.close
 
         # Mark-to-market
         if position == 1:
-            equity = cash + (bar.close - entry)
+            equity_mark = entry_equity_after * (bar.close / entry_price)
         elif position == -1:
-            equity = cash + (entry - bar.close)
+            equity_mark = entry_equity_after * (entry_price / bar.close)
         else:
-            equity = cash
-        equity_curve.append(equity)
+            equity_mark = equity
+        equity_curve.append(equity_mark)
 
     # Close any open position at last price
     if candles:
         last = candles[-1].close
         if position == 1:
-            pnl = last - entry
-            cash += pnl
-            trades.append(Trade(entry_price=entry, exit_price=last, side="LONG", pnl=pnl))
+            exit_price = px(last, "SELL")
+            equity_after = entry_equity_after * (exit_price / entry_price)
+            equity_after -= equity_after * fee_rate
+            pnl = equity_after - entry_equity_before
+            equity = equity_after
+            trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="LONG", pnl=pnl))
         elif position == -1:
-            pnl = entry - last
-            cash += pnl
-            trades.append(Trade(entry_price=entry, exit_price=last, side="SHORT", pnl=pnl))
+            exit_price = px(last, "BUY")
+            equity_after = entry_equity_after * (entry_price / exit_price)
+            equity_after -= equity_after * fee_rate
+            pnl = equity_after - entry_equity_before
+            equity = equity_after
+            trades.append(Trade(entry_price=entry_price, exit_price=exit_price, side="SHORT", pnl=pnl))
 
     wins = [t for t in trades if t.pnl > 0]
     losses = [t for t in trades if t.pnl < 0]
@@ -109,7 +139,7 @@ def run_backtest(
         if dd > max_dd:
             max_dd = dd
 
-    final_equity = cash
+    final_equity = equity
     total_return = (final_equity - initial_cash) / initial_cash if initial_cash else 0.0
 
     long_trades = len([t for t in trades if t.side == "LONG"])
