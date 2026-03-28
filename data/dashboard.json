@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-27T16:39:11.943958Z",
+  "generated_at": "2026-03-28T15:08:57.884559Z",
   "scope": "anonymized",
   "summary": {
     "strategies": 41,
@@ -1493,8 +1493,8 @@
   ],
   "global_top10": [
     {
-      "id": "GEV",
-      "desc": "S22 - Bollinger mean reversion (window=10, mult=2.0)",
+      "id": "GE Vernova (GEV)",
+      "desc": "Bollinger mean reversion (window=10, mult=2.0)",
       "symbol": "gev.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
@@ -1510,8 +1510,8 @@
       "short_trades": 3
     },
     {
-      "id": "AZN",
-      "desc": "S27 - Donchian breakout (window=40)",
+      "id": "AstraZeneca (AZN)",
+      "desc": "Donchian breakout (window=40)",
       "symbol": "azn.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
@@ -1527,8 +1527,8 @@
       "short_trades": 0
     },
     {
-      "id": "MU",
-      "desc": "S28 - Donchian breakout (window=55)",
+      "id": "Micron Technology (MU)",
+      "desc": "Donchian breakout (window=55)",
       "symbol": "mu.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
@@ -1545,7 +1545,7 @@
     },
     {
       "id": "AMD",
-      "desc": "S19 - RSI mean reversion (window=7, OB=80, OS=20)",
+      "desc": "RSI mean reversion (window=7, OB=80, OS=20)",
       "symbol": "amd.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
@@ -1561,8 +1561,8 @@
       "short_trades": 4
     },
     {
-      "id": "ORCL",
-      "desc": "S25 - Bollinger mean reversion (window=30, mult=2.5)",
+      "id": "Oracle (ORCL)",
+      "desc": "Bollinger mean reversion (window=30, mult=2.5)",
       "symbol": "orcl.us",
       "win_rate": 0.5,
       "profit_factor": 9.663598736484694,
@@ -1578,8 +1578,8 @@
       "short_trades": 1
     },
     {
-      "id": "AMAT",
-      "desc": "S10 - SMA crossover (fast=20, slow=30)",
+      "id": "Applied Materials (AMAT)",
+      "desc": "SMA crossover (fast=20, slow=30)",
       "symbol": "amat.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
@@ -1595,8 +1595,8 @@
       "short_trades": 1
     },
     {
-      "id": "PLTR",
-      "desc": "S32 - MACD trend (fast=8, slow=21, signal=9)",
+      "id": "Palantir (PLTR)",
+      "desc": "MACD trend (fast=8, slow=21, signal=9)",
       "symbol": "pltr.us",
       "win_rate": 0.7777777777777778,
       "profit_factor": 7.591225367769016,
@@ -1612,8 +1612,8 @@
       "short_trades": 5
     },
     {
-      "id": "META",
-      "desc": "S25 - Bollinger mean reversion (window=30, mult=2.5)",
+      "id": "Meta Platforms (Facebook) (META)",
+      "desc": "Bollinger mean reversion (window=30, mult=2.5)",
       "symbol": "meta.us",
       "win_rate": 0.75,
       "profit_factor": 5.552860229558487,
@@ -1629,8 +1629,8 @@
       "short_trades": 2
     },
     {
-      "id": "CRM",
-      "desc": "S33 - MACD trend (fast=12, slow=26, signal=9)",
+      "id": "Salesforce (CRM)",
+      "desc": "MACD trend (fast=12, slow=26, signal=9)",
       "symbol": "crm.us",
       "win_rate": 0.8,
       "profit_factor": 14.973571223925266,
@@ -1646,8 +1646,8 @@
       "short_trades": 3
     },
     {
-      "id": "AMZN",
-      "desc": "S20 - RSI mean reversion (window=14, OB=70, OS=30)",
+      "id": "Amazon (AMZN)",
+      "desc": "RSI mean reversion (window=14, OB=70, OS=30)",
       "symbol": "amzn.us",
       "win_rate": 1.0,
       "profit_factor": 0.0,
