@@ -306,9 +306,15 @@ if global_raw:
         strategy_id = ensure_strategy_id(strat)
         symbol = rec.get("symbol") or "unknown"
         metrics = rec.get("metrics") or {}
+        info = global_symbol_map.get(symbol, {})
+        name = info.get("name")
+        ticker = info.get("ticker") or symbol
+        display = name or ticker
+        if name and ticker and name != ticker:
+            display = f"{name} ({ticker})"
         by_symbol.setdefault(symbol, []).append(
             {
-                "id": global_symbol_map.get(symbol, {}).get("ticker", symbol),
+                "id": display,
                 "desc": f"{strategy_id} - {strategy_desc.get(strategy_id, strat_desc(strat))}",
                 "symbol": symbol,
                 "win_rate": metrics.get("win_rate"),

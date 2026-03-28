@@ -74,9 +74,15 @@ def main() -> None:
     for rec in global_raw:
         symbol = rec.get("symbol") or "unknown"
         metrics = rec.get("metrics") or {}
+        info = symbol_map.get(symbol, {})
+        name = info.get("name")
+        ticker = info.get("ticker") or symbol
+        display = name or ticker
+        if name and ticker and name != ticker:
+            display = f"{name} ({ticker})"
         by_symbol.setdefault(symbol, []).append(
             {
-                "id": symbol_map.get(symbol, {}).get("ticker", symbol),
+                "id": display,
                 "desc": strat_desc(rec.get("strategy") or "unknown"),
                 "symbol": symbol,
                 "win_rate": metrics.get("win_rate"),
