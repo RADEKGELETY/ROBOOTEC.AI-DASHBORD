@@ -249,7 +249,7 @@
     <header>
       <div class="brand">RoboOtec</div>
       <h1>Public Dashboard (Anonymized)</h1>
-      <div class="muted">Public results only. No code, no symbols, no proprietary logic.</div>
+      <div class="muted">Public results only. No code or proprietary logic.</div>
       <div class="muted" id="updatedAt">Updated: –</div>
     </header>
 
@@ -289,6 +289,14 @@
       <div class="section-head">
         <h2>Top 5 per Instrument</h2>
         <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="globalTop10">
+      <div class="section-head">
+        <h2>Top 10 Global Stocks</h2>
+        <div class="muted">Top 100 by market cap, best strategy per stock.</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
@@ -609,6 +617,16 @@
             <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
           </div>
           <div class="market-grid">${topHtml || '<div class="muted">No data yet.</div>'}</div>
+        `;
+
+        const globalRows = data.global_top10 || [];
+        const gm = data.global_meta || {};
+        document.getElementById('globalTop10').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 Global Stocks</h2>
+            <div class="muted">Universe: ${gm.tested_count || 0} tested out of ${gm.universe_count || 0} (free data availability).</div>
+          </div>
+          ${renderMarketTable('Global Top 10 Stocks (Best Strategy)', globalRows)}
         `;
 
 
