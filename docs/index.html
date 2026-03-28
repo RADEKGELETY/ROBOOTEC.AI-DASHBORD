@@ -301,6 +301,14 @@
       <div class="muted">Loading…</div>
     </section>
 
+    <section class="section" id="sp500Top10">
+      <div class="section-head">
+        <h2>Top 10 S&amp;P 500 Stocks</h2>
+        <div class="muted">Known US large caps, best strategy per stock.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
     <section class="section" id="notes">
       <div class="section-head">
         <h2>Notes</h2>
@@ -627,6 +635,16 @@
             <div class="muted">Universe: ${gm.tested_count || 0} tested out of ${gm.universe_count || 0} (free data availability).</div>
           </div>
           ${renderMarketTable('Global Top 10 Stocks (Best Strategy)', globalRows)}
+        `;
+
+        const spRows = data.sp500_top10 || [];
+        const spMeta = data.sp500_meta || {};
+        document.getElementById('sp500Top10').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 S&amp;P 500 Stocks</h2>
+            <div class="muted">Universe: ${spMeta.tested_count || 0} tested out of ${spMeta.universe_count || 0}.</div>
+          </div>
+          ${renderMarketTable('Top 10 S&P 500 (Best Strategy)', spRows)}
         `;
 
 

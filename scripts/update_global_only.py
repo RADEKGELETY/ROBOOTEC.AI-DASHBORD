@@ -6,6 +6,8 @@ repo = Path(__file__).resolve().parents[1]
 base_path = repo / "docs" / "data" / "dashboard.json"
 global_backtests = repo / "data" / "global_backtests.json"
 global_universe_path = repo / "data" / "global_top100.json"
+sp500_backtests = repo / "data" / "sp500_backtests.json"
+sp500_universe_path = repo / "data" / "sp500_top10.json"
 
 
 def strat_desc(name: str) -> str:
@@ -113,6 +115,61 @@ def main() -> None:
         "universe_count": len(items),
         "tested_count": len({r.get("symbol") for r in global_raw}),
     }
+
+    # S&P 500 top 10 block (US large caps)
+    sp_universe = load_json(sp500_universe_path) or {}
+    sp_items = sp_universe.get("items", [])
+    sp_symbol_map = {}
+    for item in sp_items:
+        for sym in [item.get("stooq"), item.get("yahoo")]:
+            if sym:
+                sp_symbol_map[sym] = {
+                    "ticker": item.get("ticker") or sym,
+                    "name": item.get("name") or sym,
+                }
+
+    sp_raw = load_json(sp500_backtests) or []
+    sp_by_symbol = {}
+    for rec in sp_raw:
+        symbol = rec.get("symbol") or "unknown"
+        metrics = rec.get("metrics") or {}
+        info = sp_symbol_map.get(symbol, {})
+        name = info.get("name")
+        ticker = info.get("ticker") or symbol
+        display = name or ticker
+        if name and ticker and name != ticker:
+            display = f"{name} ({ticker})"
+        sp_by_symbol.setdefault(symbol, []).append(
+            {
+                "id": display,
+                "desc": strat_desc(rec.get("strategy") or "unknown"),
+                "symbol": symbol,
+                "win_rate": metrics.get("win_rate"),
+                "profit_factor": metrics.get("profit_factor"),
+                "max_drawdown": metrics.get("max_drawdown"),
+                "total_return": metrics.get("total_return"),
+                "return_usd": metrics.get("return_usd"),
+                "final_equity": metrics.get("final_equity"),
+                "initial_cash": rec.get("initial_cash"),
+                "trades": metrics.get("trades"),
+                "wins": metrics.get("wins"),
+                "losses": metrics.get("losses"),
+                "long_trades": metrics.get("long_trades"),
+                "short_trades": metrics.get("short_trades"),
+            }
+        )
+
+    sp_rows = []
+    for symbol, rows in sp_by_symbol.items():
+        rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+        sp_rows.append(rows[0])
+
+    sp_rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+    base["sp500_top10"] = sp_rows[:10]
+    base["sp500_meta"] = {
+        "universe_count": len(sp_items),
+        "tested_count": len({r.get("symbol") for r in sp_raw}),
+    }
     base["generated_at"] = datetime.utcnow().isoformat() + "Z"
 
     notes = base.get("notes", [])
@@ -120,6 +177,8 @@ def main() -> None:
         notes.append("Global universe sourced from CompaniesMarketCap top 100 by market cap.")
     if "Global price data sourced from free public providers (Stooq, Yahoo Finance)." not in notes:
         notes.append("Global price data sourced from free public providers (Stooq, Yahoo Finance).")
+    if "S&P 500 top 10 list sourced from Slickcharts." not in notes:
+        notes.append("S&P 500 top 10 list sourced from Slickcharts.")
     base["notes"] = notes
 
     base_path.write_text(json.dumps(base, indent=2), encoding="utf-8")
