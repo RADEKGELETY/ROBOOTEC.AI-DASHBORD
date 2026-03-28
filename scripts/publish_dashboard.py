@@ -5,6 +5,8 @@ from datetime import datetime
 repo = Path(__file__).resolve().parents[1]
 source_many = repo / "data" / "backtests.json"
 source_last = repo / "data" / "last_backtest.json"
+source_global = repo / "data" / "global_backtests.json"
+source_global_universe = repo / "data" / "global_top100.json"
 output = repo / "docs" / "data" / "dashboard.json"
 output.parent.mkdir(parents=True, exist_ok=True)
 
@@ -29,6 +31,19 @@ def load_backtests():
         return json.loads(source_many.read_text(encoding="utf-8"))
     if source_last.exists():
         return [json.loads(source_last.read_text(encoding="utf-8"))]
+    return []
+
+
+def load_global_backtests():
+    if source_global.exists():
+        return json.loads(source_global.read_text(encoding="utf-8"))
+    return []
+
+
+def load_global_universe():
+    if source_global_universe.exists():
+        payload = json.loads(source_global_universe.read_text(encoding="utf-8"))
+        return payload.get("items", [])
     return []
 
 
@@ -96,28 +111,36 @@ def strat_desc(name: str) -> str:
 
 
 raw = load_backtests()
+global_raw = load_global_backtests()
+global_universe = load_global_universe()
 
 # Anonymize strategies
 strategy_ids = {}
 strategy_desc = {}
-next_id = 1
+next_id = [1]
+
+
+def ensure_strategy_id(name: str) -> str:
+    if name not in strategy_ids:
+        strategy_ids[name] = f"S{next_id[0]}"
+        strategy_desc[strategy_ids[name]] = strat_desc(name)
+        next_id[0] += 1
+    return strategy_ids[name]
 
 records = []
 for r in raw:
     strat = r.get("strategy") or "unknown"
-    if strat not in strategy_ids:
-        strategy_ids[strat] = f"S{next_id}"
-        strategy_desc[strategy_ids[strat]] = strat_desc(strat)
-        next_id += 1
+    strategy_id = ensure_strategy_id(strat)
     symbol = r.get("symbol") or "unknown"
     group = GROUP_MAP.get(symbol_group.get(symbol, ""), "OTHER")
     metrics = r.get("metrics") or {}
 
     records.append(
         {
-            "strategy_id": strategy_ids[strat],
-            "strategy_desc": strategy_desc[strategy_ids[strat]],
+            "strategy_id": strategy_id,
+            "strategy_desc": strategy_desc[strategy_id],
             "market": group,
+            "symbol": symbol,
             "initial_cash": r.get("initial_cash"),
             "start": r.get("start"),
             "end": r.get("end"),
@@ -265,6 +288,56 @@ top_overall = market_strategy_rows
 strategies_sorted = sorted(strategies, key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
 rg_focus = [s for s in market_strategy_rows if (s.get("desc") or "").startswith("RG ")]
 
+# Global top 10 stocks (from global_top100 universe)
+global_symbol_map = {}
+for item in global_universe:
+    sym = item.get("stooq")
+    if sym:
+        global_symbol_map[sym] = {
+            "ticker": item.get("ticker") or sym,
+            "name": item.get("name") or sym,
+        }
+
+global_rows = []
+if global_raw:
+    by_symbol = {}
+    for rec in global_raw:
+        strat = rec.get("strategy") or "unknown"
+        strategy_id = ensure_strategy_id(strat)
+        symbol = rec.get("symbol") or "unknown"
+        metrics = rec.get("metrics") or {}
+        by_symbol.setdefault(symbol, []).append(
+            {
+                "id": global_symbol_map.get(symbol, {}).get("ticker", symbol),
+                "desc": f"{strategy_id} - {strategy_desc.get(strategy_id, strat_desc(strat))}",
+                "symbol": symbol,
+                "win_rate": metrics.get("win_rate"),
+                "profit_factor": metrics.get("profit_factor"),
+                "max_drawdown": metrics.get("max_drawdown"),
+                "total_return": metrics.get("total_return"),
+                "return_usd": metrics.get("return_usd"),
+                "final_equity": metrics.get("final_equity"),
+                "initial_cash": rec.get("initial_cash"),
+                "trades": metrics.get("trades"),
+                "wins": metrics.get("wins"),
+                "losses": metrics.get("losses"),
+                "long_trades": metrics.get("long_trades"),
+                "short_trades": metrics.get("short_trades"),
+            }
+        )
+
+    for symbol, items in by_symbol.items():
+        items.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+        global_rows.append(items[0])
+
+global_rows.sort(key=lambda x: (x["total_return"], x["profit_factor"], x["win_rate"]), reverse=True)
+global_top10 = global_rows[:10]
+
+global_meta = {
+    "universe_count": len(global_universe),
+    "tested_count": len({r.get("symbol") for r in global_raw}),
+}
+
 summary = {
     "strategies": len(strategies),
     "markets": len(markets_out),
@@ -306,6 +379,8 @@ payload = {
     "strategies": strategies_sorted,
     "markets": sorted(markets_out, key=lambda x: x["profit_factor"], reverse=True),
     "top_by_market": top_by_market,
+    "global_top10": global_top10,
+    "global_meta": global_meta,
     "charts": {
         "equity_curve": equity_curve,
         "drawdown_curve": drawdown_curve,
@@ -313,7 +388,8 @@ payload = {
     },
     "notes": [
         "Public anonymized dashboard export.",
-        "No symbols or strategy code included.",
+        "No proprietary code included.",
+        "Global universe sourced from CompaniesMarketCap top 100 by market cap.",
     ],
 }
 
