@@ -16,6 +16,7 @@ class Company:
     name: str
     ticker: str
     stooq: Optional[str]
+    yahoo: Optional[str]
     eligible: bool
 
 
@@ -37,7 +38,9 @@ def _parse_company(row: str, rank: int) -> Company:
     name = name_match.group(1).strip() if name_match else f"Company {rank}"
     ticker = _strip_tags(code_match.group(1)) if code_match else ""
     stooq = to_stooq_symbol(ticker)
-    return Company(rank=rank, name=name, ticker=ticker, stooq=stooq, eligible=bool(stooq))
+    yahoo = to_yahoo_symbol(ticker)
+    eligible = bool(stooq or yahoo)
+    return Company(rank=rank, name=name, ticker=ticker, stooq=stooq, yahoo=yahoo, eligible=eligible)
 
 
 def to_stooq_symbol(ticker: str) -> Optional[str]:
@@ -64,6 +67,17 @@ def to_stooq_symbol(ticker: str) -> Optional[str]:
     return f"{t.lower()}.us"
 
 
+def to_yahoo_symbol(ticker: str) -> Optional[str]:
+    if not ticker:
+        return None
+    t = ticker.strip().upper()
+    if t.isdigit():
+        return None
+    if "." in t:
+        return t
+    return t
+
+
 def main() -> None:
     html = requests.get(SOURCE_URL, timeout=30).text
     rows = _extract_rows(html)
@@ -83,6 +97,7 @@ def main() -> None:
                 "name": c.name,
                 "ticker": c.ticker,
                 "stooq": c.stooq,
+                "yahoo": c.yahoo,
                 "eligible": c.eligible,
             }
             for c in companies
@@ -92,7 +107,7 @@ def main() -> None:
     output.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     total = len(companies)
     eligible = sum(1 for c in companies if c.eligible)
-    print(f"Saved {total} companies ({eligible} eligible for Stooq) -> {output}")
+    print(f"Saved {total} companies ({eligible} eligible for free data) -> {output}")
 
 
 if __name__ == "__main__":

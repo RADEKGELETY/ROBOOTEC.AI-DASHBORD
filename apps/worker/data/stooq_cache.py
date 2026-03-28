@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 
 from apps.worker.providers.stooq import download_csv
+from apps.worker.providers.yahoo import download_daily_csv
 from apps.worker.providers.alpha_vantage_intraday import download_equity_intraday_csv, download_fx_intraday_csv
 from apps.worker.providers.binance import download_klines_csv
 
@@ -30,6 +31,10 @@ def save_symbol_csv(
 
     if provider == "stooq":
         csv_text = download_csv(symbol, start=start, end=end, interval=interval)
+    elif provider == "yahoo":
+        if interval != "d":
+            raise ValueError("Yahoo provider currently supports daily data only.")
+        csv_text = download_daily_csv(symbol, start=start, end=end)
     elif provider == "alpha_vantage":
         api_key = os.getenv("ALPHAVANTAGE_API_KEY")
         if asset == "fx":

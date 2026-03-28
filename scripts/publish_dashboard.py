@@ -291,12 +291,12 @@ rg_focus = [s for s in market_strategy_rows if (s.get("desc") or "").startswith(
 # Global top 10 stocks (from global_top100 universe)
 global_symbol_map = {}
 for item in global_universe:
-    sym = item.get("stooq")
-    if sym:
-        global_symbol_map[sym] = {
-            "ticker": item.get("ticker") or sym,
-            "name": item.get("name") or sym,
-        }
+    for sym in [item.get("stooq"), item.get("yahoo")]:
+        if sym:
+            global_symbol_map[sym] = {
+                "ticker": item.get("ticker") or sym,
+                "name": item.get("name") or sym,
+            }
 
 global_rows = []
 if global_raw:
@@ -390,6 +390,7 @@ payload = {
         "Public anonymized dashboard export.",
         "No proprietary code included.",
         "Global universe sourced from CompaniesMarketCap top 100 by market cap.",
+        "Global price data sourced from free public providers (Stooq, Yahoo Finance).",
     ],
 }
 

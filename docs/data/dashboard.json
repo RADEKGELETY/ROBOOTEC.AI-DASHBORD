@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-28T14:43:20.690933Z",
+  "generated_at": "2026-03-28T14:56:51.069222Z",
   "scope": "anonymized",
   "summary": {
     "strategies": 38,
@@ -1901,7 +1901,7 @@
   ],
   "global_meta": {
     "universe_count": 100,
-    "tested_count": 77
+    "tested_count": 79
   },
   "charts": {
     "equity_curve": [
@@ -1919,6 +1919,7 @@
   "notes": [
     "Public anonymized dashboard export.",
     "No proprietary code included.",
-    "Global universe sourced from CompaniesMarketCap top 100 by market cap."
+    "Global universe sourced from CompaniesMarketCap top 100 by market cap.",
+    "Global price data sourced from free public providers (Stooq, Yahoo Finance)."
   ]
 }

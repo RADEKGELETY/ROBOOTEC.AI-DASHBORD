@@ -38,7 +38,31 @@ def load_universe() -> list[dict]:
 
 def main() -> None:
     items = load_universe()
-    symbols = [i["stooq"] for i in items if i.get("stooq")]
+    symbols = []
+    symbol_meta = {}
+    for item in items:
+        stooq = item.get("stooq")
+        yahoo = item.get("yahoo")
+        if not (stooq or yahoo):
+            continue
+        if stooq:
+            key = stooq
+            provider = "stooq"
+        else:
+            key = yahoo
+            provider = "yahoo"
+        symbols.append(key)
+        meta = {
+            "stooq": stooq,
+            "yahoo": yahoo,
+            "provider": provider,
+            "ticker": item.get("ticker"),
+        }
+        symbol_meta[key] = meta
+        if stooq:
+            symbol_meta.setdefault(stooq, meta)
+        if yahoo:
+            symbol_meta.setdefault(yahoo, meta)
 
     strategies = [s for s in get_tuned_strategies() if not s.name.startswith("rg_")]
 
@@ -49,15 +73,62 @@ def main() -> None:
     skipped = 0
 
     for idx, sym in enumerate(symbols, start=1):
+        provider = (symbol_meta.get(sym) or {}).get("provider", "stooq")
         try:
-            csv_path = save_symbol_csv(sym, interval="d", start=start_dt, end=end_dt, use_cache=True)
+            csv_path = save_symbol_csv(sym, interval="d", start=start_dt, end=end_dt, provider=provider, use_cache=True)
             candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
         except Exception as exc:  # noqa: BLE001
-            print(f"[{idx}/{len(symbols)}] {sym}: download failed ({exc})")
-            skipped += 1
-            continue
+            print(f"[{idx}/{len(symbols)}] {sym}: {provider} failed ({exc})")
+            stooq = (symbol_meta.get(sym) or {}).get("stooq")
+            yahoo = (symbol_meta.get(sym) or {}).get("yahoo")
+            fallback = None
+            if provider == "stooq" and yahoo:
+                fallback = ("yahoo", yahoo)
+            elif provider == "yahoo" and stooq:
+                fallback = ("stooq", stooq)
+            if fallback:
+                try:
+                    provider = fallback[0]
+                    sym = fallback[1]
+                    csv_path = save_symbol_csv(sym, interval="d", start=start_dt, end=end_dt, provider=provider, use_cache=True)
+                    candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
+                except Exception as exc2:  # noqa: BLE001
+                    print(f"[{idx}/{len(symbols)}] {sym}: {provider} failed ({exc2})")
+                    skipped += 1
+                    continue
+            else:
+                skipped += 1
+                continue
 
-        if len(candles) < 30:
+        if len(candles) < 30 and provider == "stooq":
+            yahoo = (symbol_meta.get(sym) or {}).get("yahoo")
+            if yahoo:
+                try:
+                    provider = "yahoo"
+                    sym = yahoo
+                    csv_path = save_symbol_csv(sym, interval="d", start=start_dt, end=end_dt, provider="yahoo", use_cache=True)
+                    candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
+                except Exception as exc:  # noqa: BLE001
+                    print(f"[{idx}/{len(symbols)}] {sym}: yahoo failed ({exc})")
+            if len(candles) < 30:
+                print(f"[{idx}/{len(symbols)}] {sym}: insufficient data ({len(candles)} bars)")
+                skipped += 1
+                continue
+        elif len(candles) < 30 and provider == "yahoo":
+            stooq = (symbol_meta.get(sym) or {}).get("stooq")
+            if stooq:
+                try:
+                    provider = "stooq"
+                    sym = stooq
+                    csv_path = save_symbol_csv(sym, interval="d", start=start_dt, end=end_dt, provider="stooq", use_cache=True)
+                    candles = filter_last_months(load_ohlcv_csv(str(csv_path)), months=6)
+                except Exception as exc:  # noqa: BLE001
+                    print(f"[{idx}/{len(symbols)}] {sym}: stooq failed ({exc})")
+            if len(candles) < 30:
+                print(f"[{idx}/{len(symbols)}] {sym}: insufficient data ({len(candles)} bars)")
+                skipped += 1
+                continue
+        elif len(candles) < 30:
             print(f"[{idx}/{len(symbols)}] {sym}: insufficient data ({len(candles)} bars)")
             skipped += 1
             continue
@@ -75,6 +146,7 @@ def main() -> None:
                 {
                     "strategy": strat.name,
                     "symbol": sym,
+                    "provider": provider,
                     "initial_cash": 100000.0,
                     "start": start,
                     "end": end,
