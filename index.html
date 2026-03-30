@@ -605,6 +605,41 @@
       `;
     }
 
+    function renderOrdersTable(rows) {
+      if (!rows || !rows.length) {
+        return `<div class="muted">No paper orders yet.</div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td>${r.strategy || r.strategy_id || '—'}</td>
+          <td>${r.instrument || '—'}</td>
+          <td>${(r.side || '').toUpperCase()}</td>
+          <td>${r.qty ?? '—'}</td>
+          <td>${r.order_type || '—'}</td>
+          <td>${r.status || '—'}</td>
+          <td>${r.created_at || '—'}</td>
+        </tr>
+      `).join('');
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>Instrument</th>
+                <th>Side</th>
+                <th>Qty</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody>${body}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
     function renderJournal(strategies) {
       if (!strategies || !strategies.length) {
         return '<div class="muted">No data yet.</div>';
@@ -905,21 +940,16 @@
         const isLive = mode === 'live';
         document.getElementById('signalsSection').classList.toggle('hidden', !isLive);
         document.getElementById('journalSection').classList.toggle('hidden', !isLive);
-        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
-        backtestOnly.forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.classList.toggle('hidden', isLive);
-        });
+        document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
 
         if (isLive) {
-          document.getElementById('summary').innerHTML = `
+          const orders = data.paper_orders || [];
+          document.getElementById('paperOrders').innerHTML = `
             <div class="section-head">
-              <h2>Overview</h2>
-              <div class="muted">Live view shows signals + journal below</div>
+              <h2>Paper Trading (Orders)</h2>
+              <div class="muted">BTC paper execution via Alpaca</div>
             </div>
-            <div class="note-banner">
-              <div class="muted">Live mode active. Backtest blocks are hidden.</div>
-            </div>
+            ${renderOrdersTable(orders)}
           `;
 
           const sigs = data.signals_by_instrument || {};
