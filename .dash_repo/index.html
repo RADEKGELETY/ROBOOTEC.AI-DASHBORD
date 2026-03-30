@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RoboOtec – Public Dashboard (Anonymized)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+    :root {
+      --bg: #0b0f14;
+      --surface: #111826;
+      --surface-2: #0f151f;
+      --text: #e9eef6;
+      --muted: #93a1b4;
+      --accent: #6dd3fb;
+      --accent-2: #7ef2a1;
+      --danger: #ff6b6b;
+      --grid: #1b2534;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      background: radial-gradient(1400px 900px at 10% -10%, #1b2432 0%, #0b0f14 60%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 44px 24px 80px;
+    }
+    header {
+      display: grid;
+      gap: 8px;
+      padding: 28px 0 20px;
+      border-bottom: 1px solid var(--grid);
+    }
+    .brand {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .muted { color: var(--muted); }
+    .mode-toggle {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .mode-btn {
+      border: 1px solid var(--grid);
+      background: #0f141c;
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mode-btn.active {
+      background: linear-gradient(135deg, #183045, #142336);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(109, 211, 251, 0.2);
+    }
+    .mode-btn:hover {
+      border-color: var(--accent-2);
+    }
+    .section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--grid);
+      margin-bottom: 32px;
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .note-banner {
+      background: linear-gradient(135deg, #141b26, #0f141c);
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .banner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .banner {
+      background: linear-gradient(135deg, #141b26, #0f141c);
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+      min-height: 140px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    .banner-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .banner-metric {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .cards {
+      display: grid;
+      gap: 12px;
+    }
+    .table-block {
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: var(--surface);
+      display: grid;
+      gap: 10px;
+    }
+    .market-grid {
+      display: grid;
+      gap: 26px;
+    }
+    .table-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--grid);
+      white-space: nowrap;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    td.strategy {
+      white-space: normal;
+      min-width: 200px;
+    }
+    tr.summary-row td {
+      font-weight: 700;
+      background: rgba(109, 211, 251, 0.08);
+      border-top: 2px solid var(--grid);
+    }
+    tr.summary-row td.strategy {
+      font-weight: 700;
+    }
+    .key-metric {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .section.hidden {
+      display: none;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border: 1px solid var(--grid);
+      background: #0f141c;
+    }
+    .pill.pos { border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
+    .pill.neg { border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    details.journal {
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 10px 14px;
+      background: var(--surface);
+    }
+    details.journal summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    details.journal summary::-webkit-details-marker { display: none; }
+    details.journal + details.journal { margin-top: 10px; }
+    @media (max-width: 720px) {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 8px;
+      }
+      thead {
+        display: none;
+      }
+      tr {
+        display: block;
+        background: #0b1422;
+        border: 1px solid var(--grid);
+        border-radius: 12px;
+        padding: 8px 10px;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        white-space: normal;
+        border-bottom: none;
+        padding: 6px 2px;
+        gap: 12px;
+      }
+      td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        flex: 1 1 45%;
+      }
+      td > * {
+        text-align: right;
+        flex: 1 1 55%;
+      }
+      td.strategy {
+        display: block;
+      }
+      td.strategy::before {
+        content: "Strategy";
+      }
+      td.strategy strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+      tr.summary-row {
+        border: 2px solid rgba(109, 211, 251, 0.4);
+      }
+    }
+    .row {
+      border: 1px solid var(--grid);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: var(--surface);
+      display: grid;
+      gap: 8px;
+    }
+    .row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .row-title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .row-desc {
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+    .row-metrics {
+      display: grid;
+      grid-template-columns: 2fr repeat(8, minmax(90px, 1fr));
+      gap: 10px;
+      align-items: center;
+      font-size: 12.5px;
+    }
+    .metric-label { color: var(--muted); font-size: 11px; }
+    .metric-value { font-weight: 600; }
+    .pos { color: var(--accent-2); }
+    .neg { color: var(--danger); }
+    @media (max-width: 900px) {
+      .row-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">RoboOtec</div>
+      <h1>Public Dashboard (Anonymized)</h1>
+      <div class="muted">Public results only. No code or proprietary logic.</div>
+      <div class="muted" id="updatedAt">Updated: –</div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="backtest">Backtest</button>
+        <button class="mode-btn" data-mode="live">Live Trading</button>
+      </div>
+    </header>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <h2>Overview</h2>
+        <div class="muted">Demo backtest summary</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="top10Overall">
+      <div class="section-head">
+        <h2>Top 10 Strategies (Overall)</h2>
+        <div class="muted">Each strategy trades 100,000 USD. Summary row shows combined 1,000,000 USD portfolio.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="topOverall" style="display:none">
+      <div class="section-head">
+        <h2>Top 3 Strategies (Overall)</h2>
+        <div class="muted">Sorted by highest return.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="topPerMarket">
+      <div class="section-head">
+        <h2>Top 3 Strategies (One per Market)</h2>
+        <div class="muted">Best strategy from each market, then ranked by return.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="topByMarket">
+      <div class="section-head">
+        <h2>Top 5 per Instrument</h2>
+        <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="globalTop10">
+      <div class="section-head">
+        <h2>Top 10 Global Stocks</h2>
+        <div class="muted">Top 100 by market cap, best strategy per stock.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="sp500Top10">
+      <div class="section-head">
+        <h2>Top 10 S&amp;P 500 Stocks</h2>
+        <div class="muted">Known US large caps, best strategy per stock.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section hidden" id="signalsSection">
+      <div class="section-head">
+        <h2>Live Signals</h2>
+        <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section hidden" id="journalSection">
+      <div class="section-head">
+        <h2>Live Journal</h2>
+        <div class="muted">Open and closed trades per strategy</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="section-head">
+        <h2>Notes</h2>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+  </div>
+
+  <script>
+    const fmtPct = (v) => (v * 100).toFixed(2).replace('.', ',') + ' %';
+    const fmtInt = (v) => {
+      const n = Math.round(v ?? 0).toString();
+      return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+    const fmtUsd = (v) => `$ ${fmtInt(v ?? 0)}`;
+
+    const posClass = (v) => (v ?? 0) >= 0 ? 'pos' : 'neg';
+    const winClass = (v) => (v ?? 0) >= 0.5 ? 'pos' : 'neg';
+
+    function renderStrategyRows(rows, showRank) {
+      if (!rows.length) return '<div class="muted">No data yet.</div>';
+      return `<div class="cards">${rows.map((r, i) => `
+        <div class="row">
+          <div class="row-head">
+            <div>
+              <div class="row-title">${showRank ? `#${i + 1} ` : ''}${r.id}${r.market ? ` • ${r.market}` : ''}</div>
+              <div class="row-desc">${r.desc || ''}</div>
+            </div>
+          </div>
+          <div class="row-metrics">
+            <div class="metric-value ${posClass(r.total_return)}">${fmtPct(r.total_return || 0)}</div>
+            <div class="metric-value ${posClass(r.return_usd)}">${fmtUsd(r.return_usd || 0)}</div>
+            <div class="metric-value">${fmtPct(r.win_rate || 0)}</div>
+            <div class="metric-value">${(r.profit_factor || 0).toFixed(2)}</div>
+            <div class="metric-value">${fmtInt(r.trades || 0)}</div>
+            <div class="metric-value">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</div>
+            <div class="metric-value">${fmtPct(r.max_drawdown || 0)}</div>
+            <div class="metric-value">${fmtUsd(r.final_equity || 0)}</div>
+          </div>
+        </div>
+      `).join('')}</div>`;
+    }
+
+    function renderMarketBanners(markets) {
+      if (!markets.length) return '<div class="muted">No data yet.</div>';
+      return `<div class="banner-grid">${markets.map(m => `
+        <div class="banner">
+          <div class="banner-title">${m.market}</div>
+          <div class="banner-metric ${posClass(m.total_return)}">${fmtPct(m.total_return || 0)}</div>
+          <div class="muted">Return USD: <span class="${posClass(m.return_usd)}">${fmtUsd(m.return_usd || 0)}</span></div>
+          <div class="muted">Win Rate: ${fmtPct(m.win_rate || 0)} | PF: ${(m.profit_factor || 0).toFixed(2)}</div>
+          <div class="muted">Max DD: ${fmtPct(m.max_drawdown || 0)}</div>
+        </div>
+      `).join('')}</div>`;
+    }
+
+    function renderMarketTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>${r.id}</strong> — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Return %</th>
+                  <th>Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins / Losses</th>
+                  <th>Drawdown</th>
+                  <th>Final</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderListTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map((r, i) => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>#${i + 1} ${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Return %</th>
+                  <th>Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins / Losses</th>
+                  <th>Drawdown</th>
+                  <th>Final</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function aggregateTop10(rows) {
+      const initial = rows.reduce((acc, r) => acc + (r.initial_cash || 0), 0);
+      const final = rows.reduce((acc, r) => acc + (r.final_equity || 0), 0);
+      const profit = final - initial;
+      const trades = rows.reduce((acc, r) => acc + (r.trades || 0), 0);
+      const wins = rows.reduce((acc, r) => acc + (r.wins || 0), 0);
+      const losses = rows.reduce((acc, r) => acc + (r.losses || 0), 0);
+      const winRate = trades ? wins / trades : 0;
+      const pfWeighted = trades ? rows.reduce((acc, r) => acc + (r.profit_factor || 0) * (r.trades || 0), 0) / trades : 0;
+      const maxDrawdown = rows.reduce((acc, r) => Math.max(acc, r.max_drawdown || 0), 0);
+      return {
+        initial_cash: initial,
+        final_equity: final,
+        return_usd: profit,
+        total_return: initial ? profit / initial : 0,
+        trades,
+        wins,
+        losses,
+        win_rate: winRate,
+        profit_factor: pfWeighted,
+        max_drawdown: maxDrawdown
+      };
+    }
+
+    function renderSignalsTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>${r.strategy}</strong> — ${r.instrument}</td>
+          <td data-label="Direction"><span class="pill ${r.direction === 'LONG' ? 'pos' : 'neg'}">${r.direction}</span></td>
+          <td data-label="Entry">${fmtUsd(r.entry || 0)}</td>
+          <td data-label="SL">${fmtUsd(r.sl || 0)}</td>
+          <td data-label="TP">${fmtUsd(r.tp || 0)}</td>
+          <td data-label="Confidence">${fmtPct(r.confidence || 0)}</td>
+          <td data-label="Timestamp">${r.timestamp || '—'}</td>
+          <td data-label="Reason">${r.reason || '—'}</td>
+          <td data-label="Status">${r.status || '—'}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Direction</th>
+                  <th>Entry</th>
+                  <th>SL</th>
+                  <th>TP</th>
+                  <th>Confidence</th>
+                  <th>Timestamp</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderJournal(strategies) {
+      if (!strategies || !strategies.length) {
+        return '<div class="muted">No data yet.</div>';
+      }
+      return strategies.map(s => `
+        <details class="journal">
+          <summary>
+            <span>${s.name}</span>
+            <span class="muted">${s.trades.length} trades</span>
+          </summary>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Instrument</th>
+                  <th>Entry</th>
+                  <th>Exit</th>
+                  <th>SL</th>
+                  <th>TP</th>
+                  <th>Size</th>
+                  <th>Risk</th>
+                  <th>Confidence</th>
+                  <th>Regime</th>
+                  <th>Entry Reason</th>
+                  <th>Exit Reason</th>
+                  <th>PnL</th>
+                  <th>PnL (R)</th>
+                  <th>Fees</th>
+                  <th>Slippage</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${s.trades.map(t => `
+                  <tr>
+                    <td data-label="Instrument">${t.instrument || '—'}</td>
+                    <td data-label="Entry">${fmtUsd(t.entry || 0)}</td>
+                    <td data-label="Exit">${fmtUsd(t.exit || 0)}</td>
+                    <td data-label="SL">${fmtUsd(t.sl || 0)}</td>
+                    <td data-label="TP">${fmtUsd(t.tp || 0)}</td>
+                    <td data-label="Size">${fmtInt(t.size || 0)}</td>
+                    <td data-label="Risk">${fmtPct(t.risk || 0)}</td>
+                    <td data-label="Confidence">${fmtPct(t.confidence || 0)}</td>
+                    <td data-label="Regime">${t.regime || '—'}</td>
+                    <td data-label="Entry Reason">${t.entry_reason || '—'}</td>
+                    <td data-label="Exit Reason">${t.exit_reason || '—'}</td>
+                    <td data-label="PnL" class="${posClass(t.pnl || 0)}">${fmtUsd(t.pnl || 0)}</td>
+                    <td data-label="PnL (R)">${(t.pnl_r || 0).toFixed(2)}</td>
+                    <td data-label="Fees">${fmtUsd(t.fees || 0)}</td>
+                    <td data-label="Slippage">${fmtUsd(t.slippage || 0)}</td>
+                    <td data-label="Status">${t.status || '—'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      `).join('');
+    }
+
+    function renderTop10Table(rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">Top 10 (Overall)</div><div class="muted">No data yet.</div></div>`;
+      }
+      const summary = aggregateTop10(rows);
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>${r.id}</strong>${r.market ? ` • ${r.market}` : ''} — ${r.desc || ''}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Return %">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.return_usd)}" data-label="Return USD">${fmtUsd(r.return_usd || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Wins / Losses">${fmtInt(r.wins || 0)} / ${fmtInt(r.losses || 0)}</td>
+          <td data-label="Drawdown">${fmtPct(r.max_drawdown || 0)}</td>
+          <td data-label="Final">${fmtUsd(r.final_equity || 0)}</td>
+        </tr>
+      `).join('');
+
+      const summaryTable = `
+        <div class="table-block">
+          <div class="table-title">Top 10 Combined Summary (1,000,000 USD)</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Total Return %</th>
+                  <th>Total Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins/Losses</th>
+                  <th>Max Drawdown</th>
+                  <th>Final Equity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="summary-row">
+                  <td class="key-metric ${posClass(summary.total_return)}" data-label="Total Return %">${fmtPct(summary.total_return || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}" data-label="Total Return USD">${fmtUsd(summary.return_usd || 0)}</td>
+                  <td class="key-metric ${winClass(summary.win_rate)}" data-label="Win Rate">${fmtPct(summary.win_rate || 0)}</td>
+                  <td data-label="Profit Factor">${summary.profit_factor.toFixed(2)}</td>
+                  <td data-label="Trades">${fmtInt(summary.trades || 0)}</td>
+                  <td data-label="Wins / Losses">${fmtInt(summary.wins || 0)} / ${fmtInt(summary.losses || 0)}</td>
+                  <td data-label="Max Drawdown">${fmtPct(summary.max_drawdown || 0)}</td>
+                  <td class="key-metric ${posClass(summary.return_usd)}" data-label="Final Equity">${fmtUsd(summary.final_equity || 0)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      const detailsTable = `
+        <div class="table-block">
+          <div class="table-title">Top 10 Strategies (Overall)</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Return %</th>
+                  <th>Return USD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Wins/Losses</th>
+                  <th>Drawdown</th>
+                  <th>Final</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${body}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      return `${summaryTable}${detailsTable}`;
+    }
+
+    function marketLabel(code) {
+      const map = {
+        US_STOCKS: 'NASDAQ / US Stocks',
+        GOLD: 'Gold',
+        CRYPTO: 'Bitcoin',
+        FX: 'EUR/USD'
+      };
+      return map[code] || code;
+    }
+
+    const sources = {
+      backtest: 'data/dashboard.json',
+      live: 'data/live.json'
+    };
+
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    let currentMode = 'backtest';
+    const isFileProtocol = window.location.protocol === 'file:';
+
+    function showLoadError(message) {
+      const html = `
+        <div class="section-head">
+          <h2>Unable to Load Data</h2>
+          <div class="muted">${message}</div>
+        </div>
+      `;
+      const ids = [
+        'summary',
+        'top10Overall',
+        'topPerMarket',
+        'topByMarket',
+        'globalTop10',
+        'sp500Top10',
+        'signalsSection',
+        'journalSection',
+        'notes'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+      const updated = document.getElementById('updatedAt');
+      if (updated) updated.textContent = 'Updated: –';
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      modeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+      loadData(mode);
+    }
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => setMode(btn.dataset.mode));
+    });
+
+    function loadData(mode) {
+      const url = sources[mode] || sources.backtest;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => renderDashboard(data, mode))
+        .catch(() => {
+          if (isFileProtocol) {
+            showLoadError('Local file mode blocks JSON loading. Open docs/preview.command or run a local preview server, then open http://localhost:8000');
+            return;
+          }
+          if (mode !== 'backtest') {
+            loadData('backtest');
+            return;
+          }
+          showLoadError('Failed to load data. Please refresh or check your connection.');
+        });
+    }
+
+    function renderDashboard(data, mode) {
+      const s = data.summary || {};
+      const period = s.test_period || {};
+
+        const modeLabel = mode === 'live' ? 'Live trading' : 'Backtest';
+        document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at} • ${modeLabel}`;
+
+        document.getElementById('summary').innerHTML = `
+          <div class="section-head">
+            <h2>Overview</h2>
+            <div class="muted">Demo backtest summary</div>
+          </div>
+          <div class="note-banner">
+            <div class="muted">Period: <strong>${period.start || '—'} → ${period.end || '—'}</strong></div>
+            <div class="muted">Initial capital per strategy: <strong>${fmtUsd(s.initial_cash || 100000)}</strong></div>
+          </div>
+        `;
+
+        const tbm = data.top_by_market || {};
+        const tbmRows = Object.values(tbm).flat();
+        const topOverall = (tbmRows.length ? tbmRows : (data.top_overall || [])).slice()
+          .sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
+        const top10 = topOverall.slice(0, 10);
+        document.getElementById('top10Overall').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 Strategies (Overall)</h2>
+            <div class="muted">Each strategy trades 100,000 USD. Summary row shows combined 1,000,000 USD portfolio.</div>
+          </div>
+          ${renderTop10Table(top10)}
+        `;
+        const perMarket = [];
+        if (tbm.US_STOCKS && tbm.US_STOCKS[0]) perMarket.push({ ...tbm.US_STOCKS[0], market: marketLabel('US_STOCKS') });
+        if (tbm.GOLD && tbm.GOLD[0]) perMarket.push({ ...tbm.GOLD[0], market: marketLabel('GOLD') });
+        if (tbm.CRYPTO && tbm.CRYPTO[0]) perMarket.push({ ...tbm.CRYPTO[0], market: marketLabel('CRYPTO') });
+        if (tbm.FX && tbm.FX[0]) perMarket.push({ ...tbm.FX[0], market: marketLabel('FX') });
+        perMarket.sort((a, b) => (b.total_return || 0) - (a.total_return || 0));
+        const topPerMarket = perMarket.slice(0, 3);
+        document.getElementById('topPerMarket').innerHTML = `
+          <div class="section-head">
+            <h2>Top 3 Strategies (One per Market)</h2>
+            <div class="muted">Best strategy from each market, then ranked by return.</div>
+          </div>
+          ${renderListTable('Top 3 (One per Market)', topPerMarket)}
+        `;
+
+        let topHtml = '';
+        if (tbm.US_STOCKS) topHtml += renderMarketTable('NASDAQ / US Stocks', tbm.US_STOCKS);
+        if (tbm.GOLD) topHtml += renderMarketTable('Gold', tbm.GOLD);
+        if (tbm.CRYPTO) topHtml += renderMarketTable('Bitcoin', tbm.CRYPTO);
+        if (tbm.FX) topHtml += renderMarketTable('EUR/USD', tbm.FX);
+
+        document.getElementById('topByMarket').innerHTML = `
+          <div class="section-head">
+            <h2>Top 5 per Instrument</h2>
+            <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+          </div>
+          <div class="market-grid">${topHtml || '<div class="muted">No data yet.</div>'}</div>
+        `;
+
+        const globalRows = data.global_top10 || [];
+        const gm = data.global_meta || {};
+        document.getElementById('globalTop10').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 Global Stocks</h2>
+            <div class="muted">Universe: ${gm.tested_count || 0} tested out of ${gm.universe_count || 0} (free data availability).</div>
+          </div>
+          ${renderMarketTable('Global Top 10 Stocks (Best Strategy)', globalRows)}
+        `;
+
+        const spRows = data.sp500_top10 || [];
+        const spMeta = data.sp500_meta || {};
+        document.getElementById('sp500Top10').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 S&amp;P 500 Stocks</h2>
+            <div class="muted">Universe: ${spMeta.tested_count || 0} tested out of ${spMeta.universe_count || 0}.</div>
+          </div>
+          ${renderMarketTable('Top 10 S&P 500 (Best Strategy)', spRows)}
+        `;
+
+
+        const isLive = mode === 'live';
+        document.getElementById('signalsSection').classList.toggle('hidden', !isLive);
+        document.getElementById('journalSection').classList.toggle('hidden', !isLive);
+
+        if (isLive) {
+          const sigs = data.signals_by_instrument || {};
+          const sigHtml = [
+            renderSignalsTable('NASDAQ Signals', sigs.NASDAQ || []),
+            renderSignalsTable('Gold Signals', sigs.GOLD || []),
+            renderSignalsTable('Bitcoin Signals', sigs.BTC || []),
+            renderSignalsTable('EUR/USD Signals', sigs.EURUSD || []),
+          ].join('');
+          document.getElementById('signalsSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Signals</h2>
+              <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+            </div>
+            <div class="market-grid">${sigHtml}</div>
+          `;
+
+          const journal = data.journal_strategies || [];
+          document.getElementById('journalSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Journal</h2>
+              <div class="muted">Open and closed trades per strategy</div>
+            </div>
+            ${renderJournal(journal)}
+          `;
+        }
+
+        document.getElementById('notes').innerHTML = `
+          <div class="section-head"><h2>Notes</h2></div>
+          <div class="muted">${(data.notes || []).map(n => `• ${n}`).join('<br>')}</div>
+        `;
+    }
+
+    loadData(currentMode);
+  </script>
+</body>
+</html>
