@@ -897,8 +897,23 @@
         const isLive = mode === 'live';
         document.getElementById('signalsSection').classList.toggle('hidden', !isLive);
         document.getElementById('journalSection').classList.toggle('hidden', !isLive);
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
+        backtestOnly.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.toggle('hidden', isLive);
+        });
 
         if (isLive) {
+          document.getElementById('summary').innerHTML = `
+            <div class="section-head">
+              <h2>Overview</h2>
+              <div class="muted">Live view shows signals + journal below</div>
+            </div>
+            <div class="note-banner">
+              <div class="muted">Live mode active. Backtest blocks are hidden.</div>
+            </div>
+          `;
+
           const sigs = data.signals_by_instrument || {};
           const sigHtml = [
             renderSignalsTable('NASDAQ Signals', sigs.NASDAQ || []),
