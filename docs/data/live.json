@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-03-30T00:00:00Z",
+  "scope": "live",
+  "summary": {
+    "strategies": 0,
+    "markets": 0,
+    "records": 0,
+    "avg_win_rate": 0,
+    "avg_profit_factor": 0,
+    "avg_drawdown": 0,
+    "avg_return": 0,
+    "initial_cash": 100000,
+    "test_period": {
+      "start": null,
+      "end": null
+    }
+  },
+  "targets": {
+    "win_rate": 0.6,
+    "total_return": 0.5
+  },
+  "top_overall": [],
+  "rg_focus": [],
+  "strategies": [],
+  "markets": [],
+  "top_by_market": {
+    "US_STOCKS": [],
+    "FX": [],
+    "GOLD": [],
+    "CRYPTO": []
+  },
+  "global_top10": [],
+  "global_meta": {
+    "universe_count": 0,
+    "tested_count": 0
+  },
+  "sp500_top10": [],
+  "sp500_meta": {
+    "universe_count": 0,
+    "tested_count": 0
+  },
+  "charts": {
+    "equity_curve": [],
+    "drawdown_curve": [],
+    "label": "N/A"
+  },
+  "notes": [
+    "Live trading not connected yet. Add Alpaca paper account to start streaming results.",
+    "Once enabled, this view will show real-time paper trading performance."
+  ]
+}
