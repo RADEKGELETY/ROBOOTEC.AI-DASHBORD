@@ -46,6 +46,31 @@
       margin: 0;
     }
     .muted { color: var(--muted); }
+    .mode-toggle {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .mode-btn {
+      border: 1px solid var(--grid);
+      background: #0f141c;
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mode-btn.active {
+      background: linear-gradient(135deg, #183045, #142336);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(109, 211, 251, 0.2);
+    }
+    .mode-btn:hover {
+      border-color: var(--accent-2);
+    }
     .section {
       padding: 28px 0;
       border-bottom: 1px solid var(--grid);
@@ -251,6 +276,10 @@
       <h1>Public Dashboard (Anonymized)</h1>
       <div class="muted">Public results only. No code or proprietary logic.</div>
       <div class="muted" id="updatedAt">Updated: –</div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="backtest">Backtest</button>
+        <button class="mode-btn" data-mode="live">Live Trading</button>
+      </div>
     </header>
 
     <section class="section" id="summary">
@@ -567,13 +596,44 @@
       return map[code] || code;
     }
 
-    fetch('data/dashboard.json')
-      .then(r => r.json())
-      .then(data => {
+    const sources = {
+      backtest: 'data/dashboard.json',
+      live: 'data/live.json'
+    };
+
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    let currentMode = 'backtest';
+
+    function setMode(mode) {
+      currentMode = mode;
+      modeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+      loadData(mode);
+    }
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => setMode(btn.dataset.mode));
+    });
+
+    function loadData(mode) {
+      const url = sources[mode] || sources.backtest;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => renderDashboard(data, mode))
+        .catch(() => {
+          if (mode !== 'backtest') {
+            loadData('backtest');
+          }
+        });
+    }
+
+    function renderDashboard(data, mode) {
         const s = data.summary || {};
         const period = s.test_period || {};
 
-        document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at}`;
+        const modeLabel = mode === 'live' ? 'Live trading' : 'Backtest';
+        document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at} • ${modeLabel}`;
 
         document.getElementById('summary').innerHTML = `
           <div class="section-head">
@@ -652,7 +712,9 @@
           <div class="section-head"><h2>Notes</h2></div>
           <div class="muted">${(data.notes || []).map(n => `• ${n}`).join('<br>')}</div>
         `;
-      });
+    }
+
+    loadData(currentMode);
   </script>
 </body>
 </html>
