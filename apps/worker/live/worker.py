@@ -9,7 +9,7 @@ from apps.worker.data.stooq_cache import save_symbol_csv
 from apps.worker.live.alpaca_trade import submit_crypto_order, now_iso
 from apps.worker.live.db import connect, ensure_schema, insert_strategy, insert_signal, insert_order
 
-CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "live.json"
+CONFIG_PATH = Path(__file__).resolve().parents[3] / "config" / "live.json"
 
 
 def load_config() -> dict:

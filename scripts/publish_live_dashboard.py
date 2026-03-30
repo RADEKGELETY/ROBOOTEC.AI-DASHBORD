@@ -1,11 +1,16 @@
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from apps.worker.live.db import connect, ensure_schema, fetch_recent_signals, fetch_journal
 
 
-OUTPUT = Path(__file__).resolve().parents[1] / "docs" / "data" / "live.json"
+OUTPUT = ROOT_DIR / "docs" / "data" / "live.json"
 
 
 def build_payload() -> dict:
