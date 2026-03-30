@@ -756,6 +756,33 @@
 
     const modeButtons = document.querySelectorAll('.mode-btn');
     let currentMode = 'backtest';
+    const isFileProtocol = window.location.protocol === 'file:';
+
+    function showLoadError(message) {
+      const html = `
+        <div class="section-head">
+          <h2>Unable to Load Data</h2>
+          <div class="muted">${message}</div>
+        </div>
+      `;
+      const ids = [
+        'summary',
+        'top10Overall',
+        'topPerMarket',
+        'topByMarket',
+        'globalTop10',
+        'sp500Top10',
+        'signalsSection',
+        'journalSection',
+        'notes'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      });
+      const updated = document.getElementById('updatedAt');
+      if (updated) updated.textContent = 'Updated: –';
+    }
 
     function setMode(mode) {
       currentMode = mode;
@@ -775,9 +802,15 @@
         .then(r => r.json())
         .then(data => renderDashboard(data, mode))
         .catch(() => {
+          if (isFileProtocol) {
+            showLoadError('Local file mode blocks JSON loading. Open docs/preview.command or run a local preview server, then open http://localhost:8000');
+            return;
+          }
           if (mode !== 'backtest') {
             loadData('backtest');
+            return;
           }
+          showLoadError('Failed to load data. Please refresh or check your connection.');
         });
     }
 
