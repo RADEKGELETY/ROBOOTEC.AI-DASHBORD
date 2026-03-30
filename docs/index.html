@@ -179,6 +179,40 @@
       font-weight: 700;
       font-size: 14px;
     }
+    .section.hidden {
+      display: none;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border: 1px solid var(--grid);
+      background: #0f141c;
+    }
+    .pill.pos { border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
+    .pill.neg { border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    details.journal {
+      border: 1px solid var(--grid);
+      border-radius: 16px;
+      padding: 10px 14px;
+      background: var(--surface);
+    }
+    details.journal summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    details.journal summary::-webkit-details-marker { display: none; }
+    details.journal + details.journal { margin-top: 10px; }
     @media (max-width: 720px) {
       table {
         border-collapse: separate;
@@ -334,6 +368,22 @@
       <div class="section-head">
         <h2>Top 10 S&amp;P 500 Stocks</h2>
         <div class="muted">Known US large caps, best strategy per stock.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section hidden" id="signalsSection">
+      <div class="section-head">
+        <h2>Live Signals</h2>
+        <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section hidden" id="journalSection">
+      <div class="section-head">
+        <h2>Live Journal</h2>
+        <div class="muted">Open and closed trades per strategy</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
@@ -504,6 +554,109 @@
       };
     }
 
+    function renderSignalsTable(title, rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">${title}</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>${r.strategy}</strong> — ${r.instrument}</td>
+          <td data-label="Direction"><span class="pill ${r.direction === 'LONG' ? 'pos' : 'neg'}">${r.direction}</span></td>
+          <td data-label="Entry">${fmtUsd(r.entry || 0)}</td>
+          <td data-label="SL">${fmtUsd(r.sl || 0)}</td>
+          <td data-label="TP">${fmtUsd(r.tp || 0)}</td>
+          <td data-label="Confidence">${fmtPct(r.confidence || 0)}</td>
+          <td data-label="Timestamp">${r.timestamp || '—'}</td>
+          <td data-label="Reason">${r.reason || '—'}</td>
+          <td data-label="Status">${r.status || '—'}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <div class="table-block">
+          <div class="table-title">${title}</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Direction</th>
+                  <th>Entry</th>
+                  <th>SL</th>
+                  <th>TP</th>
+                  <th>Confidence</th>
+                  <th>Timestamp</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderJournal(strategies) {
+      if (!strategies || !strategies.length) {
+        return '<div class="muted">No data yet.</div>';
+      }
+      return strategies.map(s => `
+        <details class="journal">
+          <summary>
+            <span>${s.name}</span>
+            <span class="muted">${s.trades.length} trades</span>
+          </summary>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Instrument</th>
+                  <th>Entry</th>
+                  <th>Exit</th>
+                  <th>SL</th>
+                  <th>TP</th>
+                  <th>Size</th>
+                  <th>Risk</th>
+                  <th>Confidence</th>
+                  <th>Regime</th>
+                  <th>Entry Reason</th>
+                  <th>Exit Reason</th>
+                  <th>PnL</th>
+                  <th>PnL (R)</th>
+                  <th>Fees</th>
+                  <th>Slippage</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${s.trades.map(t => `
+                  <tr>
+                    <td data-label="Instrument">${t.instrument || '—'}</td>
+                    <td data-label="Entry">${fmtUsd(t.entry || 0)}</td>
+                    <td data-label="Exit">${fmtUsd(t.exit || 0)}</td>
+                    <td data-label="SL">${fmtUsd(t.sl || 0)}</td>
+                    <td data-label="TP">${fmtUsd(t.tp || 0)}</td>
+                    <td data-label="Size">${fmtInt(t.size || 0)}</td>
+                    <td data-label="Risk">${fmtPct(t.risk || 0)}</td>
+                    <td data-label="Confidence">${fmtPct(t.confidence || 0)}</td>
+                    <td data-label="Regime">${t.regime || '—'}</td>
+                    <td data-label="Entry Reason">${t.entry_reason || '—'}</td>
+                    <td data-label="Exit Reason">${t.exit_reason || '—'}</td>
+                    <td data-label="PnL" class="${posClass(t.pnl || 0)}">${fmtUsd(t.pnl || 0)}</td>
+                    <td data-label="PnL (R)">${(t.pnl_r || 0).toFixed(2)}</td>
+                    <td data-label="Fees">${fmtUsd(t.fees || 0)}</td>
+                    <td data-label="Slippage">${fmtUsd(t.slippage || 0)}</td>
+                    <td data-label="Status">${t.status || '—'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      `).join('');
+    }
+
     function renderTop10Table(rows) {
       if (!rows || !rows.length) {
         return `<div class="table-block"><div class="table-title">Top 10 (Overall)</div><div class="muted">No data yet.</div></div>`;
@@ -629,8 +782,8 @@
     }
 
     function renderDashboard(data, mode) {
-        const s = data.summary || {};
-        const period = s.test_period || {};
+      const s = data.summary || {};
+      const period = s.test_period || {};
 
         const modeLabel = mode === 'live' ? 'Live trading' : 'Backtest';
         document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at} • ${modeLabel}`;
@@ -707,6 +860,36 @@
           ${renderMarketTable('Top 10 S&P 500 (Best Strategy)', spRows)}
         `;
 
+
+        const isLive = mode === 'live';
+        document.getElementById('signalsSection').classList.toggle('hidden', !isLive);
+        document.getElementById('journalSection').classList.toggle('hidden', !isLive);
+
+        if (isLive) {
+          const sigs = data.signals_by_instrument || {};
+          const sigHtml = [
+            renderSignalsTable('NASDAQ Signals', sigs.NASDAQ || []),
+            renderSignalsTable('Gold Signals', sigs.GOLD || []),
+            renderSignalsTable('Bitcoin Signals', sigs.BTC || []),
+            renderSignalsTable('EUR/USD Signals', sigs.EURUSD || []),
+          ].join('');
+          document.getElementById('signalsSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Signals</h2>
+              <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+            </div>
+            <div class="market-grid">${sigHtml}</div>
+          `;
+
+          const journal = data.journal_strategies || [];
+          document.getElementById('journalSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Journal</h2>
+              <div class="muted">Open and closed trades per strategy</div>
+            </div>
+            ${renderJournal(journal)}
+          `;
+        }
 
         document.getElementById('notes').innerHTML = `
           <div class="section-head"><h2>Notes</h2></div>

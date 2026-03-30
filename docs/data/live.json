@@ -39,6 +39,13 @@
     "universe_count": 0,
     "tested_count": 0
   },
+  "signals_by_instrument": {
+    "NASDAQ": [],
+    "GOLD": [],
+    "BTC": [],
+    "EURUSD": []
+  },
+  "journal_strategies": [],
   "charts": {
     "equity_curve": [],
     "drawdown_curve": [],

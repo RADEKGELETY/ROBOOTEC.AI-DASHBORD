@@ -1,0 +1,47 @@
+{
+  "strategies": [
+    "ema_cross_12_26",
+    "sma_cross_20_50",
+    "rsi_revert_14_70_30",
+    "bollinger_revert_20_2.0",
+    "donchian_breakout_20",
+    "atr_breakout_14_1.5",
+    "macd_12_26_9",
+    "momentum_20"
+  ],
+  "instruments": {
+    "NASDAQ": {
+      "symbol": "qqq.us",
+      "signals_only": true,
+      "proxy_symbol": null
+    },
+    "GOLD": {
+      "symbol": "xauusd",
+      "signals_only": true,
+      "proxy_symbol": null
+    },
+    "BTC": {
+      "symbol": "btcusd",
+      "signals_only": false,
+      "alpaca_symbol": "BTC/USD"
+    },
+    "EURUSD": {
+      "symbol": "eurusd",
+      "signals_only": true,
+      "proxy_symbol": null
+    }
+  },
+  "risk": {
+    "sl_pct": 0.01,
+    "tp_pct": 0.02
+  },
+  "execution": {
+    "BTC": {
+      "provider": "alpaca",
+      "enabled": true,
+      "order_type": "market",
+      "qty": 0.01
+    }
+  },
+  "poll_interval_seconds": 300
+}
