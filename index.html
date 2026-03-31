@@ -313,6 +313,7 @@
       <div class="mode-toggle">
         <button class="mode-btn active" data-mode="backtest">Backtest</button>
         <button class="mode-btn" data-mode="live">Live Trading</button>
+        <button class="mode-btn" data-mode="signals">Trading Signály</button>
       </div>
     </header>
 
@@ -794,7 +795,8 @@
 
     const sources = {
       backtest: 'data/dashboard.json',
-      live: 'data/live.json'
+      live: 'data/live.json',
+      signals: 'data/live.json'
     };
 
     const modeButtons = document.querySelectorAll('.mode-btn');
@@ -864,16 +866,42 @@
         const modeLabel = mode === 'live' ? 'Live trading' : 'Backtest';
         document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at} • ${modeLabel}`;
 
-        document.getElementById('summary').innerHTML = `
-          <div class="section-head">
-            <h2>Overview</h2>
-            <div class="muted">Demo backtest summary</div>
-          </div>
-          <div class="note-banner">
-            <div class="muted">Period: <strong>${period.start || '—'} → ${period.end || '—'}</strong></div>
-            <div class="muted">Initial capital per strategy: <strong>${fmtUsd(s.initial_cash || 100000)}</strong></div>
-          </div>
-        `;
+        const isBacktest = mode === 'backtest';
+        const isLive = mode === 'live';
+        const isSignals = mode === 'signals';
+
+        if (isBacktest) {
+          document.getElementById('summary').innerHTML = `
+            <div class="section-head">
+              <h2>Overview</h2>
+              <div class="muted">Demo backtest summary</div>
+            </div>
+            <div class="note-banner">
+              <div class="muted">Period: <strong>${period.start || '—'} → ${period.end || '—'}</strong></div>
+              <div class="muted">Initial capital per strategy: <strong>${fmtUsd(s.initial_cash || 100000)}</strong></div>
+            </div>
+          `;
+        } else if (isLive) {
+          document.getElementById('summary').innerHTML = `
+            <div class="section-head">
+              <h2>Overview</h2>
+              <div class="muted">Live paper trading view</div>
+            </div>
+            <div class="note-banner">
+              <div class="muted">Backtest blocks are hidden in this mode.</div>
+            </div>
+          `;
+        } else {
+          document.getElementById('summary').innerHTML = `
+            <div class="section-head">
+              <h2>Overview</h2>
+              <div class="muted">Live signals view</div>
+            </div>
+            <div class="note-banner">
+              <div class="muted">Backtest blocks are hidden in this mode.</div>
+            </div>
+          `;
+        }
 
         const tbm = data.top_by_market || {};
         const tbmRows = Object.values(tbm).flat();
@@ -937,10 +965,15 @@
         `;
 
 
-        const isLive = mode === 'live';
-        document.getElementById('signalsSection').classList.toggle('hidden', !isLive);
-        document.getElementById('journalSection').classList.toggle('hidden', !isLive);
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
+        backtestOnly.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.toggle('hidden', !isBacktest);
+        });
+
         document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
+        document.getElementById('journalSection').classList.toggle('hidden', !isLive);
+        document.getElementById('signalsSection').classList.toggle('hidden', !isSignals);
 
         if (isLive) {
           const orders = data.paper_orders || [];
@@ -952,6 +985,17 @@
             ${renderOrdersTable(orders)}
           `;
 
+          const journal = data.journal_strategies || [];
+          document.getElementById('journalSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Journal</h2>
+              <div class="muted">Open and closed trades per strategy</div>
+            </div>
+            ${renderJournal(journal)}
+          `;
+        }
+
+        if (isSignals) {
           const sigs = data.signals_by_instrument || {};
           const sigHtml = [
             renderSignalsTable('NASDAQ Signals', sigs.NASDAQ || []),
@@ -961,19 +1005,10 @@
           ].join('');
           document.getElementById('signalsSection').innerHTML = `
             <div class="section-head">
-              <h2>Live Signals</h2>
+              <h2>Trading Signály</h2>
               <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
             </div>
             <div class="market-grid">${sigHtml}</div>
-          `;
-
-          const journal = data.journal_strategies || [];
-          document.getElementById('journalSection').innerHTML = `
-            <div class="section-head">
-              <h2>Live Journal</h2>
-              <div class="muted">Open and closed trades per strategy</div>
-            </div>
-            ${renderJournal(journal)}
           `;
         }
 
