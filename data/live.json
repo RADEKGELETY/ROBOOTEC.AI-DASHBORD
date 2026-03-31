@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T09:24:40.574367Z",
+  "generated_at": "2026-03-31T09:25:42.522181Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -2559,7 +2559,19 @@
       }
     ]
   },
-  "paper_orders": [],
+  "paper_orders": [
+    {
+      "strategy": "System",
+      "strategy_id": "system",
+      "instrument": "BTC",
+      "side": "\u2014",
+      "qty": "\u2014",
+      "order_type": "\u2014",
+      "status": "WAITING_FOR_FIRST_ORDER",
+      "created_at": "2026-03-31T09:25:42.521542Z",
+      "provider": "alpaca"
+    }
+  ],
   "journal_strategies": [
     {
       "id": "system_fallback",
