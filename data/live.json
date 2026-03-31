@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T12:35:42.655114Z",
+  "generated_at": "2026-03-31T12:36:44.808062Z",
   "scope": "live",
   "summary": {
     "strategies": 38,
@@ -2982,7 +2982,7 @@
       "qty": "\u2014",
       "order_type": "\u2014",
       "status": "WAITING_FOR_FIRST_ORDER",
-      "created_at": "2026-03-31T12:35:42.654725Z",
+      "created_at": "2026-03-31T12:36:44.807719Z",
       "provider": "alpaca"
     }
   ],
