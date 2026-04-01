@@ -841,9 +841,14 @@
       btn.addEventListener('click', () => setMode(btn.dataset.mode));
     });
 
+    function cacheBust(url) {
+      const sep = url.includes('?') ? '&' : '?';
+      return `${url}${sep}v=${Date.now()}`;
+    }
+
     function loadData(mode) {
       const url = sources[mode] || sources.backtest;
-      fetch(url)
+      fetch(cacheBust(url), { cache: 'no-store' })
         .then(r => r.json())
         .then(data => renderDashboard(data, mode))
         .catch(() => {
