@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T11:26:41.940749Z",
+  "generated_at": "2026-04-02T11:27:45.693221Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -5267,6 +5267,48 @@
     ],
     "EURUSD": [
       {
+        "strategy_id": "momentum_20",
+        "name": "momentum_20",
+        "instrument": "EURUSD",
+        "direction": "SHORT",
+        "entry": 1.151676,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T11:26:42.141231Z",
+        "reason": "momentum_20 signal",
+        "status": "NEW",
+        "strategy": "momentum_20",
+        "sl": 1.1631927599999998,
+        "tp": 1.12864248
+      },
+      {
+        "strategy_id": "macd_12_26_9",
+        "name": "macd_12_26_9",
+        "instrument": "EURUSD",
+        "direction": "LONG",
+        "entry": 1.151676,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T11:26:41.784312Z",
+        "reason": "macd_12_26_9 signal",
+        "status": "NEW",
+        "strategy": "macd_12_26_9",
+        "sl": 1.14015924,
+        "tp": 1.17470952
+      },
+      {
+        "strategy_id": "sma_cross_20_50",
+        "name": "sma_cross_20_50",
+        "instrument": "EURUSD",
+        "direction": "SHORT",
+        "entry": 1.151676,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T11:26:41.412575Z",
+        "reason": "sma_cross_20_50 signal",
+        "status": "NEW",
+        "strategy": "sma_cross_20_50",
+        "sl": 1.1631927599999998,
+        "tp": 1.12864248
+      },
+      {
         "strategy_id": "ema_cross_12_26",
         "name": "ema_cross_12_26",
         "instrument": "EURUSD",
@@ -5643,52 +5685,22 @@
         "strategy": "macd_12_26_9",
         "sl": 1.14107895,
         "tp": 1.1756571000000002
-      },
-      {
-        "strategy_id": "sma_cross_20_50",
-        "name": "sma_cross_20_50",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152605,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T10:03:26.774356Z",
-        "reason": "sma_cross_20_50 signal",
-        "status": "NEW",
-        "strategy": "sma_cross_20_50",
-        "sl": 1.1641310500000002,
-        "tp": 1.1295529
-      },
-      {
-        "strategy_id": "ema_cross_12_26",
-        "name": "ema_cross_12_26",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152605,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T10:03:26.772379Z",
-        "reason": "ema_cross_12_26 signal",
-        "status": "NEW",
-        "strategy": "ema_cross_12_26",
-        "sl": 1.1641310500000002,
-        "tp": 1.1295529
-      },
-      {
-        "strategy_id": "momentum_20",
-        "name": "momentum_20",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152871,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T09:58:23.830866Z",
-        "reason": "momentum_20 signal",
-        "status": "NEW",
-        "strategy": "momentum_20",
-        "sl": 1.16439971,
-        "tp": 1.12981358
       }
     ]
   },
   "paper_orders": [
+    {
+      "id": "af83c3e4-b393-453e-9869-d6986d2e78ec",
+      "strategy": "alpaca_paper",
+      "strategy_id": "alpaca_paper",
+      "instrument": "FXE",
+      "side": "buy",
+      "qty": null,
+      "order_type": "market",
+      "status": "new",
+      "created_at": "2026-04-02T11:26:42.125764324Z",
+      "provider": "alpaca"
+    },
     {
       "id": "4b5b5cec-7495-458f-8200-508ade1d60f2",
       "strategy": "alpaca_paper",
@@ -5698,7 +5710,7 @@
       "qty": "0.01",
       "order_type": "market",
       "status": "filled",
-      "created_at": "2026-04-02T11:26:40.901279799Z",
+      "created_at": "2026-04-02T11:26:40.90128Z",
       "provider": "alpaca"
     },
     {
@@ -6276,18 +6288,6 @@
       "status": "filled",
       "created_at": "2026-04-02T09:38:11.198526Z",
       "provider": "alpaca"
-    },
-    {
-      "id": "6fa249e0-a4c0-493f-bb2a-a6daa82edf5b",
-      "strategy": "alpaca_paper",
-      "strategy_id": "alpaca_paper",
-      "instrument": "BTC/USD",
-      "side": "sell",
-      "qty": "0.01",
-      "order_type": "market",
-      "status": "filled",
-      "created_at": "2026-04-02T09:33:09.449964Z",
-      "provider": "alpaca"
     }
   ],
   "paper_account": {
@@ -6297,7 +6297,7 @@
     "last_equity": 97921.05916409024,
     "pnl_today": -1478.6891640902468,
     "cash": 95426.6,
-    "buying_power": 95426.6,
+    "buying_power": 94926.6,
     "portfolio_value": 96442.37
   },
   "journal_strategies": [
