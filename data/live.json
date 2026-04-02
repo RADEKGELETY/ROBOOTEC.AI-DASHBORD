@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T08:21:02.665945Z",
+  "generated_at": "2026-04-02T08:22:05.680764Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -5698,7 +5698,7 @@
       "qty": "0.01",
       "order_type": "market",
       "status": "filled",
-      "created_at": "2026-04-02T08:17:25.048878509Z",
+      "created_at": "2026-04-02T08:17:25.048879Z",
       "provider": "alpaca"
     },
     {
@@ -5710,7 +5710,7 @@
       "qty": "0.01",
       "order_type": "market",
       "status": "filled",
-      "created_at": "2026-04-02T08:17:24.682677463Z",
+      "created_at": "2026-04-02T08:17:24.682677Z",
       "provider": "alpaca"
     },
     {
@@ -5722,7 +5722,7 @@
       "qty": "0.01",
       "order_type": "market",
       "status": "filled",
-      "created_at": "2026-04-02T08:17:24.324903239Z",
+      "created_at": "2026-04-02T08:17:24.324903Z",
       "provider": "alpaca"
     },
     {
@@ -6294,10 +6294,10 @@
     "status": "ACTIVE",
     "currency": "USD",
     "equity": 96982.75,
-    "last_equity": 100000.0,
-    "pnl_today": -3017.25,
+    "last_equity": 97921.05916409024,
+    "pnl_today": -938.3091640902421,
     "cash": 24537.33,
-    "buying_power": 49074.66,
+    "buying_power": 24537.33,
     "portfolio_value": 96982.75
   },
   "journal_strategies": [
