@@ -657,6 +657,78 @@
       `;
     }
 
+    function renderLiveCoverage(signalsByInstrument) {
+      const instruments = [
+        { key: 'BTC', label: 'Bitcoin', mode: 'Paper execution (Alpaca)' },
+        { key: 'NASDAQ', label: 'NASDAQ', mode: 'Signals only' },
+        { key: 'GOLD', label: 'Gold', mode: 'Signals only' },
+        { key: 'EURUSD', label: 'EUR/USD', mode: 'Signals only' },
+      ];
+      const rows = instruments.map(({ key, label, mode }) => {
+        const items = (signalsByInstrument && signalsByInstrument[key]) || [];
+        const last = items[0] || {};
+        const dir = last.direction || 'NO_SIGNAL';
+        const status = last.status || 'NO_DATA';
+        const ts = last.timestamp || '—';
+        const confidence = (last.confidence ?? 0);
+        const dirClass = dir === 'LONG' ? 'pos' : (dir === 'SHORT' ? 'neg' : '');
+        return `
+          <tr>
+            <td data-label="Instrument"><strong>${label}</strong></td>
+            <td data-label="Mode">${mode}</td>
+            <td data-label="Last Direction"><span class="pill ${dirClass}">${dir}</span></td>
+            <td data-label="Status">${status}</td>
+            <td data-label="Confidence">${fmtPct(confidence)}</td>
+            <td data-label="Timestamp">${ts}</td>
+          </tr>
+        `;
+      }).join('');
+
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Instrument</th>
+                <th>Mode</th>
+                <th>Last Direction</th>
+                <th>Status</th>
+                <th>Confidence</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderLiveOverview(data) {
+      const account = data.paper_account || null;
+      const orders = data.paper_orders || [];
+      const signals = data.signals_by_instrument || {};
+      const filled = orders.filter(o => (o.status || '').toLowerCase() === 'filled').length;
+      const pending = orders.filter(o => ['new', 'accepted', 'pending_new', 'partially_filled'].includes((o.status || '').toLowerCase())).length;
+      const rejected = orders.filter(o => ['rejected', 'canceled', 'expired'].includes((o.status || '').toLowerCase())).length;
+
+      return `
+        <div class="section-head">
+          <h2>Overview</h2>
+          <div class="muted">Live paper trading overview</div>
+        </div>
+        ${renderPaperAccount(account)}
+        <div class="note-banner" style="margin-top:12px;">
+          <div class="muted">Orders (last ${orders.length}): <strong>${fmtInt(orders.length)}</strong></div>
+          <div class="muted">Filled: <strong class="pos">${fmtInt(filled)}</strong></div>
+          <div class="muted">Pending: <strong>${fmtInt(pending)}</strong></div>
+          <div class="muted">Rejected/Cancelled: <strong class="${rejected > 0 ? 'neg' : ''}">${fmtInt(rejected)}</strong></div>
+        </div>
+        <div style="margin-top:12px;">
+          ${renderLiveCoverage(signals)}
+        </div>
+      `;
+    }
+
     function renderJournal(strategies) {
       if (!strategies || !strategies.length) {
         return '<div class="muted">No data yet.</div>';
@@ -903,15 +975,7 @@
             </div>
           `;
         } else if (isLive) {
-          document.getElementById('summary').innerHTML = `
-            <div class="section-head">
-              <h2>Overview</h2>
-              <div class="muted">Live paper trading view</div>
-            </div>
-            <div class="note-banner">
-              <div class="muted">Backtest blocks are hidden in this mode.</div>
-            </div>
-          `;
+          document.getElementById('summary').innerHTML = renderLiveOverview(data);
         } else {
           document.getElementById('summary').innerHTML = `
             <div class="section-head">
