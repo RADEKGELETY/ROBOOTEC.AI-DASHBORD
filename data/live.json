@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T12:38:13.783545Z",
+  "generated_at": "2026-04-02T12:39:16.670233Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -6293,12 +6293,12 @@
   "paper_account": {
     "status": "ACTIVE",
     "currency": "USD",
-    "equity": 96415.05,
+    "equity": 96414.73,
     "last_equity": 97921.05916409024,
-    "pnl_today": -1506.0091640902392,
+    "pnl_today": -1506.3291640902462,
     "cash": 95412.28,
     "buying_power": 94912.28,
-    "portfolio_value": 96415.05
+    "portfolio_value": 96414.73
   },
   "journal_strategies": [
     {
