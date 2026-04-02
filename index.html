@@ -328,7 +328,7 @@
     <section class="section hidden" id="paperOrders">
       <div class="section-head">
         <h2>Paper Trading (Orders)</h2>
-        <div class="muted">BTC paper execution via Alpaca</div>
+        <div class="muted">BTC direct + NASDAQ/Gold/EURUSD ETF proxy execution via Alpaca</div>
       </div>
       <div class="muted">Loading…</div>
     </section>
@@ -659,10 +659,10 @@
 
     function renderLiveCoverage(signalsByInstrument) {
       const instruments = [
-        { key: 'BTC', label: 'Bitcoin', mode: 'Paper execution (Alpaca)' },
-        { key: 'NASDAQ', label: 'NASDAQ', mode: 'Signals only' },
-        { key: 'GOLD', label: 'Gold', mode: 'Signals only' },
-        { key: 'EURUSD', label: 'EUR/USD', mode: 'Signals only' },
+        { key: 'BTC', label: 'Bitcoin', mode: 'Paper execution (BTC/USD)' },
+        { key: 'NASDAQ', label: 'NASDAQ', mode: 'Paper execution (QQQ proxy)' },
+        { key: 'GOLD', label: 'Gold', mode: 'Paper execution (GLD proxy)' },
+        { key: 'EURUSD', label: 'EUR/USD', mode: 'Paper execution (FXE proxy)' },
       ];
       const rows = instruments.map(({ key, label, mode }) => {
         const items = (signalsByInstrument && signalsByInstrument[key]) || [];
@@ -1053,7 +1053,7 @@
         const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
-          if (el) el.classList.toggle('hidden', !isBacktest);
+          if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
         });
 
         document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
@@ -1066,7 +1066,7 @@
           document.getElementById('paperOrders').innerHTML = `
             <div class="section-head">
               <h2>Paper Trading (Orders)</h2>
-              <div class="muted">BTC paper execution via Alpaca</div>
+              <div class="muted">BTC direct + NASDAQ/Gold/EURUSD ETF proxy execution via Alpaca</div>
             </div>
             ${renderPaperAccount(account)}
             ${renderOrdersTable(orders)}

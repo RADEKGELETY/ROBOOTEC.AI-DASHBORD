@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T11:12:03.300011Z",
+  "generated_at": "2026-04-02T11:13:07.771509Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -6354,7 +6354,7 @@
   },
   "notes": [
     "Live trading view (paper).",
-    "Signals for NASDAQ/GOLD/EURUSD are non-executable.",
-    "BTC uses Alpaca paper execution when enabled."
+    "BTC executes directly via Alpaca paper (BTC/USD).",
+    "NASDAQ/GOLD/EURUSD execute via Alpaca proxy symbols (QQQ/GLD/FXE)."
   ]
 }
