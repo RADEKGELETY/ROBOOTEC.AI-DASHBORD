@@ -641,6 +641,22 @@
       `;
     }
 
+    function renderPaperAccount(account) {
+      if (!account) {
+        return '<div class="note-banner"><div class="muted">Paper account data unavailable.</div></div>';
+      }
+      const pnl = account.pnl_today || 0;
+      return `
+        <div class="note-banner">
+          <div class="muted">Status: <strong>${account.status || '—'}</strong></div>
+          <div class="muted">Equity: <strong class="${posClass(pnl)}">${fmtUsd(account.equity || 0)}</strong></div>
+          <div class="muted">PnL Today: <strong class="${posClass(pnl)}">${fmtUsd(pnl)}</strong></div>
+          <div class="muted">Cash: <strong>${fmtUsd(account.cash || 0)}</strong></div>
+          <div class="muted">Buying Power: <strong>${fmtUsd(account.buying_power || 0)}</strong></div>
+        </div>
+      `;
+    }
+
     function renderJournal(strategies) {
       if (!strategies || !strategies.length) {
         return '<div class="muted">No data yet.</div>';
@@ -868,7 +884,7 @@
       const s = data.summary || {};
       const period = s.test_period || {};
 
-        const modeLabel = mode === 'live' ? 'Live trading' : 'Backtest';
+        const modeLabel = mode === 'live' ? 'Live trading' : (mode === 'signals' ? 'Trading signaly' : 'Backtest');
         document.getElementById('updatedAt').textContent = `Updated: ${data.generated_at} • ${modeLabel}`;
 
         const isBacktest = mode === 'backtest';
@@ -982,11 +998,13 @@
 
         if (isLive) {
           const orders = data.paper_orders || [];
+          const account = data.paper_account || null;
           document.getElementById('paperOrders').innerHTML = `
             <div class="section-head">
               <h2>Paper Trading (Orders)</h2>
               <div class="muted">BTC paper execution via Alpaca</div>
             </div>
+            ${renderPaperAccount(account)}
             ${renderOrdersTable(orders)}
           `;
 
