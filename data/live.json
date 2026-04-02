@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T12:58:10.979477Z",
+  "generated_at": "2026-04-02T12:59:14.058106Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -4007,6 +4007,62 @@
         "direction": "SHORT",
         "entry": 584.309998,
         "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:23.677337Z",
+        "reason": "momentum_20 signal",
+        "status": "NEW",
+        "strategy": "momentum_20",
+        "sl": 590.15309798,
+        "tp": 572.62379804
+      },
+      {
+        "strategy_id": "macd_12_26_9",
+        "name": "macd_12_26_9",
+        "instrument": "NASDAQ",
+        "direction": "SHORT",
+        "entry": 584.309998,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:23.281338Z",
+        "reason": "macd_12_26_9 signal",
+        "status": "NEW",
+        "strategy": "macd_12_26_9",
+        "sl": 590.15309798,
+        "tp": 572.62379804
+      },
+      {
+        "strategy_id": "sma_cross_20_50",
+        "name": "sma_cross_20_50",
+        "instrument": "NASDAQ",
+        "direction": "SHORT",
+        "entry": 584.309998,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:22.883123Z",
+        "reason": "sma_cross_20_50 signal",
+        "status": "NEW",
+        "strategy": "sma_cross_20_50",
+        "sl": 590.15309798,
+        "tp": 572.62379804
+      },
+      {
+        "strategy_id": "ema_cross_12_26",
+        "name": "ema_cross_12_26",
+        "instrument": "NASDAQ",
+        "direction": "SHORT",
+        "entry": 584.309998,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:22.524919Z",
+        "reason": "ema_cross_12_26 signal",
+        "status": "NEW",
+        "strategy": "ema_cross_12_26",
+        "sl": 590.15309798,
+        "tp": 572.62379804
+      },
+      {
+        "strategy_id": "momentum_20",
+        "name": "momentum_20",
+        "instrument": "NASDAQ",
+        "direction": "SHORT",
+        "entry": 584.309998,
+        "confidence": 0.6,
         "timestamp": "2026-04-02T12:53:17.610075Z",
         "reason": "momentum_20 signal",
         "status": "NEW",
@@ -4363,65 +4419,65 @@
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
         "tp": 572.62379804
-      },
-      {
-        "strategy_id": "sma_cross_20_50",
-        "name": "sma_cross_20_50",
-        "instrument": "NASDAQ",
-        "direction": "SHORT",
-        "entry": 584.309998,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:40.145452Z",
-        "reason": "sma_cross_20_50 signal",
-        "status": "NEW",
-        "strategy": "sma_cross_20_50",
-        "sl": 590.15309798,
-        "tp": 572.62379804
-      },
-      {
-        "strategy_id": "ema_cross_12_26",
-        "name": "ema_cross_12_26",
-        "instrument": "NASDAQ",
-        "direction": "SHORT",
-        "entry": 584.309998,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:39.782557Z",
-        "reason": "ema_cross_12_26 signal",
-        "status": "NEW",
-        "strategy": "ema_cross_12_26",
-        "sl": 590.15309798,
-        "tp": 572.62379804
-      },
+      }
+    ],
+    "GOLD": [
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
-        "instrument": "NASDAQ",
+        "instrument": "GOLD",
         "direction": "SHORT",
-        "entry": 584.309998,
+        "entry": 4644.299805,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:35.078943Z",
+        "timestamp": "2026-04-02T12:58:25.368366Z",
         "reason": "momentum_20 signal",
         "status": "NEW",
         "strategy": "momentum_20",
-        "sl": 590.15309798,
-        "tp": 572.62379804
+        "sl": 4690.74280305,
+        "tp": 4551.4138089
       },
       {
         "strategy_id": "macd_12_26_9",
         "name": "macd_12_26_9",
-        "instrument": "NASDAQ",
+        "instrument": "GOLD",
         "direction": "SHORT",
-        "entry": 584.309998,
+        "entry": 4644.299805,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:34.718974Z",
+        "timestamp": "2026-04-02T12:58:24.962248Z",
         "reason": "macd_12_26_9 signal",
         "status": "NEW",
         "strategy": "macd_12_26_9",
-        "sl": 590.15309798,
-        "tp": 572.62379804
-      }
-    ],
-    "GOLD": [
+        "sl": 4690.74280305,
+        "tp": 4551.4138089
+      },
+      {
+        "strategy_id": "sma_cross_20_50",
+        "name": "sma_cross_20_50",
+        "instrument": "GOLD",
+        "direction": "SHORT",
+        "entry": 4644.299805,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:24.608373Z",
+        "reason": "sma_cross_20_50 signal",
+        "status": "NEW",
+        "strategy": "sma_cross_20_50",
+        "sl": 4690.74280305,
+        "tp": 4551.4138089
+      },
+      {
+        "strategy_id": "ema_cross_12_26",
+        "name": "ema_cross_12_26",
+        "instrument": "GOLD",
+        "direction": "SHORT",
+        "entry": 4644.299805,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:24.219059Z",
+        "reason": "ema_cross_12_26 signal",
+        "status": "NEW",
+        "strategy": "ema_cross_12_26",
+        "sl": 4690.74280305,
+        "tp": 4551.4138089
+      },
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
@@ -4785,65 +4841,79 @@
         "strategy": "macd_12_26_9",
         "sl": 4673.67390102,
         "tp": 4534.85190396
-      },
-      {
-        "strategy_id": "sma_cross_20_50",
-        "name": "sma_cross_20_50",
-        "instrument": "GOLD",
-        "direction": "SHORT",
-        "entry": 4627.399902,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:41.717045Z",
-        "reason": "sma_cross_20_50 signal",
-        "status": "NEW",
-        "strategy": "sma_cross_20_50",
-        "sl": 4673.67390102,
-        "tp": 4534.85190396
-      },
-      {
-        "strategy_id": "ema_cross_12_26",
-        "name": "ema_cross_12_26",
-        "instrument": "GOLD",
-        "direction": "SHORT",
-        "entry": 4627.399902,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:41.369412Z",
-        "reason": "ema_cross_12_26 signal",
-        "status": "NEW",
-        "strategy": "ema_cross_12_26",
-        "sl": 4673.67390102,
-        "tp": 4534.85190396
-      },
+      }
+    ],
+    "BTC": [
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
-        "instrument": "GOLD",
+        "instrument": "BTC",
         "direction": "SHORT",
-        "entry": 4633.799805,
+        "entry": 66457.28,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:36.665019Z",
+        "timestamp": "2026-04-02T12:58:26.947115Z",
         "reason": "momentum_20 signal",
         "status": "NEW",
         "strategy": "momentum_20",
-        "sl": 4680.13780305,
-        "tp": 4541.1238089
+        "sl": 67121.8528,
+        "tp": 65128.134399999995
       },
       {
         "strategy_id": "macd_12_26_9",
         "name": "macd_12_26_9",
-        "instrument": "GOLD",
+        "instrument": "BTC",
         "direction": "SHORT",
-        "entry": 4633.799805,
+        "entry": 66457.28,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:36.308716Z",
+        "timestamp": "2026-04-02T12:58:26.945476Z",
         "reason": "macd_12_26_9 signal",
         "status": "NEW",
         "strategy": "macd_12_26_9",
-        "sl": 4680.13780305,
-        "tp": 4541.1238089
-      }
-    ],
-    "BTC": [
+        "sl": 67121.8528,
+        "tp": 65128.134399999995
+      },
+      {
+        "strategy_id": "rsi_revert_14_70_30",
+        "name": "rsi_revert_14_70_30",
+        "instrument": "BTC",
+        "direction": "LONG",
+        "entry": 66457.28,
+        "confidence": 0.55,
+        "timestamp": "2026-04-02T12:58:26.549298Z",
+        "reason": "rsi_revert_14_70_30 signal",
+        "status": "NEW",
+        "strategy": "rsi_revert_14_70_30",
+        "sl": 65792.7072,
+        "tp": 67786.4256
+      },
+      {
+        "strategy_id": "sma_cross_20_50",
+        "name": "sma_cross_20_50",
+        "instrument": "BTC",
+        "direction": "SHORT",
+        "entry": 66457.28,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:26.547804Z",
+        "reason": "sma_cross_20_50 signal",
+        "status": "NEW",
+        "strategy": "sma_cross_20_50",
+        "sl": 67121.8528,
+        "tp": 65128.134399999995
+      },
+      {
+        "strategy_id": "ema_cross_12_26",
+        "name": "ema_cross_12_26",
+        "instrument": "BTC",
+        "direction": "SHORT",
+        "entry": 66457.28,
+        "confidence": 0.6,
+        "timestamp": "2026-04-02T12:58:26.546308Z",
+        "reason": "ema_cross_12_26 signal",
+        "status": "NEW",
+        "strategy": "ema_cross_12_26",
+        "sl": 67121.8528,
+        "tp": 65128.134399999995
+      },
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
@@ -5193,79 +5263,65 @@
         "strategy": "ema_cross_12_26",
         "sl": 67121.8528,
         "tp": 65128.134399999995
-      },
+      }
+    ],
+    "EURUSD": [
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
-        "instrument": "BTC",
+        "instrument": "EURUSD",
         "direction": "SHORT",
-        "entry": 66457.28,
+        "entry": 1.152605,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:27:49.506339Z",
+        "timestamp": "2026-04-02T12:58:27.875443Z",
         "reason": "momentum_20 signal",
         "status": "NEW",
         "strategy": "momentum_20",
-        "sl": 67121.8528,
-        "tp": 65128.134399999995
+        "sl": 1.1641310500000002,
+        "tp": 1.1295529
       },
       {
         "strategy_id": "macd_12_26_9",
         "name": "macd_12_26_9",
-        "instrument": "BTC",
-        "direction": "SHORT",
-        "entry": 66457.28,
+        "instrument": "EURUSD",
+        "direction": "LONG",
+        "entry": 1.152605,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:27:49.505060Z",
+        "timestamp": "2026-04-02T12:58:27.872952Z",
         "reason": "macd_12_26_9 signal",
         "status": "NEW",
         "strategy": "macd_12_26_9",
-        "sl": 67121.8528,
-        "tp": 65128.134399999995
-      },
-      {
-        "strategy_id": "rsi_revert_14_70_30",
-        "name": "rsi_revert_14_70_30",
-        "instrument": "BTC",
-        "direction": "LONG",
-        "entry": 66457.28,
-        "confidence": 0.55,
-        "timestamp": "2026-04-02T12:27:49.155238Z",
-        "reason": "rsi_revert_14_70_30 signal",
-        "status": "NEW",
-        "strategy": "rsi_revert_14_70_30",
-        "sl": 65792.7072,
-        "tp": 67786.4256
+        "sl": 1.14107895,
+        "tp": 1.1756571000000002
       },
       {
         "strategy_id": "sma_cross_20_50",
         "name": "sma_cross_20_50",
-        "instrument": "BTC",
+        "instrument": "EURUSD",
         "direction": "SHORT",
-        "entry": 66457.28,
+        "entry": 1.152605,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:27:49.153749Z",
+        "timestamp": "2026-04-02T12:58:27.455626Z",
         "reason": "sma_cross_20_50 signal",
         "status": "NEW",
         "strategy": "sma_cross_20_50",
-        "sl": 67121.8528,
-        "tp": 65128.134399999995
+        "sl": 1.1641310500000002,
+        "tp": 1.1295529
       },
       {
         "strategy_id": "ema_cross_12_26",
         "name": "ema_cross_12_26",
-        "instrument": "BTC",
+        "instrument": "EURUSD",
         "direction": "SHORT",
-        "entry": 66457.28,
+        "entry": 1.152605,
         "confidence": 0.6,
-        "timestamp": "2026-04-02T12:27:49.151984Z",
+        "timestamp": "2026-04-02T12:58:27.100892Z",
         "reason": "ema_cross_12_26 signal",
         "status": "NEW",
         "strategy": "ema_cross_12_26",
-        "sl": 67121.8528,
-        "tp": 65128.134399999995
-      }
-    ],
-    "EURUSD": [
+        "sl": 1.1641310500000002,
+        "tp": 1.1295529
+      },
       {
         "strategy_id": "momentum_20",
         "name": "momentum_20",
@@ -5629,66 +5685,22 @@
         "strategy": "macd_12_26_9",
         "sl": 1.14121062,
         "tp": 1.17579276
-      },
-      {
-        "strategy_id": "sma_cross_20_50",
-        "name": "sma_cross_20_50",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152738,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:44.420312Z",
-        "reason": "sma_cross_20_50 signal",
-        "status": "NEW",
-        "strategy": "sma_cross_20_50",
-        "sl": 1.16426538,
-        "tp": 1.12968324
-      },
-      {
-        "strategy_id": "ema_cross_12_26",
-        "name": "ema_cross_12_26",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152738,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:22:44.060860Z",
-        "reason": "ema_cross_12_26 signal",
-        "status": "NEW",
-        "strategy": "ema_cross_12_26",
-        "sl": 1.16426538,
-        "tp": 1.12968324
-      },
-      {
-        "strategy_id": "momentum_20",
-        "name": "momentum_20",
-        "instrument": "EURUSD",
-        "direction": "SHORT",
-        "entry": 1.152605,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:39.070108Z",
-        "reason": "momentum_20 signal",
-        "status": "NEW",
-        "strategy": "momentum_20",
-        "sl": 1.1641310500000002,
-        "tp": 1.1295529
-      },
-      {
-        "strategy_id": "macd_12_26_9",
-        "name": "macd_12_26_9",
-        "instrument": "EURUSD",
-        "direction": "LONG",
-        "entry": 1.152605,
-        "confidence": 0.6,
-        "timestamp": "2026-04-02T12:17:39.068593Z",
-        "reason": "macd_12_26_9 signal",
-        "status": "NEW",
-        "strategy": "macd_12_26_9",
-        "sl": 1.14107895,
-        "tp": 1.1756571000000002
       }
     ]
   },
   "paper_orders": [
+    {
+      "id": "11093beb-c5e4-4e6c-8843-b0ca7e6d9ab8",
+      "strategy": "alpaca_paper",
+      "strategy_id": "alpaca_paper",
+      "instrument": "BTC/USD",
+      "side": "buy",
+      "qty": "0.01",
+      "order_type": "market",
+      "status": "filled",
+      "created_at": "2026-04-02T12:58:26.924576247Z",
+      "provider": "alpaca"
+    },
     {
       "id": "b24ee429-b7a3-404b-a2d8-5d4768d2ac6f",
       "strategy": "alpaca_paper",
@@ -5698,7 +5710,7 @@
       "qty": "0.01",
       "order_type": "market",
       "status": "filled",
-      "created_at": "2026-04-02T12:53:20.854280712Z",
+      "created_at": "2026-04-02T12:53:20.854281Z",
       "provider": "alpaca"
     },
     {
@@ -6276,29 +6288,17 @@
       "status": "filled",
       "created_at": "2026-04-02T09:58:23.204817Z",
       "provider": "alpaca"
-    },
-    {
-      "id": "12410b8f-f199-4140-a677-2836ae13a46a",
-      "strategy": "alpaca_paper",
-      "strategy_id": "alpaca_paper",
-      "instrument": "BTC/USD",
-      "side": "sell",
-      "qty": "0.01",
-      "order_type": "market",
-      "status": "filled",
-      "created_at": "2026-04-02T09:58:22.827586Z",
-      "provider": "alpaca"
     }
   ],
   "paper_account": {
     "status": "ACTIVE",
     "currency": "USD",
-    "equity": 96408.72,
+    "equity": 96406.48,
     "last_equity": 97921.05916409024,
-    "pnl_today": -1512.339164090241,
-    "cash": 96069.33,
-    "buying_power": 95569.33,
-    "portfolio_value": 96408.72
+    "pnl_today": -1514.5791640902462,
+    "cash": 95408.65,
+    "buying_power": 94908.65,
+    "portfolio_value": 96406.48
   },
   "journal_strategies": [
     {
