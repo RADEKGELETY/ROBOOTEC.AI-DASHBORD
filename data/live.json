@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-02T13:31:44.832072Z",
+  "generated_at": "2026-04-02T13:32:50.766672Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -5985,7 +5985,7 @@
       "side": "buy",
       "qty": null,
       "order_type": "market",
-      "status": "partially_filled",
+      "status": "filled",
       "created_at": "2026-04-02T11:26:42.125764Z",
       "provider": "alpaca"
     },
@@ -6293,12 +6293,12 @@
   "paper_account": {
     "status": "ACTIVE",
     "currency": "USD",
-    "equity": 96396.56,
+    "equity": 96394.73,
     "last_equity": 97921.05916409024,
-    "pnl_today": -1524.4991640902444,
-    "cash": 95295.03,
+    "pnl_today": -1526.3291640902462,
+    "cash": 94901.37,
     "buying_power": 94901.37,
-    "portfolio_value": 96396.56
+    "portfolio_value": 96394.73
   },
   "journal_strategies": [
     {
