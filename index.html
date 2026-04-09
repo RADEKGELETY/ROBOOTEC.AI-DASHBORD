@@ -365,6 +365,14 @@
       <div class="muted">Loading…</div>
     </section>
 
+    <section class="section" id="rgNasdaqStrategies">
+      <div class="section-head">
+        <h2>RG Nasdaq Strategy</h2>
+        <div class="muted">5 rule-based Nasdaq baseline strategies (100,000 USD each)</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
     <section class="section" id="globalTop10">
       <div class="section-head">
         <h2>Top 10 Global Stocks</h2>
@@ -871,6 +879,50 @@
       return `${summaryTable}${detailsTable}`;
     }
 
+    function renderRgNasdaqTable(rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">RG Nasdaq Strategy</div><div class="muted">No data yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td class="strategy" data-label="Strategy"><strong>${r.id || r.name || '—'}</strong></td>
+          <td data-label="Instrument">${r.instrument || 'QQQ'}</td>
+          <td data-label="Timeframe">${r.timeframe || 'd'}</td>
+          <td class="key-metric ${posClass(r.total_return)}" data-label="Total Return">${fmtPct(r.total_return || 0)}</td>
+          <td class="key-metric ${posClass(r.net_profit ?? r.return_usd)}" data-label="Net Profit">${fmtUsd(r.net_profit ?? r.return_usd || 0)}</td>
+          <td data-label="Max DD">${fmtPct(r.max_drawdown || 0)}</td>
+          <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+          <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Average Trade" class="${posClass(r.average_trade || 0)}">${fmtUsd(r.average_trade || 0)}</td>
+        </tr>
+      `).join('');
+      return `
+        <div class="table-block">
+          <div class="table-title">RG Nasdaq Strategy</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategy</th>
+                  <th>Instrument</th>
+                  <th>Timeframe</th>
+                  <th>Total Return</th>
+                  <th>Net Profit</th>
+                  <th>Max DD</th>
+                  <th>Win Rate</th>
+                  <th>Profit Factor</th>
+                  <th>Trades</th>
+                  <th>Average Trade</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
     function marketLabel(code) {
       const map = {
         US_STOCKS: 'NASDAQ / US Stocks',
@@ -903,6 +955,7 @@
         'top10Overall',
         'topPerMarket',
         'topByMarket',
+        'rgNasdaqStrategies',
         'globalTop10',
         'sp500Top10',
         'signalsSection',
@@ -1029,6 +1082,15 @@
           <div class="market-grid">${topHtml || '<div class="muted">No data yet.</div>'}</div>
         `;
 
+        const rgRows = data.rg_nasdaq_strategies || [];
+        document.getElementById('rgNasdaqStrategies').innerHTML = `
+          <div class="section-head">
+            <h2>RG Nasdaq Strategy</h2>
+            <div class="muted">5 rule-based Nasdaq baseline strategies (100,000 USD each)</div>
+          </div>
+          ${renderRgNasdaqTable(rgRows)}
+        `;
+
         const globalRows = data.global_top10 || [];
         const gm = data.global_meta || {};
         document.getElementById('globalTop10').innerHTML = `
@@ -1050,7 +1112,7 @@
         `;
 
 
-        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'globalTop10', 'sp500Top10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
           if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
