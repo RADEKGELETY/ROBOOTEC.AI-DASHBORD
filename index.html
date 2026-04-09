@@ -1053,7 +1053,7 @@
         const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
-          if (el) el.classList.toggle('hidden', !isBacktest);
+          if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
         });
 
         document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
