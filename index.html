@@ -889,7 +889,7 @@
           <td data-label="Instrument">${r.instrument || 'QQQ'}</td>
           <td data-label="Timeframe">${r.timeframe || 'd'}</td>
           <td class="key-metric ${posClass(r.total_return)}" data-label="Total Return">${fmtPct(r.total_return || 0)}</td>
-          <td class="key-metric ${posClass(r.net_profit ?? r.return_usd)}" data-label="Net Profit">${fmtUsd(r.net_profit ?? r.return_usd || 0)}</td>
+          <td class="key-metric ${posClass(r.net_profit ?? r.return_usd)}" data-label="Net Profit">${fmtUsd((r.net_profit ?? r.return_usd) || 0)}</td>
           <td data-label="Max DD">${fmtPct(r.max_drawdown || 0)}</td>
           <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
           <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
