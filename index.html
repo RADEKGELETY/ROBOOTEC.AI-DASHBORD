@@ -209,6 +209,10 @@
     .status-active { color: #7ef2a1; border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
     .status-experiment { color: #6dd3fb; border-color: #224a67; background: rgba(109, 211, 251, 0.12); }
     .status-weak { color: #ff9d9d; border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    .label-promote { color: #7ef2a1; border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
+    .label-hold { color: #6dd3fb; border-color: #224a67; background: rgba(109, 211, 251, 0.12); }
+    .label-watch { color: #ffd27a; border-color: #664f1d; background: rgba(255, 210, 122, 0.12); }
+    .label-kill { color: #ff9d9d; border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
     .sparkline {
       width: 110px;
       height: 28px;
@@ -916,6 +920,12 @@
         if (t === '↓') return 'trend-down';
         return 'trend-flat';
       };
+      const labelClass = (l) => {
+        if (l === 'PROMOTE') return 'label-promote';
+        if (l === 'HOLD') return 'label-hold';
+        if (l === 'WATCH') return 'label-watch';
+        return 'label-kill';
+      };
       const sparkline = (curve) => {
         const values = (curve || []).map(p => Number(p.equity || 0)).filter(v => Number.isFinite(v));
         if (!values.length) return '<span class="muted">n/a</span>';
@@ -942,6 +952,9 @@
             ${r.low_sample ? `<div class="muted">${(r.sample_size_suggestions || []).slice(0, 2).join(' | ')}</div>` : ''}
           </td>
           <td data-label="Status"><span class="status-pill ${statusClass(r.status)}">${r.status || 'EXPERIMENT'}</span></td>
+          <td data-label="Score"><strong>${fmtInt(r.experiment_score || 0)}</strong></td>
+          <td data-label="Label"><span class="status-pill ${labelClass(r.experiment_label)}">${r.experiment_label || 'WATCH'}</span></td>
+          <td data-label="Reason" class="muted">${r.experiment_reason || 'n/a'}</td>
           <td data-label="Instrument">${r.instrument || 'QQQ'}</td>
           <td data-label="Timeframe">${r.timeframe || 'd'}</td>
           <td data-label="Trend 30D"><span class="${trendClass(r.trend_performance)}">${r.trend_performance || '→'}</span></td>
@@ -969,6 +982,9 @@
                 <tr>
                   <th>Strategy</th>
                   <th>Status</th>
+                  <th>Score</th>
+                  <th>Label</th>
+                  <th>Reason</th>
                   <th>Instrument</th>
                   <th>Timeframe</th>
                   <th>Trend 30D</th>
