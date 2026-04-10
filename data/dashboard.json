@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-09T17:51:09.911840Z",
+  "generated_at": "2026-04-10T08:47:25.736904Z",
   "scope": "anonymized",
   "summary": {
     "strategies": 41,
@@ -4605,50 +4605,166 @@
     {
       "id": "NQ_HF_VWAP_ZSCORE_MR",
       "name": "NQ_HF_VWAP_ZSCORE_MR",
+      "status": "ACTIVE",
       "instrument": "QQQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "start": "2026-02-09",
+      "start": "2026-02-10",
       "end": "2026-04-09",
       "period_days": 58,
-      "total_return": 0.005349516342958377,
-      "net_profit": 534.9516342958377,
-      "return_usd": 534.9516342958377,
-      "max_drawdown": 0.011995719040949785,
-      "win_rate": 0.375,
-      "profit_factor": 1.846118062014889,
-      "trades": 8,
-      "average_trade": 66.86895428697972,
-      "final_equity": 100534.95163429584
-    },
-    {
-      "id": "NQ_SCALP_VWAP_PULLBACK",
-      "name": "NQ_SCALP_VWAP_PULLBACK",
-      "instrument": "QQQ",
-      "timeframe": "5m",
-      "initial_cash": 100000.0,
-      "start": "2026-02-09",
-      "end": "2026-04-09",
-      "period_days": 58,
-      "total_return": -0.012369945924502098,
-      "net_profit": -1236.99459245021,
-      "return_usd": -1236.99459245021,
-      "max_drawdown": 0.012369945924502098,
-      "win_rate": 0.16666666666666666,
-      "profit_factor": 0.09797054460288657,
-      "trades": 12,
-      "average_trade": -103.08288270418416,
-      "final_equity": 98763.00540754979
+      "total_return": 0.0028141639405381285,
+      "net_profit": 281.41639405381284,
+      "return_usd": 281.41639405381284,
+      "max_drawdown": 0.011995719040949876,
+      "win_rate": 0.2857142857142857,
+      "profit_factor": 1.4462337921165798,
+      "trades": 7,
+      "average_trade": 40.20234200768755,
+      "final_equity": 100281.41639405381,
+      "trades_count_total": 7,
+      "trades_count_30d": 6,
+      "trades_count_90d": 7,
+      "rolling_30d": {
+        "total_return": 0.005146909165636608,
+        "profit_factor": 2.2952325805399254,
+        "win_rate": 0.3333333333333333,
+        "max_drawdown": 0.002456141769132236
+      },
+      "rolling_90d": {
+        "total_return": 0.0028141639405381285,
+        "profit_factor": 1.4462337921165798,
+        "win_rate": 0.2857142857142857,
+        "max_drawdown": 0.0044049796810119
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-12T15:00:00",
+          "equity": 99766.72547749015
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-13T14:35:00",
+          "equity": 99805.21073405819
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T15:05:00",
+          "equity": 99750.96932832622
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-13T19:05:00",
+          "equity": 99563.38647753153
+        },
+        {
+          "idx": 5,
+          "ts": "2026-03-24T18:40:00",
+          "equity": 99559.50203189881
+        },
+        {
+          "idx": 6,
+          "ts": "2026-04-07T18:55:00",
+          "equity": 100433.08104730301
+        },
+        {
+          "idx": 7,
+          "ts": "2026-04-08T19:00:00",
+          "equity": 100281.41639405381
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-12T15:00:00",
+          "drawdown": 0.0023327452250984787
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-13T14:35:00",
+          "drawdown": 0.0019478926594181393
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T15:05:00",
+          "drawdown": 0.002490306716737832
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-13T19:05:00",
+          "drawdown": 0.004366135224684695
+        },
+        {
+          "idx": 5,
+          "ts": "2026-03-24T18:40:00",
+          "drawdown": 0.0044049796810119
+        },
+        {
+          "idx": 6,
+          "ts": "2026-04-07T18:55:00",
+          "drawdown": 0.0
+        },
+        {
+          "idx": 7,
+          "ts": "2026-04-08T19:00:00",
+          "drawdown": 0.0015101065472418274
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-02-12",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-13",
+          "count": 3,
+          "cum_count": 4
+        },
+        {
+          "date": "2026-03-24",
+          "count": 1,
+          "cum_count": 5
+        },
+        {
+          "date": "2026-04-07",
+          "count": 1,
+          "cum_count": 6
+        },
+        {
+          "date": "2026-04-08",
+          "count": 1,
+          "cum_count": 7
+        }
+      ],
+      "trend_performance": "\u2192",
+      "low_sample": true,
+      "low_sample_threshold": 30,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ]
     },
     {
       "id": "QQQ_SWING_RSI2_PULLBACK",
       "name": "QQQ_SWING_RSI2_PULLBACK",
+      "status": "ACTIVE",
       "instrument": "QQQ",
       "timeframe": "d",
       "initial_cash": 100000.0,
-      "start": "2025-04-09",
+      "start": "2025-04-10",
       "end": "2026-04-09",
-      "period_days": 365,
+      "period_days": 364,
       "total_return": -0.012733988925133744,
       "net_profit": -1273.3988925133744,
       "return_usd": -1273.3988925133744,
@@ -4657,15 +4773,347 @@
       "profit_factor": 0.510324520001656,
       "trades": 4,
       "average_trade": -318.3497231283436,
-      "final_equity": 98726.60110748663
+      "final_equity": 98726.60110748663,
+      "trades_count_total": 4,
+      "trades_count_30d": 2,
+      "trades_count_90d": 4,
+      "rolling_30d": {
+        "total_return": -0.026004955210697518,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.026004955210697518
+      },
+      "rolling_90d": {
+        "total_return": -0.012733988925133744,
+        "profit_factor": 0.510324520001656,
+        "win_rate": 0.5,
+        "max_drawdown": 0.025664364297366737
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-02T00:00:00",
+          "equity": 100061.6709092704
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T00:00:00",
+          "equity": 101327.09662855638
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T00:00:00",
+          "equity": 100656.03138212043
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-20T00:00:00",
+          "equity": 98726.60110748663
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-02T00:00:00",
+          "drawdown": 0.0
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T00:00:00",
+          "drawdown": 0.0
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T00:00:00",
+          "drawdown": 0.0066227620129680346
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-20T00:00:00",
+          "drawdown": 0.025664364297366737
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-03-02",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-09",
+          "count": 1,
+          "cum_count": 2
+        },
+        {
+          "date": "2026-03-13",
+          "count": 1,
+          "cum_count": 3
+        },
+        {
+          "date": "2026-03-20",
+          "count": 1,
+          "cum_count": 4
+        }
+      ],
+      "trend_performance": "\u2193",
+      "low_sample": true,
+      "low_sample_threshold": 12,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ]
+    },
+    {
+      "id": "NQ_SCALP_VWAP_PULLBACK",
+      "name": "NQ_SCALP_VWAP_PULLBACK",
+      "status": "WEAK",
+      "instrument": "QQQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "start": "2026-02-10",
+      "end": "2026-04-09",
+      "period_days": 58,
+      "total_return": -0.014150186419011153,
+      "net_profit": -1415.0186419011152,
+      "return_usd": -1415.0186419011152,
+      "max_drawdown": 0.014150186419011153,
+      "win_rate": 0.15384615384615385,
+      "profit_factor": 0.0867136394180208,
+      "trades": 13,
+      "average_trade": -108.84758783854733,
+      "final_equity": 98584.98135809888,
+      "trades_count_total": 13,
+      "trades_count_30d": 6,
+      "trades_count_90d": 13,
+      "rolling_30d": {
+        "total_return": -0.00599922415458248,
+        "profit_factor": 0.10608776772947888,
+        "win_rate": 0.16666666666666666,
+        "max_drawdown": 0.00599922415458248
+      },
+      "rolling_90d": {
+        "total_return": -0.014150186419011153,
+        "profit_factor": 0.0867136394180208,
+        "win_rate": 0.15384615384615385,
+        "max_drawdown": 0.014150186419011153
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T14:45:00",
+          "equity": 99654.7482500561
+        },
+        {
+          "idx": 2,
+          "ts": "2026-02-18T14:55:00",
+          "equity": 99717.90214892202
+        },
+        {
+          "idx": 3,
+          "ts": "2026-02-20T15:15:00",
+          "equity": 99510.15483442566
+        },
+        {
+          "idx": 4,
+          "ts": "2026-02-20T17:50:00",
+          "equity": 99452.32221491518
+        },
+        {
+          "idx": 5,
+          "ts": "2026-02-25T17:35:00",
+          "equity": 99340.39513522532
+        },
+        {
+          "idx": 6,
+          "ts": "2026-02-25T18:40:00",
+          "equity": 99228.56402007965
+        },
+        {
+          "idx": 7,
+          "ts": "2026-03-10T17:45:00",
+          "equity": 99184.90377355713
+        },
+        {
+          "idx": 8,
+          "ts": "2026-03-20T15:20:00",
+          "equity": 98990.58468936702
+        },
+        {
+          "idx": 9,
+          "ts": "2026-03-20T16:50:00",
+          "equity": 98903.79931623867
+        },
+        {
+          "idx": 10,
+          "ts": "2026-03-26T14:50:00",
+          "equity": 98974.99694344329
+        },
+        {
+          "idx": 11,
+          "ts": "2026-03-27T19:40:00",
+          "equity": 98896.02943829978
+        },
+        {
+          "idx": 12,
+          "ts": "2026-04-01T19:55:00",
+          "equity": 98763.00540754979
+        },
+        {
+          "idx": 13,
+          "ts": "2026-04-09T18:10:00",
+          "equity": 98584.98135809888
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T14:45:00",
+          "drawdown": 0.003452517499438982
+        },
+        {
+          "idx": 2,
+          "ts": "2026-02-18T14:55:00",
+          "drawdown": 0.0028209785107798234
+        },
+        {
+          "idx": 3,
+          "ts": "2026-02-20T15:15:00",
+          "drawdown": 0.004898451655743411
+        },
+        {
+          "idx": 4,
+          "ts": "2026-02-20T17:50:00",
+          "drawdown": 0.005476777850848157
+        },
+        {
+          "idx": 5,
+          "ts": "2026-02-25T17:35:00",
+          "drawdown": 0.006596048647746793
+        },
+        {
+          "idx": 6,
+          "ts": "2026-02-25T18:40:00",
+          "drawdown": 0.007714359799203521
+        },
+        {
+          "idx": 7,
+          "ts": "2026-03-10T17:45:00",
+          "drawdown": 0.008150962264428671
+        },
+        {
+          "idx": 8,
+          "ts": "2026-03-20T15:20:00",
+          "drawdown": 0.010094153106329759
+        },
+        {
+          "idx": 9,
+          "ts": "2026-03-20T16:50:00",
+          "drawdown": 0.010962006837613298
+        },
+        {
+          "idx": 10,
+          "ts": "2026-03-26T14:50:00",
+          "drawdown": 0.01025003056556714
+        },
+        {
+          "idx": 11,
+          "ts": "2026-03-27T19:40:00",
+          "drawdown": 0.011039705617002182
+        },
+        {
+          "idx": 12,
+          "ts": "2026-04-01T19:55:00",
+          "drawdown": 0.012369945924502098
+        },
+        {
+          "idx": 13,
+          "ts": "2026-04-09T18:10:00",
+          "drawdown": 0.014150186419011153
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-02-18",
+          "count": 2,
+          "cum_count": 2
+        },
+        {
+          "date": "2026-02-20",
+          "count": 2,
+          "cum_count": 4
+        },
+        {
+          "date": "2026-02-25",
+          "count": 2,
+          "cum_count": 6
+        },
+        {
+          "date": "2026-03-10",
+          "count": 1,
+          "cum_count": 7
+        },
+        {
+          "date": "2026-03-20",
+          "count": 2,
+          "cum_count": 9
+        },
+        {
+          "date": "2026-03-26",
+          "count": 1,
+          "cum_count": 10
+        },
+        {
+          "date": "2026-03-27",
+          "count": 1,
+          "cum_count": 11
+        },
+        {
+          "date": "2026-04-01",
+          "count": 1,
+          "cum_count": 12
+        },
+        {
+          "date": "2026-04-09",
+          "count": 1,
+          "cum_count": 13
+        }
+      ],
+      "trend_performance": "\u2192",
+      "low_sample": true,
+      "low_sample_threshold": 30,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ]
     },
     {
       "id": "NQ_DAY_ORB_RETEST",
       "name": "NQ_DAY_ORB_RETEST",
+      "status": "EXPERIMENT",
       "instrument": "QQQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "start": "2026-02-09",
+      "start": "2026-02-10",
       "end": "2026-04-09",
       "period_days": 58,
       "total_return": -0.015527078399820166,
@@ -4676,28 +5124,404 @@
       "profit_factor": 0.0,
       "trades": 3,
       "average_trade": -517.5692799940056,
-      "final_equity": 98447.29216001798
+      "final_equity": 98447.29216001798,
+      "trades_count_total": 3,
+      "trades_count_30d": 2,
+      "trades_count_90d": 3,
+      "rolling_30d": {
+        "total_return": -0.010060596426586417,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.010060596426586417
+      },
+      "rolling_90d": {
+        "total_return": -0.015527078399820166,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.015527078399820166
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T19:50:00",
+          "equity": 99453.35180267663
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-24T18:00:00",
+          "equity": 99004.49610555549
+        },
+        {
+          "idx": 3,
+          "ts": "2026-04-08T18:55:00",
+          "equity": 98447.29216001798
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T19:50:00",
+          "drawdown": 0.005466481973233749
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-24T18:00:00",
+          "drawdown": 0.009955038944445114
+        },
+        {
+          "idx": 3,
+          "ts": "2026-04-08T18:55:00",
+          "drawdown": 0.015527078399820166
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-02-18",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-24",
+          "count": 1,
+          "cum_count": 2
+        },
+        {
+          "date": "2026-04-08",
+          "count": 1,
+          "cum_count": 3
+        }
+      ],
+      "trend_performance": "\u2193",
+      "low_sample": true,
+      "low_sample_threshold": 30,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ]
     },
     {
       "id": "QQQ_POSITION_200DMA_ROTATION",
       "name": "QQQ_POSITION_200DMA_ROTATION",
+      "status": "WEAK",
       "instrument": "QQQ",
       "timeframe": "d",
       "initial_cash": 100000.0,
-      "start": "2024-04-09",
+      "start": "2024-04-10",
       "end": "2026-04-09",
-      "period_days": 730,
-      "total_return": -0.1095137183433873,
-      "net_profit": -10951.37183433873,
-      "return_usd": -10951.37183433873,
-      "max_drawdown": 0.21724638766937773,
+      "period_days": 729,
+      "total_return": -0.11165961965551673,
+      "net_profit": -11165.961965551673,
+      "return_usd": -11165.961965551673,
+      "max_drawdown": 0.21724638766937776,
       "win_rate": 0.5882352941176471,
-      "profit_factor": 0.5182976978871738,
+      "profit_factor": 0.5128485366436296,
       "trades": 17,
-      "average_trade": -644.1983431963959,
-      "final_equity": 89048.62816566127
+      "average_trade": -656.8212920912748,
+      "final_equity": 88834.03803444833,
+      "trades_count_total": 17,
+      "trades_count_30d": 2,
+      "trades_count_90d": 6,
+      "rolling_30d": {
+        "total_return": -0.027379603423656227,
+        "profit_factor": 0.16038629055656678,
+        "win_rate": 0.5,
+        "max_drawdown": 0.03244009537220151
+      },
+      "rolling_90d": {
+        "total_return": -0.02913920497189014,
+        "profit_factor": 0.4356573885337809,
+        "win_rate": 0.5,
+        "max_drawdown": 0.03456273593307715
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2025-03-04T00:00:00",
+          "equity": 96247.81253067049
+        },
+        {
+          "idx": 2,
+          "ts": "2025-04-09T00:00:00",
+          "equity": 96796.94506914112
+        },
+        {
+          "idx": 3,
+          "ts": "2025-04-25T00:00:00",
+          "equity": 91338.56966403346
+        },
+        {
+          "idx": 4,
+          "ts": "2025-05-12T00:00:00",
+          "equity": 84913.59915770926
+        },
+        {
+          "idx": 5,
+          "ts": "2025-06-20T00:00:00",
+          "equity": 86157.91138668274
+        },
+        {
+          "idx": 6,
+          "ts": "2025-08-01T00:00:00",
+          "equity": 88130.16888425435
+        },
+        {
+          "idx": 7,
+          "ts": "2025-08-20T00:00:00",
+          "equity": 88358.36122159929
+        },
+        {
+          "idx": 8,
+          "ts": "2025-10-10T00:00:00",
+          "equity": 92415.86379894023
+        },
+        {
+          "idx": 9,
+          "ts": "2025-11-06T00:00:00",
+          "equity": 93842.46391625925
+        },
+        {
+          "idx": 10,
+          "ts": "2025-11-18T00:00:00",
+          "equity": 91720.46180141026
+        },
+        {
+          "idx": 11,
+          "ts": "2025-12-17T00:00:00",
+          "equity": 91747.95853163734
+        },
+        {
+          "idx": 12,
+          "ts": "2026-01-20T00:00:00",
+          "equity": 91534.8646027524
+        },
+        {
+          "idx": 13,
+          "ts": "2026-01-30T00:00:00",
+          "equity": 92309.72791459448
+        },
+        {
+          "idx": 14,
+          "ts": "2026-02-12T00:00:00",
+          "equity": 90620.40895069981
+        },
+        {
+          "idx": 15,
+          "ts": "2026-03-02T00:00:00",
+          "equity": 91571.99837681395
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-01T00:00:00",
+          "equity": 92095.01425669293
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-08T00:00:00",
+          "equity": 88834.03803444833
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2025-03-04T00:00:00",
+          "drawdown": 0.037521874693295106
+        },
+        {
+          "idx": 2,
+          "ts": "2025-04-09T00:00:00",
+          "drawdown": 0.03203054930858881
+        },
+        {
+          "idx": 3,
+          "ts": "2025-04-25T00:00:00",
+          "drawdown": 0.08661430335966536
+        },
+        {
+          "idx": 4,
+          "ts": "2025-05-12T00:00:00",
+          "drawdown": 0.15086400842290734
+        },
+        {
+          "idx": 5,
+          "ts": "2025-06-20T00:00:00",
+          "drawdown": 0.1384208861331726
+        },
+        {
+          "idx": 6,
+          "ts": "2025-08-01T00:00:00",
+          "drawdown": 0.11869831115745648
+        },
+        {
+          "idx": 7,
+          "ts": "2025-08-20T00:00:00",
+          "drawdown": 0.11641638778400709
+        },
+        {
+          "idx": 8,
+          "ts": "2025-10-10T00:00:00",
+          "drawdown": 0.07584136201059766
+        },
+        {
+          "idx": 9,
+          "ts": "2025-11-06T00:00:00",
+          "drawdown": 0.0615753608374075
+        },
+        {
+          "idx": 10,
+          "ts": "2025-11-18T00:00:00",
+          "drawdown": 0.0827953819858974
+        },
+        {
+          "idx": 11,
+          "ts": "2025-12-17T00:00:00",
+          "drawdown": 0.08252041468362659
+        },
+        {
+          "idx": 12,
+          "ts": "2026-01-20T00:00:00",
+          "drawdown": 0.08465135397247606
+        },
+        {
+          "idx": 13,
+          "ts": "2026-01-30T00:00:00",
+          "drawdown": 0.07690272085405522
+        },
+        {
+          "idx": 14,
+          "ts": "2026-02-12T00:00:00",
+          "drawdown": 0.09379591049300187
+        },
+        {
+          "idx": 15,
+          "ts": "2026-03-02T00:00:00",
+          "drawdown": 0.0842800162318605
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-01T00:00:00",
+          "drawdown": 0.07904985743307072
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-08T00:00:00",
+          "drawdown": 0.11165961965551673
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2025-03-04",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2025-04-09",
+          "count": 1,
+          "cum_count": 2
+        },
+        {
+          "date": "2025-04-25",
+          "count": 1,
+          "cum_count": 3
+        },
+        {
+          "date": "2025-05-12",
+          "count": 1,
+          "cum_count": 4
+        },
+        {
+          "date": "2025-06-20",
+          "count": 1,
+          "cum_count": 5
+        },
+        {
+          "date": "2025-08-01",
+          "count": 1,
+          "cum_count": 6
+        },
+        {
+          "date": "2025-08-20",
+          "count": 1,
+          "cum_count": 7
+        },
+        {
+          "date": "2025-10-10",
+          "count": 1,
+          "cum_count": 8
+        },
+        {
+          "date": "2025-11-06",
+          "count": 1,
+          "cum_count": 9
+        },
+        {
+          "date": "2025-11-18",
+          "count": 1,
+          "cum_count": 10
+        },
+        {
+          "date": "2025-12-17",
+          "count": 1,
+          "cum_count": 11
+        },
+        {
+          "date": "2026-01-20",
+          "count": 1,
+          "cum_count": 12
+        },
+        {
+          "date": "2026-01-30",
+          "count": 1,
+          "cum_count": 13
+        },
+        {
+          "date": "2026-02-12",
+          "count": 1,
+          "cum_count": 14
+        },
+        {
+          "date": "2026-03-02",
+          "count": 1,
+          "cum_count": 15
+        },
+        {
+          "date": "2026-04-01",
+          "count": 1,
+          "cum_count": 16
+        },
+        {
+          "date": "2026-04-08",
+          "count": 1,
+          "cum_count": 17
+        }
+      ],
+      "trend_performance": "\u2193",
+      "low_sample": false,
+      "low_sample_threshold": 12,
+      "sample_size_suggestions": []
     }
   ],
+  "rg_nasdaq_snapshots_meta": {
+    "count": 1,
+    "last_timestamp": "2026-04-10T08:47:03.258258Z"
+  },
   "global_top10": [
     {
       "id": "GE Vernova (GEV)",
@@ -4768,6 +5592,23 @@
       "short_trades": 4
     },
     {
+      "id": "Arista Networks (ANET)",
+      "desc": "Bollinger mean reversion (window=10, mult=2.0)",
+      "symbol": "ANET",
+      "win_rate": 0.7777777777777778,
+      "profit_factor": 11.837276769945834,
+      "max_drawdown": 0.17508215097921692,
+      "total_return": 0.8490404247549729,
+      "return_usd": 84904.04247549729,
+      "final_equity": 184904.0424754973,
+      "initial_cash": 100000.0,
+      "trades": 9,
+      "wins": 7,
+      "losses": 2,
+      "long_trades": 4,
+      "short_trades": 5
+    },
+    {
       "id": "Oracle (ORCL)",
       "desc": "Bollinger mean reversion (window=30, mult=2.5)",
       "symbol": "orcl.us",
@@ -4836,23 +5677,6 @@
       "short_trades": 2
     },
     {
-      "id": "Salesforce (CRM)",
-      "desc": "MACD trend (fast=12, slow=26, signal=9)",
-      "symbol": "crm.us",
-      "win_rate": 0.8,
-      "profit_factor": 14.973571223925266,
-      "max_drawdown": 0.10901799240021283,
-      "total_return": 0.62787831447061,
-      "return_usd": 62787.831447061006,
-      "final_equity": 162787.831447061,
-      "initial_cash": 100000.0,
-      "trades": 5,
-      "wins": 4,
-      "losses": 1,
-      "long_trades": 2,
-      "short_trades": 3
-    },
-    {
       "id": "Amazon (AMZN)",
       "desc": "RSI mean reversion (window=14, OB=70, OS=30)",
       "symbol": "amzn.us",
@@ -4872,7 +5696,7 @@
   ],
   "global_meta": {
     "universe_count": 100,
-    "tested_count": 79
+    "tested_count": 80
   },
   "charts": {
     "equity_curve": [

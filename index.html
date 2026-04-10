@@ -195,6 +195,29 @@
     }
     .pill.pos { border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
     .pill.neg { border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    .status-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border: 1px solid var(--grid);
+      white-space: nowrap;
+    }
+    .status-active { color: #7ef2a1; border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
+    .status-experiment { color: #6dd3fb; border-color: #224a67; background: rgba(109, 211, 251, 0.12); }
+    .status-weak { color: #ff9d9d; border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    .sparkline {
+      width: 110px;
+      height: 28px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .trend-up { color: var(--accent-2); font-weight: 700; }
+    .trend-down { color: var(--danger); font-weight: 700; }
+    .trend-flat { color: var(--muted); font-weight: 700; }
     details.journal {
       border: 1px solid var(--grid);
       border-radius: 16px;
@@ -883,17 +906,57 @@
       if (!rows || !rows.length) {
         return `<div class="table-block"><div class="table-title">RG Nasdaq Strategy</div><div class="muted">No data yet.</div></div>`;
       }
+      const statusClass = (s) => {
+        if (s === 'ACTIVE') return 'status-active';
+        if (s === 'WEAK') return 'status-weak';
+        return 'status-experiment';
+      };
+      const trendClass = (t) => {
+        if (t === '↑') return 'trend-up';
+        if (t === '↓') return 'trend-down';
+        return 'trend-flat';
+      };
+      const sparkline = (curve) => {
+        const values = (curve || []).map(p => Number(p.equity || 0)).filter(v => Number.isFinite(v));
+        if (!values.length) return '<span class="muted">n/a</span>';
+        const w = 110;
+        const h = 28;
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const span = (max - min) || 1;
+        const step = values.length > 1 ? (w - 2) / (values.length - 1) : 0;
+        const pts = values.map((v, i) => {
+          const x = 1 + i * step;
+          const y = h - 1 - ((v - min) / span) * (h - 2);
+          return `${x.toFixed(2)},${y.toFixed(2)}`;
+        }).join(' ');
+        const cls = values[values.length - 1] >= values[0] ? 'pos' : 'neg';
+        return `<svg class="sparkline" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="currentColor" class="${cls}" stroke-width="2" points="${pts}"/></svg>`;
+      };
+
       const body = rows.map(r => `
         <tr>
-          <td class="strategy" data-label="Strategy"><strong>${r.id || r.name || '—'}</strong></td>
+          <td class="strategy" data-label="Strategy">
+            <strong>${r.id || r.name || '—'}</strong>
+            ${r.low_sample ? `<div class="muted">LOW_SAMPLE (&lt; ${fmtInt(r.low_sample_threshold || 0)} trades)</div>` : ''}
+            ${r.low_sample ? `<div class="muted">${(r.sample_size_suggestions || []).slice(0, 2).join(' | ')}</div>` : ''}
+          </td>
+          <td data-label="Status"><span class="status-pill ${statusClass(r.status)}">${r.status || 'EXPERIMENT'}</span></td>
           <td data-label="Instrument">${r.instrument || 'QQQ'}</td>
           <td data-label="Timeframe">${r.timeframe || 'd'}</td>
+          <td data-label="Trend 30D"><span class="${trendClass(r.trend_performance)}">${r.trend_performance || '→'}</span></td>
+          <td data-label="Mini Equity">${sparkline(r.equity_curve || [])}</td>
           <td class="key-metric ${posClass(r.total_return)}" data-label="Total Return">${fmtPct(r.total_return || 0)}</td>
           <td class="key-metric ${posClass(r.net_profit ?? r.return_usd)}" data-label="Net Profit">${fmtUsd((r.net_profit ?? r.return_usd) || 0)}</td>
           <td data-label="Max DD">${fmtPct(r.max_drawdown || 0)}</td>
           <td class="key-metric ${winClass(r.win_rate)}" data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
           <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
-          <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+          <td data-label="Trades Total">${fmtInt(r.trades_count_total || r.trades || 0)}</td>
+          <td data-label="Trades 30D">${fmtInt(r.trades_count_30d || 0)}</td>
+          <td data-label="Trades 90D">${fmtInt(r.trades_count_90d || 0)}</td>
+          <td data-label="Rolling PF 30D">${((r.rolling_30d || {}).profit_factor || 0).toFixed(2)}</td>
+          <td data-label="Rolling WR 30D">${fmtPct((r.rolling_30d || {}).win_rate || 0)}</td>
+          <td data-label="Rolling DD 30D">${fmtPct((r.rolling_30d || {}).max_drawdown || 0)}</td>
           <td data-label="Average Trade" class="${posClass(r.average_trade || 0)}">${fmtUsd(r.average_trade || 0)}</td>
         </tr>
       `).join('');
@@ -905,14 +968,22 @@
               <thead>
                 <tr>
                   <th>Strategy</th>
+                  <th>Status</th>
                   <th>Instrument</th>
                   <th>Timeframe</th>
+                  <th>Trend 30D</th>
+                  <th>Mini Equity</th>
                   <th>Total Return</th>
                   <th>Net Profit</th>
                   <th>Max DD</th>
                   <th>Win Rate</th>
                   <th>Profit Factor</th>
-                  <th>Trades</th>
+                  <th>Trades Total</th>
+                  <th>Trades 30D</th>
+                  <th>Trades 90D</th>
+                  <th>Rolling PF 30D</th>
+                  <th>Rolling WR 30D</th>
+                  <th>Rolling DD 30D</th>
                   <th>Average Trade</th>
                 </tr>
               </thead>
