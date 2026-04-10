@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-10T09:46:45.791146Z",
+  "generated_at": "2026-04-10T09:48:35.147863Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -4151,9 +4151,9 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 55,
+      "experiment_score": 67,
       "experiment_label": "WATCH",
-      "experiment_reason": "improving but not enough data",
+      "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
         "pf30": 20.0,
         "pf90": 12.44,
@@ -4164,8 +4164,10 @@
         "sample_30d": 3.2,
         "sample_90d": 1.05,
         "trend": 1.0,
-        "penalty_low_sample": 12
-      }
+        "penalty_low_sample": 0
+      },
+      "experiment_state": "INSUFFICIENT_DATA",
+      "high_potential_low_sample": true
     },
     {
       "id": "NQ_SCALP_VWAP_PULLBACK",
@@ -4688,7 +4690,264 @@
         "sample_90d": 5.25,
         "trend": 0.0,
         "penalty_low_sample": 0
-      }
+      },
+      "experiment_state": "OK",
+      "high_potential_low_sample": false
+    },
+    {
+      "id": "QQQ_SWING_RSI2_PULLBACK",
+      "name": "QQQ_SWING_RSI2_PULLBACK",
+      "status": "ACTIVE",
+      "instrument": "QQQ",
+      "timeframe": "d",
+      "initial_cash": 100000.0,
+      "start": "2025-04-10",
+      "end": "2026-04-09",
+      "period_days": 364,
+      "total_return": -0.012733988925133744,
+      "net_profit": -1273.3988925133744,
+      "return_usd": -1273.3988925133744,
+      "max_drawdown": 0.025664364297366737,
+      "win_rate": 0.5,
+      "profit_factor": 0.510324520001656,
+      "trades": 4,
+      "average_trade": -318.3497231283436,
+      "final_equity": 98726.60110748663,
+      "trades_count_total": 4,
+      "trades_count_30d": 2,
+      "trades_count_90d": 4,
+      "rolling_30d": {
+        "total_return": -0.026004955210697518,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.026004955210697518
+      },
+      "rolling_90d": {
+        "total_return": -0.012733988925133744,
+        "profit_factor": 0.510324520001656,
+        "win_rate": 0.5,
+        "max_drawdown": 0.025664364297366737
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-02T00:00:00",
+          "equity": 100061.6709092704
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T00:00:00",
+          "equity": 101327.09662855638
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T00:00:00",
+          "equity": 100656.03138212043
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-20T00:00:00",
+          "equity": 98726.60110748663
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-02T00:00:00",
+          "drawdown": 0.0
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T00:00:00",
+          "drawdown": 0.0
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-13T00:00:00",
+          "drawdown": 0.0066227620129680346
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-20T00:00:00",
+          "drawdown": 0.025664364297366737
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-03-02",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-09",
+          "count": 1,
+          "cum_count": 2
+        },
+        {
+          "date": "2026-03-13",
+          "count": 1,
+          "cum_count": 3
+        },
+        {
+          "date": "2026-03-20",
+          "count": 1,
+          "cum_count": 4
+        }
+      ],
+      "trend_performance": "\u2193",
+      "low_sample": true,
+      "low_sample_threshold": 12,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ],
+      "experiment_score": 29,
+      "experiment_label": "WATCH",
+      "experiment_reason": "insufficient sample",
+      "experiment_breakdown": {
+        "pf30": 0.0,
+        "pf90": 0.0,
+        "ret30": 2.88,
+        "ret90": 4.36,
+        "dd": 15.0,
+        "sample_total": 2.4,
+        "sample_30d": 2.67,
+        "sample_90d": 1.2,
+        "trend": 0.0,
+        "penalty_low_sample": 0
+      },
+      "experiment_state": "INSUFFICIENT_DATA",
+      "high_potential_low_sample": false
+    },
+    {
+      "id": "NQ_DAY_ORB_RETEST",
+      "name": "NQ_DAY_ORB_RETEST",
+      "status": "EXPERIMENT",
+      "instrument": "QQQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "start": "2026-02-10",
+      "end": "2026-04-09",
+      "period_days": 58,
+      "total_return": -0.015527078399820166,
+      "net_profit": -1552.7078399820166,
+      "return_usd": -1552.7078399820166,
+      "max_drawdown": 0.01864867118054918,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "trades": 3,
+      "average_trade": -517.5692799940056,
+      "final_equity": 98447.29216001798,
+      "trades_count_total": 3,
+      "trades_count_30d": 2,
+      "trades_count_90d": 3,
+      "rolling_30d": {
+        "total_return": -0.010060596426586417,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.010060596426586417
+      },
+      "rolling_90d": {
+        "total_return": -0.015527078399820166,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.015527078399820166
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T19:50:00",
+          "equity": 99453.35180267663
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-24T18:00:00",
+          "equity": 99004.49610555549
+        },
+        {
+          "idx": 3,
+          "ts": "2026-04-08T18:55:00",
+          "equity": 98447.29216001798
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-02-18T19:50:00",
+          "drawdown": 0.005466481973233749
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-24T18:00:00",
+          "drawdown": 0.009955038944445114
+        },
+        {
+          "idx": 3,
+          "ts": "2026-04-08T18:55:00",
+          "drawdown": 0.015527078399820166
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-02-18",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-24",
+          "count": 1,
+          "cum_count": 2
+        },
+        {
+          "date": "2026-04-08",
+          "count": 1,
+          "cum_count": 3
+        }
+      ],
+      "trend_performance": "\u2193",
+      "low_sample": true,
+      "low_sample_threshold": 30,
+      "sample_size_suggestions": [
+        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
+        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
+        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
+        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
+      ],
+      "experiment_score": 26,
+      "experiment_label": "WATCH",
+      "experiment_reason": "insufficient sample",
+      "experiment_breakdown": {
+        "pf30": 0.0,
+        "pf90": 0.0,
+        "ret30": 4.79,
+        "ret90": 4.22,
+        "dd": 15.0,
+        "sample_total": 0.9,
+        "sample_30d": 1.07,
+        "sample_90d": 0.45,
+        "trend": 0.0,
+        "penalty_low_sample": 0
+      },
+      "experiment_state": "INSUFFICIENT_DATA",
+      "high_potential_low_sample": false
     },
     {
       "id": "QQQ_POSITION_200DMA_ROTATION",
@@ -5011,258 +5270,9 @@
         "sample_90d": 1.8,
         "trend": 0.0,
         "penalty_low_sample": 0
-      }
-    },
-    {
-      "id": "QQQ_SWING_RSI2_PULLBACK",
-      "name": "QQQ_SWING_RSI2_PULLBACK",
-      "status": "ACTIVE",
-      "instrument": "QQQ",
-      "timeframe": "d",
-      "initial_cash": 100000.0,
-      "start": "2025-04-10",
-      "end": "2026-04-09",
-      "period_days": 364,
-      "total_return": -0.012733988925133744,
-      "net_profit": -1273.3988925133744,
-      "return_usd": -1273.3988925133744,
-      "max_drawdown": 0.025664364297366737,
-      "win_rate": 0.5,
-      "profit_factor": 0.510324520001656,
-      "trades": 4,
-      "average_trade": -318.3497231283436,
-      "final_equity": 98726.60110748663,
-      "trades_count_total": 4,
-      "trades_count_30d": 2,
-      "trades_count_90d": 4,
-      "rolling_30d": {
-        "total_return": -0.026004955210697518,
-        "profit_factor": 0.0,
-        "win_rate": 0.0,
-        "max_drawdown": 0.026004955210697518
       },
-      "rolling_90d": {
-        "total_return": -0.012733988925133744,
-        "profit_factor": 0.510324520001656,
-        "win_rate": 0.5,
-        "max_drawdown": 0.025664364297366737
-      },
-      "equity_curve": [
-        {
-          "idx": 0,
-          "equity": 100000.0
-        },
-        {
-          "idx": 1,
-          "ts": "2026-03-02T00:00:00",
-          "equity": 100061.6709092704
-        },
-        {
-          "idx": 2,
-          "ts": "2026-03-09T00:00:00",
-          "equity": 101327.09662855638
-        },
-        {
-          "idx": 3,
-          "ts": "2026-03-13T00:00:00",
-          "equity": 100656.03138212043
-        },
-        {
-          "idx": 4,
-          "ts": "2026-03-20T00:00:00",
-          "equity": 98726.60110748663
-        }
-      ],
-      "drawdown_curve": [
-        {
-          "idx": 0,
-          "drawdown": 0.0
-        },
-        {
-          "idx": 1,
-          "ts": "2026-03-02T00:00:00",
-          "drawdown": 0.0
-        },
-        {
-          "idx": 2,
-          "ts": "2026-03-09T00:00:00",
-          "drawdown": 0.0
-        },
-        {
-          "idx": 3,
-          "ts": "2026-03-13T00:00:00",
-          "drawdown": 0.0066227620129680346
-        },
-        {
-          "idx": 4,
-          "ts": "2026-03-20T00:00:00",
-          "drawdown": 0.025664364297366737
-        }
-      ],
-      "trades_over_time": [
-        {
-          "date": "2026-03-02",
-          "count": 1,
-          "cum_count": 1
-        },
-        {
-          "date": "2026-03-09",
-          "count": 1,
-          "cum_count": 2
-        },
-        {
-          "date": "2026-03-13",
-          "count": 1,
-          "cum_count": 3
-        },
-        {
-          "date": "2026-03-20",
-          "count": 1,
-          "cum_count": 4
-        }
-      ],
-      "trend_performance": "\u2193",
-      "low_sample": true,
-      "low_sample_threshold": 12,
-      "sample_size_suggestions": [
-        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
-        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
-        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
-        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
-      ],
-      "experiment_score": 17,
-      "experiment_label": "KILL",
-      "experiment_reason": "weak PF and low sample",
-      "experiment_breakdown": {
-        "pf30": 0.0,
-        "pf90": 0.0,
-        "ret30": 2.88,
-        "ret90": 4.36,
-        "dd": 15.0,
-        "sample_total": 2.4,
-        "sample_30d": 2.67,
-        "sample_90d": 1.2,
-        "trend": 0.0,
-        "penalty_low_sample": 12
-      }
-    },
-    {
-      "id": "NQ_DAY_ORB_RETEST",
-      "name": "NQ_DAY_ORB_RETEST",
-      "status": "EXPERIMENT",
-      "instrument": "QQQ",
-      "timeframe": "5m",
-      "initial_cash": 100000.0,
-      "start": "2026-02-10",
-      "end": "2026-04-09",
-      "period_days": 58,
-      "total_return": -0.015527078399820166,
-      "net_profit": -1552.7078399820166,
-      "return_usd": -1552.7078399820166,
-      "max_drawdown": 0.01864867118054918,
-      "win_rate": 0.0,
-      "profit_factor": 0.0,
-      "trades": 3,
-      "average_trade": -517.5692799940056,
-      "final_equity": 98447.29216001798,
-      "trades_count_total": 3,
-      "trades_count_30d": 2,
-      "trades_count_90d": 3,
-      "rolling_30d": {
-        "total_return": -0.010060596426586417,
-        "profit_factor": 0.0,
-        "win_rate": 0.0,
-        "max_drawdown": 0.010060596426586417
-      },
-      "rolling_90d": {
-        "total_return": -0.015527078399820166,
-        "profit_factor": 0.0,
-        "win_rate": 0.0,
-        "max_drawdown": 0.015527078399820166
-      },
-      "equity_curve": [
-        {
-          "idx": 0,
-          "equity": 100000.0
-        },
-        {
-          "idx": 1,
-          "ts": "2026-02-18T19:50:00",
-          "equity": 99453.35180267663
-        },
-        {
-          "idx": 2,
-          "ts": "2026-03-24T18:00:00",
-          "equity": 99004.49610555549
-        },
-        {
-          "idx": 3,
-          "ts": "2026-04-08T18:55:00",
-          "equity": 98447.29216001798
-        }
-      ],
-      "drawdown_curve": [
-        {
-          "idx": 0,
-          "drawdown": 0.0
-        },
-        {
-          "idx": 1,
-          "ts": "2026-02-18T19:50:00",
-          "drawdown": 0.005466481973233749
-        },
-        {
-          "idx": 2,
-          "ts": "2026-03-24T18:00:00",
-          "drawdown": 0.009955038944445114
-        },
-        {
-          "idx": 3,
-          "ts": "2026-04-08T18:55:00",
-          "drawdown": 0.015527078399820166
-        }
-      ],
-      "trades_over_time": [
-        {
-          "date": "2026-02-18",
-          "count": 1,
-          "cum_count": 1
-        },
-        {
-          "date": "2026-03-24",
-          "count": 1,
-          "cum_count": 2
-        },
-        {
-          "date": "2026-04-08",
-          "count": 1,
-          "cum_count": 3
-        }
-      ],
-      "trend_performance": "\u2193",
-      "low_sample": true,
-      "low_sample_threshold": 30,
-      "sample_size_suggestions": [
-        "Roz\u0161\u00ed\u0159it test window (intraday na max dostupn\u00fdch ~60 dn\u00ed, daily na 12-24 m\u011bs\u00edc\u016f).",
-        "Jemn\u011b uvolnit vstupn\u00ed filtry (volume/threshold) o 10-20%.",
-        "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
-        "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
-      ],
-      "experiment_score": 14,
-      "experiment_label": "KILL",
-      "experiment_reason": "weak PF and low sample",
-      "experiment_breakdown": {
-        "pf30": 0.0,
-        "pf90": 0.0,
-        "ret30": 4.79,
-        "ret90": 4.22,
-        "dd": 15.0,
-        "sample_total": 0.9,
-        "sample_30d": 1.07,
-        "sample_90d": 0.45,
-        "trend": 0.0,
-        "penalty_low_sample": 12
-      }
+      "experiment_state": "OK",
+      "high_potential_low_sample": false
     }
   ],
   "rg_nasdaq_snapshots_meta": {
