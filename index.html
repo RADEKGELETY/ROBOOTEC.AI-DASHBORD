@@ -209,6 +209,7 @@
     .status-active { color: #7ef2a1; border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
     .status-experiment { color: #6dd3fb; border-color: #224a67; background: rgba(109, 211, 251, 0.12); }
     .status-weak { color: #ff9d9d; border-color: #5a1f1f; background: rgba(255, 107, 107, 0.12); }
+    .status-archived { color: #c0c7d1; border-color: #3e4654; background: rgba(128, 139, 158, 0.14); }
     .label-promote { color: #7ef2a1; border-color: #21553a; background: rgba(126, 242, 161, 0.12); }
     .label-hold { color: #6dd3fb; border-color: #224a67; background: rgba(109, 211, 251, 0.12); }
     .label-watch { color: #ffd27a; border-color: #664f1d; background: rgba(255, 210, 122, 0.12); }
@@ -914,6 +915,7 @@
       const statusClass = (s) => {
         if (s === 'ACTIVE') return 'status-active';
         if (s === 'WEAK') return 'status-weak';
+        if (s === 'ARCHIVED') return 'status-archived';
         return 'status-experiment';
       };
       const trendClass = (t) => {
@@ -950,6 +952,7 @@
         <tr>
           <td class="strategy" data-label="Strategy">
             <strong>${r.id || r.name || '—'}</strong>
+            ${r.walkforward_note ? `<div class="muted">${r.walkforward_note}</div>` : ''}
             ${r.low_sample ? `<div class="muted">LOW_SAMPLE (&lt; ${fmtInt(r.low_sample_threshold || 0)} trades)</div>` : ''}
             ${r.high_potential_low_sample ? `<div><span class="status-pill label-watch">HIGH_POTENTIAL_LOW_SAMPLE</span></div>` : ''}
             ${r.low_sample ? `<div class="muted">${(r.sample_size_suggestions || []).slice(0, 2).join(' | ')}</div>` : ''}

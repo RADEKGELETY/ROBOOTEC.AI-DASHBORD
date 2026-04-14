@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-13T15:58:27.709774Z",
+  "generated_at": "2026-04-13T17:33:47.277119Z",
   "scope": "anonymized",
   "summary": {
     "strategies": 41,
@@ -4985,7 +4985,46 @@
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
-      "high_potential_low_sample": false
+      "high_potential_low_sample": false,
+      "walkforward_note": "WF 20/20 windows=1 | OOS PF 0.13 | OOS return -2.81% | OOS trades 20",
+      "walkforward": {
+        "in_sample": {
+          "total_return": -0.009219422593044146,
+          "net_profit": -921.9422593044146,
+          "max_drawdown": 0.009219422593044146,
+          "profit_factor": 0.04409732606353165,
+          "win_rate": 0.2,
+          "trades_count": 5,
+          "average_trade": -184.38845186088292,
+          "rolling_pf": 0.04409732606353165,
+          "avg_win": 42.530677577116876,
+          "avg_loss": 241.11823422038287
+        },
+        "out_of_sample": {
+          "total_return": -0.02805546793398011,
+          "net_profit": -2805.546793398011,
+          "max_drawdown": 0.02805546793398011,
+          "profit_factor": 0.1296263496002879,
+          "win_rate": 0.2,
+          "trades_count": 20,
+          "average_trade": -140.27733966990053,
+          "rolling_pf": 0.1296263496002879,
+          "avg_win": 104.45881182580706,
+          "avg_loss": 201.46137754382744
+        },
+        "combined": {
+          "total_return": -0.03701623531209509,
+          "net_profit": -3701.6235312095087,
+          "max_drawdown": 0.03839341515183524,
+          "profit_factor": 0.10978803656896181,
+          "win_rate": 0.2,
+          "trades_count": 25,
+          "average_trade": -148.06494124838034,
+          "rolling_pf": 0.12962634960028901,
+          "avg_win": 91.30274503223772,
+          "avg_loss": 207.90686281853488
+        }
+      }
     },
     {
       "id": "NQ_SCALP_VWAP_PULLBACK",
@@ -6086,6 +6125,80 @@
   "rg_nasdaq_snapshots_meta": {
     "count": 9,
     "last_timestamp": "2026-04-13T15:58:27.632598Z"
+  },
+  "rg_nq_scalp_v2_walkforward": {
+    "generated_at": "2026-04-13T17:33:29.236289Z",
+    "strategy": "NQ_SCALP_V2",
+    "window_spec": "20/20 trading days",
+    "windows_count": 1,
+    "trading_days_total": 40,
+    "summary": {
+      "in_sample": {
+        "total_return": -0.009219422593044146,
+        "net_profit": -921.9422593044146,
+        "max_drawdown": 0.009219422593044146,
+        "profit_factor": 0.04409732606353165,
+        "win_rate": 0.2,
+        "trades_count": 5,
+        "average_trade": -184.38845186088292,
+        "rolling_pf": 0.04409732606353165,
+        "avg_win": 42.530677577116876,
+        "avg_loss": 241.11823422038287
+      },
+      "out_of_sample": {
+        "total_return": -0.02805546793398011,
+        "net_profit": -2805.546793398011,
+        "max_drawdown": 0.02805546793398011,
+        "profit_factor": 0.1296263496002879,
+        "win_rate": 0.2,
+        "trades_count": 20,
+        "average_trade": -140.27733966990053,
+        "rolling_pf": 0.1296263496002879,
+        "avg_win": 104.45881182580706,
+        "avg_loss": 201.46137754382744
+      },
+      "combined": {
+        "total_return": -0.03701623531209509,
+        "net_profit": -3701.6235312095087,
+        "max_drawdown": 0.03839341515183524,
+        "profit_factor": 0.10978803656896181,
+        "win_rate": 0.2,
+        "trades_count": 25,
+        "average_trade": -148.06494124838034,
+        "rolling_pf": 0.12962634960028901,
+        "avg_win": 91.30274503223772,
+        "avg_loss": 207.90686281853488
+      }
+    },
+    "windows": [
+      {
+        "window_index": 1,
+        "in_sample_start": "2026-02-13",
+        "in_sample_end": "2026-03-13",
+        "out_sample_start": "2026-03-16",
+        "out_sample_end": "2026-04-13",
+        "in_sample": {
+          "total_return": -0.009219422593044146,
+          "net_profit": -921.9422593044146,
+          "max_drawdown": 0.010636355138374421,
+          "profit_factor": 0.04409732606353165,
+          "win_rate": 0.2,
+          "trades_count": 5,
+          "average_trade": -184.38845186088292,
+          "rolling_pf": 0.04409732606353165
+        },
+        "out_of_sample": {
+          "total_return": -0.02805546793398011,
+          "net_profit": -2805.546793398011,
+          "max_drawdown": 0.02805546793398011,
+          "profit_factor": 0.1296263496002879,
+          "win_rate": 0.2,
+          "trades_count": 20,
+          "average_trade": -140.27733966990053,
+          "rolling_pf": 0.1296263496002879
+        }
+      }
+    ]
   },
   "global_top10": [
     {
