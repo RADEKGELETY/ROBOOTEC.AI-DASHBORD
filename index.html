@@ -1118,6 +1118,11 @@
       }));
       const allRows = [...baseline, ...vibeRows.map(r => ({ ...r, category: 'vibe_trading' }))];
 
+      const breakdown = (obj) => {
+        if (!obj || !Object.keys(obj).length) return '—';
+        return Object.entries(obj).map(([k, v]) => `${k}: ${fmtInt((v || {}).trades_count || 0)}`).join(' | ');
+      };
+
       const tableFor = (rows) => `
         <div class="table-wrap">
           <table>
@@ -1134,6 +1139,8 @@
                 <th>Trades</th>
                 <th>Average Trade</th>
                 <th>Rolling PF</th>
+                <th>Results by Regime</th>
+                <th>Results by Time of Day</th>
               </tr>
             </thead>
             <tbody>
@@ -1150,6 +1157,8 @@
                   <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
                   <td data-label="Average Trade">${fmtUsd(r.average_trade || 0)}</td>
                   <td data-label="Rolling PF">${(r.rolling_pf || 0).toFixed(2)}</td>
+                  <td data-label="Results by Regime" class="muted">${breakdown(r.results_by_vibe_regime)}</td>
+                  <td data-label="Results by Time of Day" class="muted">${breakdown(r.results_by_time_of_day)}</td>
                 </tr>
               `).join('')}
             </tbody>
