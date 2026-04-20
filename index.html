@@ -402,6 +402,22 @@
       <div class="muted">Loading…</div>
     </section>
 
+    <section class="section" id="vibeSummary">
+      <div class="section-head">
+        <h2>Vibe Trading Category Summary</h2>
+        <div class="muted">Independent rule-based test category for NASDAQ (100,000 USD per strategy)</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
+    <section class="section" id="vibeTop">
+      <div class="section-head">
+        <h2>Top Vibe Strategies</h2>
+        <div class="muted">VIBE_OPEN_BREAKOUT_NQ, VIBE_FADE_FAILURE_NQ, VIBE_NO_TRADE_FILTER_NQ</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
     <section class="section" id="globalTop10">
       <div class="section-head">
         <h2>Top 10 Global Stocks</h2>
@@ -612,6 +628,10 @@
           <td data-label="SL">${fmtUsd(r.sl || 0)}</td>
           <td data-label="TP">${fmtUsd(r.tp || 0)}</td>
           <td data-label="Confidence">${fmtPct(r.confidence || 0)}</td>
+          <td data-label="Vibe Score">${(r.vibe_score ?? 0).toFixed(1)}</td>
+          <td data-label="Vibe Regime">${r.vibe_regime || 'balanced'}</td>
+          <td data-label="Signal Quality">${r.signal_quality || 'standard'}</td>
+          <td data-label="Trade Allowed">${r.trade_allowed === false ? 'NO' : 'YES'}</td>
           <td data-label="Timestamp">${r.timestamp || '—'}</td>
           <td data-label="Reason">${r.reason || '—'}</td>
           <td data-label="Status">${r.status || '—'}</td>
@@ -631,6 +651,10 @@
                   <th>SL</th>
                   <th>TP</th>
                   <th>Confidence</th>
+                  <th>Vibe Score</th>
+                  <th>Vibe Regime</th>
+                  <th>Signal Quality</th>
+                  <th>Trade Allowed</th>
                   <th>Timestamp</th>
                   <th>Reason</th>
                   <th>Status</th>
@@ -791,6 +815,11 @@
                   <th>Regime</th>
                   <th>Entry Reason</th>
                   <th>Exit Reason</th>
+                  <th>Vibe Entry</th>
+                  <th>Vibe Regime</th>
+                  <th>Vibe Exit</th>
+                  <th>Trade Allowed</th>
+                  <th>Market State</th>
                   <th>PnL</th>
                   <th>PnL (R)</th>
                   <th>Fees</th>
@@ -812,6 +841,11 @@
                     <td data-label="Regime">${t.regime || '—'}</td>
                     <td data-label="Entry Reason">${t.entry_reason || '—'}</td>
                     <td data-label="Exit Reason">${t.exit_reason || '—'}</td>
+                    <td data-label="Vibe Entry">${t.vibe_score_entry != null ? Number(t.vibe_score_entry).toFixed(1) : '—'}</td>
+                    <td data-label="Vibe Regime">${t.vibe_regime_entry || '—'}</td>
+                    <td data-label="Vibe Exit">${t.vibe_score_exit != null ? Number(t.vibe_score_exit).toFixed(1) : '—'}</td>
+                    <td data-label="Trade Allowed">${t.trade_allowed === false ? 'NO' : (t.trade_allowed === true ? 'YES' : '—')}</td>
+                    <td data-label="Market State">${t.market_state || '—'}</td>
                     <td data-label="PnL" class="${posClass(t.pnl || 0)}">${fmtUsd(t.pnl || 0)}</td>
                     <td data-label="PnL (R)">${(t.pnl_r || 0).toFixed(2)}</td>
                     <td data-label="Fees">${fmtUsd(t.fees || 0)}</td>
@@ -1018,6 +1052,146 @@
       `;
     }
 
+    function renderVibeSummary(summary, comparison) {
+      if (!summary || !summary.strategies_count) {
+        return '<div class="table-block"><div class="table-title">Vibe Trading Category Summary</div><div class="muted">No vibe backtest data yet.</div></div>';
+      }
+      const cmp = (comparison || {}).baseline_vs_vibe || {};
+      const vibeCmp = cmp.vibe || {};
+      const baseCmp = cmp.baseline || {};
+      return `
+        <div class="table-block">
+          <div class="table-title">Vibe Trading Category Summary</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Strategies</th>
+                  <th>Capital per Strategy</th>
+                  <th>Total Capital</th>
+                  <th>Total Net Profit</th>
+                  <th>Avg Return</th>
+                  <th>Avg Win Rate</th>
+                  <th>Avg Profit Factor</th>
+                  <th>Worst Max DD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>${fmtInt(summary.strategies_count || 0)}</td>
+                  <td>${fmtUsd(summary.initial_cash_per_strategy || 100000)}</td>
+                  <td>${fmtUsd(summary.total_allocated_cash || 0)}</td>
+                  <td class="${posClass(summary.total_net_profit || 0)}">${fmtUsd(summary.total_net_profit || 0)}</td>
+                  <td class="${posClass(summary.avg_return || 0)}">${fmtPct(summary.avg_return || 0)}</td>
+                  <td>${fmtPct(summary.avg_win_rate || 0)}</td>
+                  <td>${(summary.avg_profit_factor || 0).toFixed(2)}</td>
+                  <td>${fmtPct(summary.max_drawdown_worst || 0)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="muted" style="margin-top:10px;">
+            Baseline vs Vibe: baseline avg return ${fmtPct(baseCmp.total_return || 0)} / PF ${(baseCmp.avg_profit_factor || 0).toFixed(2)}
+            • vibe avg return ${fmtPct(vibeCmp.total_return || 0)} / PF ${(vibeCmp.avg_profit_factor || 0).toFixed(2)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTopVibeStrategies(vibeRows, comparison, baselineRows) {
+      if (!vibeRows || !vibeRows.length) {
+        return '<div class="table-block"><div class="table-title">Top Vibe Strategies</div><div class="muted">No vibe strategy results yet.</div></div>';
+      }
+
+      const baseline = (baselineRows || []).slice(0, 10).map(r => ({
+        id: r.id || 'baseline',
+        category: 'baseline',
+        total_return: r.total_return || 0,
+        net_profit: r.return_usd || 0,
+        max_drawdown: r.max_drawdown || 0,
+        win_rate: r.win_rate || 0,
+        profit_factor: r.profit_factor || 0,
+        expectancy: 0,
+        trades: r.trades || 0,
+        average_trade: r.trades ? ((r.return_usd || 0) / r.trades) : 0,
+        rolling_pf: r.profit_factor || 0,
+      }));
+      const allRows = [...baseline, ...vibeRows.map(r => ({ ...r, category: 'vibe_trading' }))];
+
+      const tableFor = (rows) => `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>Category</th>
+                <th>Total Return</th>
+                <th>Net Profit</th>
+                <th>Win Rate</th>
+                <th>Profit Factor</th>
+                <th>Max DD</th>
+                <th>Expectancy</th>
+                <th>Trades</th>
+                <th>Average Trade</th>
+                <th>Rolling PF</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td data-label="Strategy"><strong>${r.id}</strong></td>
+                  <td data-label="Category">${r.category === 'vibe_trading' ? 'vibe_trading' : 'baseline'}</td>
+                  <td data-label="Total Return" class="${posClass(r.total_return || 0)}">${fmtPct(r.total_return || 0)}</td>
+                  <td data-label="Net Profit" class="${posClass(r.net_profit || 0)}">${fmtUsd(r.net_profit || 0)}</td>
+                  <td data-label="Win Rate">${fmtPct(r.win_rate || 0)}</td>
+                  <td data-label="Profit Factor">${(r.profit_factor || 0).toFixed(2)}</td>
+                  <td data-label="Max DD">${fmtPct(r.max_drawdown || 0)}</td>
+                  <td data-label="Expectancy">${fmtUsd(r.expectancy || 0)}</td>
+                  <td data-label="Trades">${fmtInt(r.trades || 0)}</td>
+                  <td data-label="Average Trade">${fmtUsd(r.average_trade || 0)}</td>
+                  <td data-label="Rolling PF">${(r.rolling_pf || 0).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      return `
+        <div class="table-block">
+          <div class="table-title">Top Vibe Strategies</div>
+          <div class="mode-toggle" style="margin-bottom:10px;">
+            <button class="mode-btn active" data-vibe-view="all" onclick="setVibeView('all')">All Strategies</button>
+            <button class="mode-btn" data-vibe-view="vibe" onclick="setVibeView('vibe')">Only Vibe</button>
+            <button class="mode-btn" data-vibe-view="compare" onclick="setVibeView('compare')">Baseline vs Vibe</button>
+          </div>
+          <div class="vibe-panel" data-vibe-panel="all">${tableFor(allRows)}</div>
+          <div class="vibe-panel hidden" data-vibe-panel="vibe">${tableFor(vibeRows)}</div>
+          <div class="vibe-panel hidden" data-vibe-panel="compare">
+            ${renderVibeSummary((comparison || {}).baseline_vs_vibe ? {
+              strategies_count: (comparison.baseline_vs_vibe.vibe || {}).strategies_count || 0,
+              initial_cash_per_strategy: 100000,
+              total_allocated_cash: ((comparison.baseline_vs_vibe.vibe || {}).strategies_count || 0) * 100000,
+              total_net_profit: 0,
+              avg_return: (comparison.baseline_vs_vibe.vibe || {}).total_return || 0,
+              avg_win_rate: (comparison.baseline_vs_vibe.vibe || {}).avg_win_rate || 0,
+              avg_profit_factor: (comparison.baseline_vs_vibe.vibe || {}).avg_profit_factor || 0,
+              max_drawdown_worst: 0,
+            } : null, comparison)}
+          </div>
+        </div>
+      `;
+    }
+
+    function setVibeView(view) {
+      document.querySelectorAll('[data-vibe-panel]').forEach(el => {
+        el.classList.toggle('hidden', el.getAttribute('data-vibe-panel') !== view);
+      });
+      document.querySelectorAll('[data-vibe-view]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-vibe-view') === view);
+      });
+    }
+
     function marketLabel(code) {
       const map = {
         US_STOCKS: 'NASDAQ / US Stocks',
@@ -1186,6 +1360,24 @@
           ${renderRgNasdaqTable(rgRows)}
         `;
 
+        const vibeSummary = data.vibe_trading_category_summary || null;
+        const vibeRows = data.vibe_strategies || [];
+        const strategyComparison = data.strategy_comparison || {};
+        document.getElementById('vibeSummary').innerHTML = `
+          <div class="section-head">
+            <h2>Vibe Trading Category Summary</h2>
+            <div class="muted">Independent vibe strategy category (rule-based, NASDAQ)</div>
+          </div>
+          ${renderVibeSummary(vibeSummary, strategyComparison)}
+        `;
+        document.getElementById('vibeTop').innerHTML = `
+          <div class="section-head">
+            <h2>Top Vibe Strategies</h2>
+            <div class="muted">All strategies / Only vibe / Baseline vs vibe</div>
+          </div>
+          ${renderTopVibeStrategies(vibeRows, strategyComparison, top10)}
+        `;
+
         const globalRows = data.global_top10 || [];
         const gm = data.global_meta || {};
         document.getElementById('globalTop10').innerHTML = `
@@ -1207,7 +1399,7 @@
         `;
 
 
-        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'globalTop10', 'sp500Top10'];
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'vibeSummary', 'vibeTop', 'globalTop10', 'sp500Top10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
           if (el) el.classList.toggle('hidden', !(isBacktest || isLive));

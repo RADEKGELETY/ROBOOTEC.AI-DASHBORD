@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T08:30:10.650855Z",
+  "generated_at": "2026-04-20T11:54:45.628574Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -5466,7 +5466,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5480,7 +5484,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 600.0291267299999,
-        "tp": 618.21182754
+        "tp": 618.21182754,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5494,7 +5502,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5508,7 +5520,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5522,7 +5538,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5536,7 +5556,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 600.0291267299999,
-        "tp": 618.21182754
+        "tp": 618.21182754,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5550,7 +5574,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5564,7 +5592,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 612.15092727,
-        "tp": 593.96822646
+        "tp": 593.96822646,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "system_fallback",
@@ -5578,7 +5610,11 @@
         "status": "NO_DATA",
         "strategy": "System Fallback",
         "sl": null,
-        "tp": null
+        "tp": null,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": false
       },
       {
         "strategy_id": "momentum_20",
@@ -5592,7 +5628,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5606,7 +5646,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5620,7 +5664,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5634,7 +5682,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5648,7 +5700,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5662,7 +5718,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5676,7 +5736,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5690,7 +5754,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5704,7 +5772,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5718,7 +5790,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5732,7 +5808,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5746,7 +5826,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5760,7 +5844,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5774,7 +5862,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5788,7 +5880,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5802,7 +5898,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5816,7 +5916,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5830,7 +5934,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5844,7 +5952,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5858,7 +5970,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5872,7 +5988,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 590.15309798,
-        "tp": 572.62379804
+        "tp": 572.62379804,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       }
     ],
     "GOLD": [
@@ -5888,7 +6008,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4857.09,
-        "tp": 4712.82
+        "tp": 4712.82,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5902,7 +6026,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4760.91,
-        "tp": 4905.18
+        "tp": 4905.18,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5916,7 +6044,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4857.09,
-        "tp": 4712.82
+        "tp": 4712.82,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5930,7 +6062,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4857.09,
-        "tp": 4712.82
+        "tp": 4712.82,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -5944,7 +6080,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4834.76890102,
-        "tp": 4691.16190396
+        "tp": 4691.16190396,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -5958,7 +6098,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4739.03090298,
-        "tp": 4882.63790004
+        "tp": 4882.63790004,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -5972,7 +6116,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4834.76890102,
-        "tp": 4691.16190396
+        "tp": 4691.16190396,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -5986,7 +6134,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4834.76890102,
-        "tp": 4691.16190396
+        "tp": 4691.16190396,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "system_fallback",
@@ -6000,7 +6152,11 @@
         "status": "NO_DATA",
         "strategy": "System Fallback",
         "sl": null,
-        "tp": null
+        "tp": null,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": false
       },
       {
         "strategy_id": "momentum_20",
@@ -6014,7 +6170,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4707.812196950001,
-        "tp": 4567.9761911000005
+        "tp": 4567.9761911000005,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6028,7 +6188,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4707.812196950001,
-        "tp": 4567.9761911000005
+        "tp": 4567.9761911000005,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6042,7 +6206,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4707.812196950001,
-        "tp": 4567.9761911000005
+        "tp": 4567.9761911000005,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6056,7 +6224,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4707.812196950001,
-        "tp": 4567.9761911000005
+        "tp": 4567.9761911000005,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6070,7 +6242,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4707.61,
-        "tp": 4567.78
+        "tp": 4567.78,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6084,7 +6260,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4707.61,
-        "tp": 4567.78
+        "tp": 4567.78,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6098,7 +6278,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4707.61,
-        "tp": 4567.78
+        "tp": 4567.78,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6112,7 +6296,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4707.61,
-        "tp": 4567.78
+        "tp": 4567.78,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6126,7 +6314,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4671.45219695,
-        "tp": 4532.6961911
+        "tp": 4532.6961911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6140,7 +6332,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4671.45219695,
-        "tp": 4532.6961911
+        "tp": 4532.6961911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6154,7 +6350,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4671.45219695,
-        "tp": 4532.6961911
+        "tp": 4532.6961911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6168,7 +6368,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4671.45219695,
-        "tp": 4532.6961911
+        "tp": 4532.6961911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6182,7 +6386,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4664.8871969500005,
-        "tp": 4526.3261911
+        "tp": 4526.3261911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6196,7 +6404,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4664.8871969500005,
-        "tp": 4526.3261911
+        "tp": 4526.3261911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6210,7 +6422,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4664.8871969500005,
-        "tp": 4526.3261911
+        "tp": 4526.3261911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6224,7 +6440,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4664.8871969500005,
-        "tp": 4526.3261911
+        "tp": 4526.3261911,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6238,7 +6458,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4672.36109898,
-        "tp": 4533.57809604
+        "tp": 4533.57809604,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6252,7 +6476,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 4672.36109898,
-        "tp": 4533.57809604
+        "tp": 4533.57809604,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6266,7 +6494,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 4672.36109898,
-        "tp": 4533.57809604
+        "tp": 4533.57809604,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6280,7 +6512,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 4672.36109898,
-        "tp": 4533.57809604
+        "tp": 4533.57809604,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6294,7 +6530,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 4670.03780305,
-        "tp": 4531.3238089
+        "tp": 4531.3238089,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       }
     ],
     "BTC": [
@@ -6310,7 +6550,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 71509.99979999999,
-        "tp": 69385.94039999999
+        "tp": 69385.94039999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6324,7 +6568,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 70093.9602,
-        "tp": 72218.0196
+        "tp": 72218.0196,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6338,7 +6586,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 70093.9602,
-        "tp": 72218.0196
+        "tp": 72218.0196,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6352,7 +6604,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 71509.99979999999,
-        "tp": 69385.94039999999
+        "tp": 69385.94039999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6366,7 +6622,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 71509.99979999999,
-        "tp": 69385.94039999999
+        "tp": 69385.94039999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6380,7 +6640,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 70093.9602,
-        "tp": 72218.0196
+        "tp": 72218.0196,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6394,7 +6658,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 70093.9602,
-        "tp": 72218.0196
+        "tp": 72218.0196,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6408,7 +6676,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 71509.99979999999,
-        "tp": 69385.94039999999
+        "tp": 69385.94039999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "system_fallback",
@@ -6422,7 +6694,11 @@
         "status": "NO_DATA",
         "strategy": "System Fallback",
         "sl": null,
-        "tp": null
+        "tp": null,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": false
       },
       {
         "strategy_id": "momentum_20",
@@ -6436,7 +6712,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 66713.23710000001,
-        "tp": 64731.65580000001
+        "tp": 64731.65580000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6450,7 +6730,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 66713.23710000001,
-        "tp": 64731.65580000001
+        "tp": 64731.65580000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6464,7 +6748,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 66713.23710000001,
-        "tp": 64731.65580000001
+        "tp": 64731.65580000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "rsi_revert_14_70_30",
@@ -6478,7 +6766,11 @@
         "status": "NEW",
         "strategy": "rsi_revert_14_70_30",
         "sl": 65392.18290000001,
-        "tp": 67373.7642
+        "tp": 67373.7642,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6492,7 +6784,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 66713.23710000001,
-        "tp": 64731.65580000001
+        "tp": 64731.65580000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6506,7 +6802,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 66713.23710000001,
-        "tp": 64731.65580000001
+        "tp": 64731.65580000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6520,7 +6820,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6534,7 +6838,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6548,7 +6856,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "rsi_revert_14_70_30",
@@ -6562,7 +6874,11 @@
         "status": "NEW",
         "strategy": "rsi_revert_14_70_30",
         "sl": 65558.0772,
-        "tp": 67544.6856
+        "tp": 67544.6856,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6576,7 +6892,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6590,7 +6910,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6604,7 +6928,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6618,7 +6946,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6632,7 +6964,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "rsi_revert_14_70_30",
@@ -6646,7 +6982,11 @@
         "status": "NEW",
         "strategy": "rsi_revert_14_70_30",
         "sl": 65558.0772,
-        "tp": 67544.6856
+        "tp": 67544.6856,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6660,7 +7000,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6674,7 +7018,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6688,7 +7036,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6702,7 +7054,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6716,7 +7072,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 66882.4828,
-        "tp": 64895.8744
+        "tp": 64895.8744,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       }
     ],
     "EURUSD": [
@@ -6732,7 +7092,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.15816536,
-        "tp": 1.19326128
+        "tp": 1.19326128,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6746,7 +7110,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.15816536,
-        "tp": 1.19326128
+        "tp": 1.19326128,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6760,7 +7128,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 1.15816536,
-        "tp": 1.19326128
+        "tp": 1.19326128,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "bollinger_revert_20_2.0",
@@ -6774,7 +7146,11 @@
         "status": "NEW",
         "strategy": "bollinger_revert_20_2.0",
         "sl": 1.18156264,
-        "tp": 1.14646672
+        "tp": 1.14646672,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6788,7 +7164,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.18156264,
-        "tp": 1.14646672
+        "tp": 1.14646672,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6802,7 +7182,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.15816536,
-        "tp": 1.19326128
+        "tp": 1.19326128,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6816,7 +7200,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.1570823000000001,
-        "tp": 1.1921454
+        "tp": 1.1921454,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6830,7 +7218,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.1570823000000001,
-        "tp": 1.1921454
+        "tp": 1.1921454,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "donchian_breakout_20",
@@ -6844,7 +7236,11 @@
         "status": "NEW",
         "strategy": "donchian_breakout_20",
         "sl": 1.1570823000000001,
-        "tp": 1.1921454
+        "tp": 1.1921454,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "bollinger_revert_20_2.0",
@@ -6858,7 +7254,11 @@
         "status": "NEW",
         "strategy": "bollinger_revert_20_2.0",
         "sl": 1.1804577,
-        "tp": 1.1453946000000002
+        "tp": 1.1453946000000002,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6872,7 +7272,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.1804577,
-        "tp": 1.1453946000000002
+        "tp": 1.1453946000000002,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6886,7 +7290,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.1570823000000001,
-        "tp": 1.1921454
+        "tp": 1.1921454,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "system_fallback",
@@ -6900,7 +7308,11 @@
         "status": "NO_DATA",
         "strategy": "System Fallback",
         "sl": null,
-        "tp": null
+        "tp": null,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": false
       },
       {
         "strategy_id": "momentum_20",
@@ -6914,7 +7326,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.16507136,
-        "tp": 1.13046528
+        "tp": 1.13046528,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6928,7 +7344,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.1420006399999998,
-        "tp": 1.1766067199999999
+        "tp": 1.1766067199999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6942,7 +7362,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.16507136,
-        "tp": 1.13046528
+        "tp": 1.13046528,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -6956,7 +7380,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.16507136,
-        "tp": 1.13046528
+        "tp": 1.13046528,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -6970,7 +7398,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.16493703,
-        "tp": 1.13033494
+        "tp": 1.13033494,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -6984,7 +7416,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.14186897,
-        "tp": 1.17647106
+        "tp": 1.17647106,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -6998,7 +7434,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.16493703,
-        "tp": 1.13033494
+        "tp": 1.13033494,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -7012,7 +7452,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.16493703,
-        "tp": 1.13033494
+        "tp": 1.13033494,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -7026,7 +7470,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -7040,7 +7488,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.1417373,
-        "tp": 1.1763354000000001
+        "tp": 1.1763354000000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -7054,7 +7506,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -7068,7 +7524,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -7082,7 +7542,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "macd_12_26_9",
@@ -7096,7 +7560,11 @@
         "status": "NEW",
         "strategy": "macd_12_26_9",
         "sl": 1.1417373,
-        "tp": 1.1763354000000001
+        "tp": 1.1763354000000001,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "sma_cross_20_50",
@@ -7110,7 +7578,11 @@
         "status": "NEW",
         "strategy": "sma_cross_20_50",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "ema_cross_12_26",
@@ -7124,7 +7596,11 @@
         "status": "NEW",
         "strategy": "ema_cross_12_26",
         "sl": 1.1648027,
-        "tp": 1.1302046
+        "tp": 1.1302046,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       },
       {
         "strategy_id": "momentum_20",
@@ -7138,7 +7614,11 @@
         "status": "NEW",
         "strategy": "momentum_20",
         "sl": 1.1639967199999999,
-        "tp": 1.1294225599999999
+        "tp": 1.1294225599999999,
+        "vibe_score": 50,
+        "vibe_regime": "balanced",
+        "signal_quality": "standard",
+        "trade_allowed": true
       }
     ]
   },
@@ -7852,5 +8332,352 @@
     "BTC executes directly via Alpaca paper (BTC/USD).",
     "NASDAQ/GOLD/EURUSD execute via Alpaca proxy symbols (QQQ/GLD/FXE).",
     "Alpaca API unavailable in publisher: Missing ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY env vars"
-  ]
+  ],
+  "vibe_trading_category_summary": {
+    "category": "vibe_trading",
+    "strategies_count": 3,
+    "initial_cash_per_strategy": 100000.0,
+    "total_allocated_cash": 300000.0,
+    "total_net_profit": -6907.046623847462,
+    "avg_return": -0.02302348874615821,
+    "avg_win_rate": 0.2680851063829787,
+    "avg_profit_factor": 0.3206423824122167,
+    "max_drawdown_worst": 0.04618319872117369
+  },
+  "top_vibe_strategies": [
+    {
+      "id": "VIBE_FADE_FAILURE_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": 0.0,
+      "net_profit": 0.0,
+      "max_drawdown": 0.0,
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "expectancy": 0.0,
+      "trades": 0,
+      "average_trade": 0.0,
+      "rolling_pf": 0.0,
+      "results_by_vibe_regime": {},
+      "results_by_time_of_day": {}
+    },
+    {
+      "id": "VIBE_OPEN_BREAKOUT_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": -0.025049493938796224,
+      "net_profit": -2504.949393879622,
+      "max_drawdown": 0.027316378870985546,
+      "profit_factor": 0.43884244643400094,
+      "win_rate": 0.4,
+      "expectancy": -62.623734846990544,
+      "trades": 40,
+      "average_trade": -62.62373484699056,
+      "rolling_pf": 0.8012741024379062,
+      "results_by_vibe_regime": {
+        "trend": {
+          "total_return": -0.022320921552093205,
+          "net_profit": -2232.0921552093205,
+          "max_drawdown": 0.02459415076493201,
+          "profit_factor": 0.4189593210243749,
+          "win_rate": 0.38235294117647056,
+          "expectancy": -65.64976927086238,
+          "trades_count": 34,
+          "average_trade": -65.64976927086236,
+          "rolling_pf": 0.6440582127072907
+        },
+        "balanced": {
+          "total_return": -0.0027285723867030176,
+          "net_profit": -272.85723867030174,
+          "max_drawdown": 0.005328026088302285,
+          "profit_factor": 0.5615728572004655,
+          "win_rate": 0.5,
+          "expectancy": -45.47620644505029,
+          "trades_count": 6,
+          "average_trade": -45.47620644505029,
+          "rolling_pf": 0.5615728572004655
+        }
+      },
+      "results_by_time_of_day": {
+        "open": {
+          "total_return": -0.00846362213895336,
+          "net_profit": -846.362213895336,
+          "max_drawdown": 0.01087714443507851,
+          "profit_factor": 0.60038818503152,
+          "win_rate": 0.45,
+          "expectancy": -42.31811069476682,
+          "trades_count": 20,
+          "average_trade": -42.3181106947668,
+          "rolling_pf": 0.60038818503152
+        },
+        "midday": {
+          "total_return": -0.01658587179984286,
+          "net_profit": -1658.5871799842862,
+          "max_drawdown": 0.01658587179984286,
+          "profit_factor": 0.2929955063134081,
+          "win_rate": 0.35,
+          "expectancy": -82.92935899921432,
+          "trades_count": 20,
+          "average_trade": -82.92935899921432,
+          "rolling_pf": 0.2929955063134081
+        }
+      }
+    },
+    {
+      "id": "VIBE_NO_TRADE_FILTER_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": -0.0440209722996784,
+      "net_profit": -4402.09722996784,
+      "max_drawdown": 0.04618319872117369,
+      "profit_factor": 0.5230847008026492,
+      "win_rate": 0.40425531914893614,
+      "expectancy": -46.83082159540255,
+      "trades": 94,
+      "average_trade": -46.83082159540255,
+      "rolling_pf": 0.4709981497585695,
+      "results_by_vibe_regime": {
+        "trend": {
+          "total_return": -0.03305363476148399,
+          "net_profit": -3305.363476148399,
+          "max_drawdown": 0.03524066702736647,
+          "profit_factor": 0.5416959590285452,
+          "win_rate": 0.40789473684210525,
+          "expectancy": -43.49162468616315,
+          "trades_count": 76,
+          "average_trade": -43.49162468616314,
+          "rolling_pf": 0.4839173393459851
+        },
+        "balanced": {
+          "total_return": -0.010967337538194406,
+          "net_profit": -1096.7337538194406,
+          "max_drawdown": 0.015667932825193506,
+          "profit_factor": 0.456575927936906,
+          "win_rate": 0.3888888888888889,
+          "expectancy": -60.929652989968936,
+          "trades_count": 18,
+          "average_trade": -60.92965298996892,
+          "rolling_pf": 0.456575927936906
+        }
+      },
+      "results_by_time_of_day": {
+        "open": {
+          "total_return": -0.005648631903897767,
+          "net_profit": -564.8631903897767,
+          "max_drawdown": 0.01439735620870267,
+          "profit_factor": 0.7948791258178761,
+          "win_rate": 0.4827586206896552,
+          "expectancy": -19.478041047923313,
+          "trades_count": 29,
+          "average_trade": -19.478041047923334,
+          "rolling_pf": 0.6424412003722044
+        },
+        "midday": {
+          "total_return": -0.019567105713301863,
+          "net_profit": -1956.7105713301862,
+          "max_drawdown": 0.019567105713301863,
+          "profit_factor": 0.3441584203217474,
+          "win_rate": 0.3103448275862069,
+          "expectancy": -67.47277832173057,
+          "trades_count": 29,
+          "average_trade": -67.47277832173056,
+          "rolling_pf": 0.23339077057953703
+        },
+        "late": {
+          "total_return": -0.01880523468247877,
+          "net_profit": -1880.5234682478767,
+          "max_drawdown": 0.021068866735912597,
+          "profit_factor": 0.46163653302597546,
+          "win_rate": 0.4166666666666667,
+          "expectancy": -52.23676300688545,
+          "trades_count": 36,
+          "average_trade": -52.23676300688547,
+          "rolling_pf": 0.9197045657040223
+        }
+      }
+    }
+  ],
+  "vibe_strategies": [
+    {
+      "id": "VIBE_FADE_FAILURE_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": 0.0,
+      "net_profit": 0.0,
+      "max_drawdown": 0.0,
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "expectancy": 0.0,
+      "trades": 0,
+      "average_trade": 0.0,
+      "rolling_pf": 0.0,
+      "results_by_vibe_regime": {},
+      "results_by_time_of_day": {}
+    },
+    {
+      "id": "VIBE_OPEN_BREAKOUT_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": -0.025049493938796224,
+      "net_profit": -2504.949393879622,
+      "max_drawdown": 0.027316378870985546,
+      "profit_factor": 0.43884244643400094,
+      "win_rate": 0.4,
+      "expectancy": -62.623734846990544,
+      "trades": 40,
+      "average_trade": -62.62373484699056,
+      "rolling_pf": 0.8012741024379062,
+      "results_by_vibe_regime": {
+        "trend": {
+          "total_return": -0.022320921552093205,
+          "net_profit": -2232.0921552093205,
+          "max_drawdown": 0.02459415076493201,
+          "profit_factor": 0.4189593210243749,
+          "win_rate": 0.38235294117647056,
+          "expectancy": -65.64976927086238,
+          "trades_count": 34,
+          "average_trade": -65.64976927086236,
+          "rolling_pf": 0.6440582127072907
+        },
+        "balanced": {
+          "total_return": -0.0027285723867030176,
+          "net_profit": -272.85723867030174,
+          "max_drawdown": 0.005328026088302285,
+          "profit_factor": 0.5615728572004655,
+          "win_rate": 0.5,
+          "expectancy": -45.47620644505029,
+          "trades_count": 6,
+          "average_trade": -45.47620644505029,
+          "rolling_pf": 0.5615728572004655
+        }
+      },
+      "results_by_time_of_day": {
+        "open": {
+          "total_return": -0.00846362213895336,
+          "net_profit": -846.362213895336,
+          "max_drawdown": 0.01087714443507851,
+          "profit_factor": 0.60038818503152,
+          "win_rate": 0.45,
+          "expectancy": -42.31811069476682,
+          "trades_count": 20,
+          "average_trade": -42.3181106947668,
+          "rolling_pf": 0.60038818503152
+        },
+        "midday": {
+          "total_return": -0.01658587179984286,
+          "net_profit": -1658.5871799842862,
+          "max_drawdown": 0.01658587179984286,
+          "profit_factor": 0.2929955063134081,
+          "win_rate": 0.35,
+          "expectancy": -82.92935899921432,
+          "trades_count": 20,
+          "average_trade": -82.92935899921432,
+          "rolling_pf": 0.2929955063134081
+        }
+      }
+    },
+    {
+      "id": "VIBE_NO_TRADE_FILTER_NQ",
+      "category": "vibe_trading",
+      "instrument": "NASDAQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "total_return": -0.0440209722996784,
+      "net_profit": -4402.09722996784,
+      "max_drawdown": 0.04618319872117369,
+      "profit_factor": 0.5230847008026492,
+      "win_rate": 0.40425531914893614,
+      "expectancy": -46.83082159540255,
+      "trades": 94,
+      "average_trade": -46.83082159540255,
+      "rolling_pf": 0.4709981497585695,
+      "results_by_vibe_regime": {
+        "trend": {
+          "total_return": -0.03305363476148399,
+          "net_profit": -3305.363476148399,
+          "max_drawdown": 0.03524066702736647,
+          "profit_factor": 0.5416959590285452,
+          "win_rate": 0.40789473684210525,
+          "expectancy": -43.49162468616315,
+          "trades_count": 76,
+          "average_trade": -43.49162468616314,
+          "rolling_pf": 0.4839173393459851
+        },
+        "balanced": {
+          "total_return": -0.010967337538194406,
+          "net_profit": -1096.7337538194406,
+          "max_drawdown": 0.015667932825193506,
+          "profit_factor": 0.456575927936906,
+          "win_rate": 0.3888888888888889,
+          "expectancy": -60.929652989968936,
+          "trades_count": 18,
+          "average_trade": -60.92965298996892,
+          "rolling_pf": 0.456575927936906
+        }
+      },
+      "results_by_time_of_day": {
+        "open": {
+          "total_return": -0.005648631903897767,
+          "net_profit": -564.8631903897767,
+          "max_drawdown": 0.01439735620870267,
+          "profit_factor": 0.7948791258178761,
+          "win_rate": 0.4827586206896552,
+          "expectancy": -19.478041047923313,
+          "trades_count": 29,
+          "average_trade": -19.478041047923334,
+          "rolling_pf": 0.6424412003722044
+        },
+        "midday": {
+          "total_return": -0.019567105713301863,
+          "net_profit": -1956.7105713301862,
+          "max_drawdown": 0.019567105713301863,
+          "profit_factor": 0.3441584203217474,
+          "win_rate": 0.3103448275862069,
+          "expectancy": -67.47277832173057,
+          "trades_count": 29,
+          "average_trade": -67.47277832173056,
+          "rolling_pf": 0.23339077057953703
+        },
+        "late": {
+          "total_return": -0.01880523468247877,
+          "net_profit": -1880.5234682478767,
+          "max_drawdown": 0.021068866735912597,
+          "profit_factor": 0.46163653302597546,
+          "win_rate": 0.4166666666666667,
+          "expectancy": -52.23676300688545,
+          "trades_count": 36,
+          "average_trade": -52.23676300688547,
+          "rolling_pf": 0.9197045657040223
+        }
+      }
+    }
+  ],
+  "strategy_comparison": {
+    "all_strategies_count": 44,
+    "vibe_strategies_count": 3,
+    "baseline_vs_vibe": {
+      "baseline": {
+        "strategies_count": 10,
+        "total_return": 0.30363948105750715,
+        "avg_profit_factor": 3.3408143003555346,
+        "avg_win_rate": 0.5440026640026641
+      },
+      "vibe": {
+        "strategies_count": 3,
+        "total_return": -0.02302348874615821,
+        "avg_profit_factor": 0.3206423824122167,
+        "avg_win_rate": 0.2680851063829787
+      }
+    }
+  }
 }
