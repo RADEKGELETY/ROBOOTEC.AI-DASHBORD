@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-20T11:56:54.182537Z",
+  "generated_at": "2026-04-27T11:22:44.363619Z",
   "scope": "live",
   "summary": {
     "strategies": 41,
@@ -3682,6 +3682,23 @@
       "short_trades": 0
     },
     {
+      "id": "SoftBank Group Corp. (9984.T)",
+      "desc": "S23 - Bollinger mean reversion (window=20, mult=2.0)",
+      "symbol": "9984.T",
+      "win_rate": 0.8,
+      "profit_factor": 3.585934623894666,
+      "max_drawdown": 0.20124449053668655,
+      "total_return": 1.3233034526016545,
+      "return_usd": 132330.34526016546,
+      "final_equity": 232330.34526016546,
+      "initial_cash": 100000.0,
+      "trades": 5,
+      "wins": 4,
+      "losses": 1,
+      "long_trades": 2,
+      "short_trades": 3
+    },
+    {
       "id": "Micron Technology (MU)",
       "desc": "S28 - Donchian breakout (window=55)",
       "symbol": "mu.us",
@@ -3699,6 +3716,23 @@
       "short_trades": 0
     },
     {
+      "id": "Arm Holdings (ARM)",
+      "desc": "S17 - EMA crossover (fast=21, slow=26)",
+      "symbol": "ARM",
+      "win_rate": 0.8333333333333334,
+      "profit_factor": 8.98030039334063,
+      "max_drawdown": 0.12803208189836002,
+      "total_return": 1.051195281999595,
+      "return_usd": 105119.52819995952,
+      "final_equity": 205119.52819995952,
+      "initial_cash": 100000.0,
+      "trades": 12,
+      "wins": 10,
+      "losses": 2,
+      "long_trades": 6,
+      "short_trades": 6
+    },
+    {
       "id": "AMD",
       "desc": "S19 - RSI mean reversion (window=7, OB=80, OS=20)",
       "symbol": "amd.us",
@@ -3714,23 +3748,6 @@
       "losses": 0,
       "long_trades": 3,
       "short_trades": 4
-    },
-    {
-      "id": "Novo Nordisk (NVO)",
-      "desc": "S33 - MACD trend (fast=12, slow=26, signal=9)",
-      "symbol": "NVO",
-      "win_rate": 0.5714285714285714,
-      "profit_factor": 25.487896130645197,
-      "max_drawdown": 0.16230250170933314,
-      "total_return": 0.9459716796583211,
-      "return_usd": 94597.16796583211,
-      "final_equity": 194597.1679658321,
-      "initial_cash": 100000.0,
-      "trades": 7,
-      "wins": 4,
-      "losses": 3,
-      "long_trades": 4,
-      "short_trades": 3
     },
     {
       "id": "Arista Networks (ANET)",
@@ -3767,6 +3784,23 @@
       "short_trades": 1
     },
     {
+      "id": "Siemens Energy (ENR.F)",
+      "desc": "S28 - Donchian breakout (window=55)",
+      "symbol": "ENR.F",
+      "win_rate": 1.0,
+      "profit_factor": 0.0,
+      "max_drawdown": 0.17373251729851824,
+      "total_return": 0.8077012872210049,
+      "return_usd": 80770.12872210049,
+      "final_equity": 180770.1287221005,
+      "initial_cash": 100000.0,
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "long_trades": 1,
+      "short_trades": 0
+    },
+    {
       "id": "Applied Materials (AMAT)",
       "desc": "S10 - SMA crossover (fast=20, slow=30)",
       "symbol": "amat.us",
@@ -3782,40 +3816,6 @@
       "losses": 0,
       "long_trades": 1,
       "short_trades": 1
-    },
-    {
-      "id": "Palantir (PLTR)",
-      "desc": "S32 - MACD trend (fast=8, slow=21, signal=9)",
-      "symbol": "pltr.us",
-      "win_rate": 0.7777777777777778,
-      "profit_factor": 7.591225367769016,
-      "max_drawdown": 0.1223272974336676,
-      "total_return": 0.676164286306283,
-      "return_usd": 67616.4286306283,
-      "final_equity": 167616.4286306283,
-      "initial_cash": 100000.0,
-      "trades": 9,
-      "wins": 7,
-      "losses": 2,
-      "long_trades": 4,
-      "short_trades": 5
-    },
-    {
-      "id": "Amphenol (APH)",
-      "desc": "S19 - RSI mean reversion (window=7, OB=80, OS=20)",
-      "symbol": "APH",
-      "win_rate": 0.8888888888888888,
-      "profit_factor": 5.85094314845517,
-      "max_drawdown": 0.18712782556390992,
-      "total_return": 0.6651940030432155,
-      "return_usd": 66519.40030432155,
-      "final_equity": 166519.40030432155,
-      "initial_cash": 100000.0,
-      "trades": 9,
-      "wins": 8,
-      "losses": 1,
-      "long_trades": 4,
-      "short_trades": 5
     }
   ],
   "global_meta": {
@@ -3829,38 +3829,38 @@
   },
   "rg_nasdaq_strategies": [
     {
-      "id": "NQ_DAY_ORB_RETEST",
-      "name": "NQ_DAY_ORB_RETEST",
-      "status": "ACTIVE",
+      "id": "QQQ_POSITION_200DMA_ROTATION",
+      "name": "QQQ_POSITION_200DMA_ROTATION",
+      "status": "WEAK",
       "instrument": "QQQ",
-      "timeframe": "5m",
+      "timeframe": "d",
       "initial_cash": 100000.0,
-      "start": "2026-02-17",
-      "end": "2026-04-16",
-      "period_days": 58,
-      "total_return": -0.0006318005152772821,
-      "net_profit": -63.18005152772821,
-      "return_usd": -63.18005152772821,
-      "max_drawdown": 0.019349944181610734,
-      "win_rate": 0.25,
-      "profit_factor": 0.9593097620164912,
-      "trades": 4,
-      "average_trade": -15.795012881932053,
-      "final_equity": 99936.81994847227,
-      "trades_count_total": 4,
+      "start": "2024-04-29",
+      "end": "2026-04-24",
+      "period_days": 725,
+      "total_return": -0.039260895347306944,
+      "net_profit": -3926.089534730694,
+      "return_usd": -3926.089534730694,
+      "max_drawdown": 0.21724638766937768,
+      "win_rate": 0.6470588235294118,
+      "profit_factor": 0.8028678014979238,
+      "trades": 17,
+      "average_trade": -230.9464432194526,
+      "final_equity": 96073.9104652693,
+      "trades_count_total": 17,
       "trades_count_30d": 3,
-      "trades_count_90d": 4,
+      "trades_count_90d": 6,
       "rolling_30d": {
-        "total_return": 0.004834681457956467,
-        "profit_factor": 1.4805561472658024,
-        "win_rate": 0.3333333333333333,
-        "max_drawdown": 0.010060596426586417
+        "total_return": 0.009320096063449019,
+        "profit_factor": 1.275082919207926,
+        "win_rate": 0.6666666666666666,
+        "max_drawdown": 0.03369792607757723
       },
       "rolling_90d": {
-        "total_return": -0.0006318005152772821,
-        "profit_factor": 0.9593097620164912,
-        "win_rate": 0.25,
-        "max_drawdown": 0.015527078399820166
+        "total_return": 0.009705910276625946,
+        "profit_factor": 1.1887104905097103,
+        "win_rate": 0.6666666666666666,
+        "max_drawdown": 0.035823479923269945
       },
       "equity_curve": [
         {
@@ -3869,23 +3869,88 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T19:50:00",
-          "equity": 99453.35180267663
+          "ts": "2025-04-09T00:00:00",
+          "equity": 100570.54027933948
         },
         {
           "idx": 2,
-          "ts": "2026-03-24T18:00:00",
-          "equity": 99004.49610555549
+          "ts": "2025-04-25T00:00:00",
+          "equity": 94899.37200902861
         },
         {
           "idx": 3,
-          "ts": "2026-04-08T18:55:00",
-          "equity": 98447.29216001798
+          "ts": "2025-05-12T00:00:00",
+          "equity": 88223.92626393514
         },
         {
           "idx": 4,
-          "ts": "2026-04-14T14:30:00",
-          "equity": 99936.81994847227
+          "ts": "2025-06-20T00:00:00",
+          "equity": 89516.74757203183
+        },
+        {
+          "idx": 5,
+          "ts": "2025-08-01T00:00:00",
+          "equity": 91565.89284163795
+        },
+        {
+          "idx": 6,
+          "ts": "2025-08-20T00:00:00",
+          "equity": 91802.98117782453
+        },
+        {
+          "idx": 7,
+          "ts": "2025-10-10T00:00:00",
+          "equity": 96018.6640807975
+        },
+        {
+          "idx": 8,
+          "ts": "2025-11-06T00:00:00",
+          "equity": 97500.87970711569
+        },
+        {
+          "idx": 9,
+          "ts": "2025-11-18T00:00:00",
+          "equity": 95296.1520784511
+        },
+        {
+          "idx": 10,
+          "ts": "2025-12-17T00:00:00",
+          "equity": 95324.72075913496
+        },
+        {
+          "idx": 11,
+          "ts": "2026-01-20T00:00:00",
+          "equity": 95103.31943760671
+        },
+        {
+          "idx": 12,
+          "ts": "2026-01-30T00:00:00",
+          "equity": 95908.39052594459
+        },
+        {
+          "idx": 13,
+          "ts": "2026-02-12T00:00:00",
+          "equity": 94153.21405026484
+        },
+        {
+          "idx": 14,
+          "ts": "2026-03-02T00:00:00",
+          "equity": 95141.9008589244
+        },
+        {
+          "idx": 15,
+          "ts": "2026-04-01T00:00:00",
+          "equity": 95685.30633082779
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-08T00:00:00",
+          "equity": 92297.20208564772
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-24T00:00:00",
+          "equity": 96073.9104652693
         }
       ],
       "drawdown_curve": [
@@ -3895,48 +3960,583 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T19:50:00",
-          "drawdown": 0.005466481973233749
+          "ts": "2025-04-09T00:00:00",
+          "drawdown": 0.0
         },
         {
           "idx": 2,
-          "ts": "2026-03-24T18:00:00",
-          "drawdown": 0.009955038944445114
+          "ts": "2025-04-25T00:00:00",
+          "drawdown": 0.05638995529465116
         },
         {
           "idx": 3,
-          "ts": "2026-04-08T18:55:00",
-          "drawdown": 0.015527078399820166
+          "ts": "2025-05-12T00:00:00",
+          "drawdown": 0.12276571231606223
         },
         {
           "idx": 4,
-          "ts": "2026-04-14T14:30:00",
-          "drawdown": 0.0006318005152772821
+          "ts": "2025-06-20T00:00:00",
+          "drawdown": 0.10991084145123617
+        },
+        {
+          "idx": 5,
+          "ts": "2025-08-01T00:00:00",
+          "drawdown": 0.08953563750071032
+        },
+        {
+          "idx": 6,
+          "ts": "2025-08-20T00:00:00",
+          "drawdown": 0.08717820424512612
+        },
+        {
+          "idx": 7,
+          "ts": "2025-10-10T00:00:00",
+          "drawdown": 0.0452605324173353
+        },
+        {
+          "idx": 8,
+          "ts": "2025-11-06T00:00:00",
+          "drawdown": 0.030522462777843876
+        },
+        {
+          "idx": 9,
+          "ts": "2025-11-18T00:00:00",
+          "drawdown": 0.052444664075966145
+        },
+        {
+          "idx": 10,
+          "ts": "2025-12-17T00:00:00",
+          "drawdown": 0.05216059798062139
+        },
+        {
+          "idx": 11,
+          "ts": "2026-01-20T00:00:00",
+          "drawdown": 0.05436205101958583
+        },
+        {
+          "idx": 12,
+          "ts": "2026-01-30T00:00:00",
+          "drawdown": 0.04635701210757685
+        },
+        {
+          "idx": 13,
+          "ts": "2026-02-12T00:00:00",
+          "drawdown": 0.06380920507387358
+        },
+        {
+          "idx": 14,
+          "ts": "2026-03-02T00:00:00",
+          "drawdown": 0.0539784255442674
+        },
+        {
+          "idx": 15,
+          "ts": "2026-04-01T00:00:00",
+          "drawdown": 0.048575198412404985
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-08T00:00:00",
+          "drawdown": 0.0822640324961183
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-24T00:00:00",
+          "drawdown": 0.04471120271980806
         }
       ],
       "trades_over_time": [
         {
-          "date": "2026-02-18",
+          "date": "2025-04-09",
           "count": 1,
           "cum_count": 1
         },
         {
-          "date": "2026-03-24",
+          "date": "2025-04-25",
           "count": 1,
           "cum_count": 2
         },
         {
-          "date": "2026-04-08",
+          "date": "2025-05-12",
           "count": 1,
           "cum_count": 3
         },
         {
-          "date": "2026-04-14",
+          "date": "2025-06-20",
           "count": 1,
           "cum_count": 4
+        },
+        {
+          "date": "2025-08-01",
+          "count": 1,
+          "cum_count": 5
+        },
+        {
+          "date": "2025-08-20",
+          "count": 1,
+          "cum_count": 6
+        },
+        {
+          "date": "2025-10-10",
+          "count": 1,
+          "cum_count": 7
+        },
+        {
+          "date": "2025-11-06",
+          "count": 1,
+          "cum_count": 8
+        },
+        {
+          "date": "2025-11-18",
+          "count": 1,
+          "cum_count": 9
+        },
+        {
+          "date": "2025-12-17",
+          "count": 1,
+          "cum_count": 10
+        },
+        {
+          "date": "2026-01-20",
+          "count": 1,
+          "cum_count": 11
+        },
+        {
+          "date": "2026-01-30",
+          "count": 1,
+          "cum_count": 12
+        },
+        {
+          "date": "2026-02-12",
+          "count": 1,
+          "cum_count": 13
+        },
+        {
+          "date": "2026-03-02",
+          "count": 1,
+          "cum_count": 14
+        },
+        {
+          "date": "2026-04-01",
+          "count": 1,
+          "cum_count": 15
+        },
+        {
+          "date": "2026-04-08",
+          "count": 1,
+          "cum_count": 16
+        },
+        {
+          "date": "2026-04-24",
+          "count": 1,
+          "cum_count": 17
         }
       ],
       "trend_performance": "\u2192",
+      "low_sample": false,
+      "low_sample_threshold": 12,
+      "sample_size_suggestions": [],
+      "experiment_score": 53,
+      "experiment_label": "WATCH",
+      "experiment_reason": "mixed metrics, keep monitoring",
+      "experiment_breakdown": {
+        "pf30": 12.78,
+        "pf90": 8.15,
+        "ret30": 7.12,
+        "ret90": 5.49,
+        "dd": 2.46,
+        "sample_total": 10.2,
+        "sample_30d": 4.0,
+        "sample_90d": 1.8,
+        "trend": 1.0,
+        "penalty_low_sample": 0
+      },
+      "experiment_state": "OK",
+      "high_potential_low_sample": false
+    },
+    {
+      "id": "NQ_SCALP_VWAP_PULLBACK",
+      "name": "NQ_SCALP_VWAP_PULLBACK",
+      "status": "ARCHIVED",
+      "instrument": "QQQ",
+      "timeframe": "5m",
+      "initial_cash": 100000.0,
+      "start": "2026-02-27",
+      "end": "2026-04-24",
+      "period_days": 56,
+      "total_return": -0.04343723497177096,
+      "net_profit": -4343.723497177096,
+      "return_usd": -4343.723497177096,
+      "max_drawdown": 0.04505392694530179,
+      "win_rate": 0.07692307692307693,
+      "profit_factor": 0.01586126159060429,
+      "trades": 26,
+      "average_trade": -167.06628835296522,
+      "final_equity": 95656.2765028229,
+      "trades_count_total": 26,
+      "trades_count_30d": 13,
+      "trades_count_90d": 26,
+      "rolling_30d": {
+        "total_return": -0.018785805347456917,
+        "profit_factor": 0.016252660884706095,
+        "win_rate": 0.07692307692307693,
+        "max_drawdown": 0.018785805347456917
+      },
+      "rolling_90d": {
+        "total_return": -0.04343723497177096,
+        "profit_factor": 0.01586126159060429,
+        "win_rate": 0.07692307692307693,
+        "max_drawdown": 0.04343723497177096
+      },
+      "equity_curve": [
+        {
+          "idx": 0,
+          "equity": 100000.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-04T16:10:00",
+          "equity": 99764.97384416826
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T19:30:00",
+          "equity": 99756.61673230925
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-09T19:40:00",
+          "equity": 99314.29289391276
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-10T17:30:00",
+          "equity": 98965.40078558412
+        },
+        {
+          "idx": 5,
+          "ts": "2026-03-20T14:55:00",
+          "equity": 98678.75657489664
+        },
+        {
+          "idx": 6,
+          "ts": "2026-03-20T18:25:00",
+          "equity": 98437.87090093218
+        },
+        {
+          "idx": 7,
+          "ts": "2026-03-20T19:00:00",
+          "equity": 98315.6713565271
+        },
+        {
+          "idx": 8,
+          "ts": "2026-03-24T17:30:00",
+          "equity": 98212.05666626302
+        },
+        {
+          "idx": 9,
+          "ts": "2026-03-26T14:55:00",
+          "equity": 98093.52669648356
+        },
+        {
+          "idx": 10,
+          "ts": "2026-03-26T18:30:00",
+          "equity": 97862.27918353837
+        },
+        {
+          "idx": 11,
+          "ts": "2026-03-26T19:30:00",
+          "equity": 97776.81855836674
+        },
+        {
+          "idx": 12,
+          "ts": "2026-03-27T18:05:00",
+          "equity": 97815.78954201525
+        },
+        {
+          "idx": 13,
+          "ts": "2026-03-27T19:15:00",
+          "equity": 97534.8570375686
+        },
+        {
+          "idx": 14,
+          "ts": "2026-03-30T18:00:00",
+          "equity": 97319.92380301008
+        },
+        {
+          "idx": 15,
+          "ts": "2026-03-30T19:10:00",
+          "equity": 97298.11684515825
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-07T15:15:00",
+          "equity": 96861.23287893189
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-13T16:30:00",
+          "equity": 96704.93042850506
+        },
+        {
+          "idx": 18,
+          "ts": "2026-04-13T19:05:00",
+          "equity": 96536.42403631016
+        },
+        {
+          "idx": 19,
+          "ts": "2026-04-13T19:40:00",
+          "equity": 96360.40877526558
+        },
+        {
+          "idx": 20,
+          "ts": "2026-04-14T15:30:00",
+          "equity": 96293.02063300897
+        },
+        {
+          "idx": 21,
+          "ts": "2026-04-14T15:40:00",
+          "equity": 96177.91427111323
+        },
+        {
+          "idx": 22,
+          "ts": "2026-04-14T16:50:00",
+          "equity": 96041.41248984917
+        },
+        {
+          "idx": 23,
+          "ts": "2026-04-15T19:40:00",
+          "equity": 95857.55117320688
+        },
+        {
+          "idx": 24,
+          "ts": "2026-04-16T15:05:00",
+          "equity": 95888.58752894767
+        },
+        {
+          "idx": 25,
+          "ts": "2026-04-22T18:15:00",
+          "equity": 95673.1091803009
+        },
+        {
+          "idx": 26,
+          "ts": "2026-04-24T15:30:00",
+          "equity": 95656.2765028229
+        }
+      ],
+      "drawdown_curve": [
+        {
+          "idx": 0,
+          "drawdown": 0.0
+        },
+        {
+          "idx": 1,
+          "ts": "2026-03-04T16:10:00",
+          "drawdown": 0.0023502615583174337
+        },
+        {
+          "idx": 2,
+          "ts": "2026-03-09T19:30:00",
+          "drawdown": 0.0024338326769074775
+        },
+        {
+          "idx": 3,
+          "ts": "2026-03-09T19:40:00",
+          "drawdown": 0.006857071060872404
+        },
+        {
+          "idx": 4,
+          "ts": "2026-03-10T17:30:00",
+          "drawdown": 0.010345992144158808
+        },
+        {
+          "idx": 5,
+          "ts": "2026-03-20T14:55:00",
+          "drawdown": 0.013212434251033555
+        },
+        {
+          "idx": 6,
+          "ts": "2026-03-20T18:25:00",
+          "drawdown": 0.015621290990678244
+        },
+        {
+          "idx": 7,
+          "ts": "2026-03-20T19:00:00",
+          "drawdown": 0.016843286434728943
+        },
+        {
+          "idx": 8,
+          "ts": "2026-03-24T17:30:00",
+          "drawdown": 0.017879433337369847
+        },
+        {
+          "idx": 9,
+          "ts": "2026-03-26T14:55:00",
+          "drawdown": 0.01906473303516439
+        },
+        {
+          "idx": 10,
+          "ts": "2026-03-26T18:30:00",
+          "drawdown": 0.021377208164616312
+        },
+        {
+          "idx": 11,
+          "ts": "2026-03-26T19:30:00",
+          "drawdown": 0.022231814416332638
+        },
+        {
+          "idx": 12,
+          "ts": "2026-03-27T18:05:00",
+          "drawdown": 0.02184210457984751
+        },
+        {
+          "idx": 13,
+          "ts": "2026-03-27T19:15:00",
+          "drawdown": 0.02465142962431404
+        },
+        {
+          "idx": 14,
+          "ts": "2026-03-30T18:00:00",
+          "drawdown": 0.026800761969899178
+        },
+        {
+          "idx": 15,
+          "ts": "2026-03-30T19:10:00",
+          "drawdown": 0.02701883154841751
+        },
+        {
+          "idx": 16,
+          "ts": "2026-04-07T15:15:00",
+          "drawdown": 0.031387671210681145
+        },
+        {
+          "idx": 17,
+          "ts": "2026-04-13T16:30:00",
+          "drawdown": 0.0329506957149494
+        },
+        {
+          "idx": 18,
+          "ts": "2026-04-13T19:05:00",
+          "drawdown": 0.03463575963689844
+        },
+        {
+          "idx": 19,
+          "ts": "2026-04-13T19:40:00",
+          "drawdown": 0.03639591224734424
+        },
+        {
+          "idx": 20,
+          "ts": "2026-04-14T15:30:00",
+          "drawdown": 0.037069793669910284
+        },
+        {
+          "idx": 21,
+          "ts": "2026-04-14T15:40:00",
+          "drawdown": 0.0382208572888677
+        },
+        {
+          "idx": 22,
+          "ts": "2026-04-14T16:50:00",
+          "drawdown": 0.03958587510150828
+        },
+        {
+          "idx": 23,
+          "ts": "2026-04-15T19:40:00",
+          "drawdown": 0.04142448826793116
+        },
+        {
+          "idx": 24,
+          "ts": "2026-04-16T15:05:00",
+          "drawdown": 0.04111412471052332
+        },
+        {
+          "idx": 25,
+          "ts": "2026-04-22T18:15:00",
+          "drawdown": 0.04326890819699096
+        },
+        {
+          "idx": 26,
+          "ts": "2026-04-24T15:30:00",
+          "drawdown": 0.04343723497177096
+        }
+      ],
+      "trades_over_time": [
+        {
+          "date": "2026-03-04",
+          "count": 1,
+          "cum_count": 1
+        },
+        {
+          "date": "2026-03-09",
+          "count": 2,
+          "cum_count": 3
+        },
+        {
+          "date": "2026-03-10",
+          "count": 1,
+          "cum_count": 4
+        },
+        {
+          "date": "2026-03-20",
+          "count": 3,
+          "cum_count": 7
+        },
+        {
+          "date": "2026-03-24",
+          "count": 1,
+          "cum_count": 8
+        },
+        {
+          "date": "2026-03-26",
+          "count": 3,
+          "cum_count": 11
+        },
+        {
+          "date": "2026-03-27",
+          "count": 2,
+          "cum_count": 13
+        },
+        {
+          "date": "2026-03-30",
+          "count": 2,
+          "cum_count": 15
+        },
+        {
+          "date": "2026-04-07",
+          "count": 1,
+          "cum_count": 16
+        },
+        {
+          "date": "2026-04-13",
+          "count": 3,
+          "cum_count": 19
+        },
+        {
+          "date": "2026-04-14",
+          "count": 3,
+          "cum_count": 22
+        },
+        {
+          "date": "2026-04-15",
+          "count": 1,
+          "cum_count": 23
+        },
+        {
+          "date": "2026-04-16",
+          "count": 1,
+          "cum_count": 24
+        },
+        {
+          "date": "2026-04-22",
+          "count": 1,
+          "cum_count": 25
+        },
+        {
+          "date": "2026-04-24",
+          "count": 1,
+          "cum_count": 26
+        }
+      ],
+      "trend_performance": "\u2193",
       "low_sample": true,
       "low_sample_threshold": 30,
       "sample_size_suggestions": [
@@ -3945,23 +4545,23 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 53,
+      "experiment_score": 40,
       "experiment_label": "WATCH",
       "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
-        "pf30": 17.35,
-        "pf90": 4.32,
-        "ret30": 6.58,
-        "ret90": 4.97,
+        "pf30": 0.0,
+        "pf90": 0.0,
+        "ret30": 3.75,
+        "ret90": 2.83,
         "dd": 15.0,
-        "sample_total": 1.2,
-        "sample_30d": 1.6,
-        "sample_90d": 0.6,
-        "trend": 1.0,
+        "sample_total": 7.8,
+        "sample_30d": 6.93,
+        "sample_90d": 3.9,
+        "trend": 0.0,
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
-      "high_potential_low_sample": true
+      "high_potential_low_sample": false
     },
     {
       "id": "NQ_SCALP_V2",
@@ -3970,32 +4570,32 @@
       "instrument": "QQQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "start": "2026-02-17",
-      "end": "2026-04-16",
-      "period_days": 58,
-      "total_return": -0.035434447283197806,
-      "net_profit": -3543.4447283197806,
-      "return_usd": -3543.4447283197806,
-      "max_drawdown": 0.035845182423275515,
-      "win_rate": 0.20833333333333334,
-      "profit_factor": 0.1142956581372567,
-      "trades": 24,
-      "average_trade": -147.6435303466575,
-      "final_equity": 96456.55527168022,
-      "trades_count_total": 24,
-      "trades_count_30d": 20,
-      "trades_count_90d": 24,
+      "start": "2026-02-27",
+      "end": "2026-04-24",
+      "period_days": 56,
+      "total_return": -0.04183792172770802,
+      "net_profit": -4183.792172770802,
+      "return_usd": -4183.792172770802,
+      "max_drawdown": 0.04279547661886788,
+      "win_rate": 0.18518518518518517,
+      "profit_factor": 0.09852576948766227,
+      "trades": 27,
+      "average_trade": -154.95526565817784,
+      "final_equity": 95816.2078272292,
+      "trades_count_total": 27,
+      "trades_count_30d": 8,
+      "trades_count_90d": 27,
       "rolling_30d": {
-        "total_return": -0.027842471500862304,
-        "profit_factor": 0.12962634960029665,
-        "win_rate": 0.2,
-        "max_drawdown": 0.027842471500862304
+        "total_return": -0.013272466044009052,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.013272466044009052
       },
       "rolling_90d": {
-        "total_return": -0.035434447283197806,
-        "profit_factor": 0.1142956581372567,
-        "win_rate": 0.20833333333333334,
-        "max_drawdown": 0.035845182423275515
+        "total_return": -0.04183792172770802,
+        "profit_factor": 0.09852576948766227,
+        "win_rate": 0.18518518518518517,
+        "max_drawdown": 0.04224593011482887
       },
       "equity_curve": [
         {
@@ -4121,6 +4721,21 @@
           "idx": 24,
           "ts": "2026-04-07T18:55:00",
           "equity": 96456.55527168022
+        },
+        {
+          "idx": 25,
+          "ts": "2026-04-17T15:55:00",
+          "equity": 96067.418713064
+        },
+        {
+          "idx": 26,
+          "ts": "2026-04-22T15:05:00",
+          "equity": 95833.06864789342
+        },
+        {
+          "idx": 27,
+          "ts": "2026-04-24T15:30:00",
+          "equity": 95816.2078272292
         }
       ],
       "drawdown_curve": [
@@ -4247,6 +4862,21 @@
           "idx": 24,
           "ts": "2026-04-07T18:55:00",
           "drawdown": 0.035845182423275515
+        },
+        {
+          "idx": 25,
+          "ts": "2026-04-17T15:55:00",
+          "drawdown": 0.03973489097266641
+        },
+        {
+          "idx": 26,
+          "ts": "2026-04-22T15:05:00",
+          "drawdown": 0.0420773937056038
+        },
+        {
+          "idx": 27,
+          "ts": "2026-04-24T15:30:00",
+          "drawdown": 0.04224593011482887
         }
       ],
       "trades_over_time": [
@@ -4304,6 +4934,21 @@
           "date": "2026-04-07",
           "count": 1,
           "cum_count": 24
+        },
+        {
+          "date": "2026-04-17",
+          "count": 1,
+          "cum_count": 25
+        },
+        {
+          "date": "2026-04-22",
+          "count": 1,
+          "cum_count": 26
+        },
+        {
+          "date": "2026-04-24",
+          "count": 1,
+          "cum_count": 27
         }
       ],
       "trend_performance": "\u2193",
@@ -4315,96 +4960,96 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 40,
+      "experiment_score": 39,
       "experiment_label": "WATCH",
       "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
         "pf30": 0.0,
         "pf90": 0.0,
-        "ret30": 2.66,
-        "ret90": 3.23,
+        "ret30": 4.41,
+        "ret90": 2.91,
         "dd": 15.0,
-        "sample_total": 7.2,
-        "sample_30d": 8.0,
-        "sample_90d": 3.6,
+        "sample_total": 8.1,
+        "sample_30d": 4.27,
+        "sample_90d": 4.05,
         "trend": 0.0,
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
       "high_potential_low_sample": false,
-      "walkforward_note": "WF 20/20 windows=1 | OOS PF 0.13 | OOS return -2.81% | OOS trades 20",
+      "walkforward_note": "WF 20/20 windows=1 | OOS PF 0.00 | OOS return -1.62% | OOS trades 9",
       "walkforward": {
         "in_sample": {
-          "total_return": -0.007591975782335503,
-          "net_profit": -759.1975782335503,
-          "max_drawdown": 0.008014566914367107,
-          "profit_factor": 0.05313125236896833,
-          "win_rate": 0.25,
-          "trades_count": 4,
-          "average_trade": -189.79939455838758,
-          "rolling_pf": 0.05313125236896833,
-          "avg_win": 42.600538066079025,
-          "avg_loss": 267.2660387665431
+          "total_return": -0.02075862221129195,
+          "net_profit": -2075.862221129195,
+          "max_drawdown": 0.021175606669572744,
+          "profit_factor": 0.18051357268925625,
+          "win_rate": 0.3125,
+          "trades_count": 16,
+          "average_trade": -129.74138882057468,
+          "rolling_pf": 0.18051357268925625,
+          "avg_win": 91.45271805815864,
+          "avg_loss": 230.28416467454437
         },
         "out_of_sample": {
-          "total_return": -0.02805546793398011,
-          "net_profit": -2805.546793398011,
-          "max_drawdown": 0.02805546793398011,
-          "profit_factor": 0.1296263496002879,
-          "win_rate": 0.2,
-          "trades_count": 20,
-          "average_trade": -140.27733966990053,
-          "rolling_pf": 0.1296263496002879,
-          "avg_win": 104.45881182580706,
-          "avg_loss": 201.46137754382744
+          "total_return": -0.0162336884597312,
+          "net_profit": -1623.3688459731202,
+          "max_drawdown": 0.0162336884597312,
+          "profit_factor": 0.0,
+          "win_rate": 0.0,
+          "trades_count": 9,
+          "average_trade": -180.37431621923557,
+          "rolling_pf": 0.0,
+          "avg_win": 0.0,
+          "avg_loss": 180.37431621923557
         },
         "combined": {
-          "total_return": -0.035434447283197806,
-          "net_profit": -3543.4447283197806,
-          "max_drawdown": 0.035845182423275515,
-          "profit_factor": 0.1142956581372567,
-          "win_rate": 0.20833333333333334,
-          "trades_count": 24,
-          "average_trade": -147.6435303466575,
-          "rolling_pf": 0.12962634960029665,
+          "total_return": -0.04183792172770802,
+          "net_profit": -4183.792172770802,
+          "max_drawdown": 0.04279547661886788,
+          "profit_factor": 0.09852576948766227,
+          "win_rate": 0.18518518518518517,
+          "trades_count": 27,
+          "average_trade": -154.95526565817784,
+          "rolling_pf": 0.062030171237845384,
           "avg_win": 91.45271805815864,
-          "avg_loss": 210.563595716346
+          "avg_loss": 210.9570801391634
         }
       }
     },
     {
-      "id": "NQ_SCALP_VWAP_PULLBACK",
-      "name": "NQ_SCALP_VWAP_PULLBACK",
-      "status": "ARCHIVED",
+      "id": "NQ_DAY_ORB_RETEST",
+      "name": "NQ_DAY_ORB_RETEST",
+      "status": "ACTIVE",
       "instrument": "QQQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "start": "2026-02-17",
-      "end": "2026-04-16",
-      "period_days": 58,
-      "total_return": -0.03969842360634735,
-      "net_profit": -3969.842360634735,
-      "return_usd": -3969.842360634735,
-      "max_drawdown": 0.04365505329209603,
-      "win_rate": 0.12,
-      "profit_factor": 0.051999058367133685,
-      "trades": 25,
-      "average_trade": -158.7936944253894,
-      "final_equity": 96030.15763936526,
-      "trades_count_total": 25,
-      "trades_count_30d": 20,
-      "trades_count_90d": 25,
+      "start": "2026-02-27",
+      "end": "2026-04-24",
+      "period_days": 56,
+      "total_return": -0.006902180471183529,
+      "net_profit": -690.2180471183528,
+      "return_usd": -690.2180471183528,
+      "max_drawdown": 0.015497396493546325,
+      "win_rate": 0.2,
+      "profit_factor": 0.684534203857875,
+      "trades": 5,
+      "average_trade": -138.04360942367057,
+      "final_equity": 99309.78195288165,
+      "trades_count_total": 5,
+      "trades_count_30d": 4,
+      "trades_count_90d": 5,
       "rolling_30d": {
-        "total_return": -0.030813558701393632,
-        "profit_factor": 0.02224700686073704,
-        "win_rate": 0.1,
-        "max_drawdown": 0.031124380480204272
+        "total_return": -0.0023889520179916873,
+        "profit_factor": 0.8624359118035179,
+        "win_rate": 0.25,
+        "max_drawdown": 0.01165418393488876
       },
       "rolling_90d": {
-        "total_return": -0.03969842360634735,
-        "profit_factor": 0.051999058367133685,
-        "win_rate": 0.12,
-        "max_drawdown": 0.04142448826793211
+        "total_return": -0.006902180471183529,
+        "profit_factor": 0.684534203857875,
+        "win_rate": 0.2,
+        "max_drawdown": 0.011706527474108535
       },
       "equity_curve": [
         {
@@ -4413,128 +5058,28 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T15:00:00",
-          "equity": 100147.64020835634
+          "ts": "2026-03-24T18:00:00",
+          "equity": 99548.67715468082
         },
         {
           "idx": 2,
-          "ts": "2026-03-04T16:10:00",
-          "equity": 99912.26705941845
+          "ts": "2026-04-08T18:55:00",
+          "equity": 98988.41052169388
         },
         {
           "idx": 3,
-          "ts": "2026-03-09T19:30:00",
-          "equity": 99903.89760910207
+          "ts": "2026-04-14T14:30:00",
+          "equity": 100486.12554230941
         },
         {
           "idx": 4,
-          "ts": "2026-03-09T19:40:00",
-          "equity": 99460.92072286895
+          "ts": "2026-04-21T17:10:00",
+          "equity": 99996.27619446952
         },
         {
           "idx": 5,
-          "ts": "2026-03-10T17:30:00",
-          "equity": 99111.51350950463
-        },
-        {
-          "idx": 6,
-          "ts": "2026-03-20T14:55:00",
-          "equity": 98824.44609670725
-        },
-        {
-          "idx": 7,
-          "ts": "2026-03-20T18:25:00",
-          "equity": 98583.20477863184
-        },
-        {
-          "idx": 8,
-          "ts": "2026-03-20T19:00:00",
-          "equity": 98460.8248185648
-        },
-        {
-          "idx": 9,
-          "ts": "2026-03-24T17:30:00",
-          "equity": 98357.05715135609
-        },
-        {
-          "idx": 10,
-          "ts": "2026-03-26T14:55:00",
-          "equity": 98238.35218368228
-        },
-        {
-          "idx": 11,
-          "ts": "2026-03-26T18:30:00",
-          "equity": 98006.76325642716
-        },
-        {
-          "idx": 12,
-          "ts": "2026-03-26T19:30:00",
-          "equity": 97921.17645701046
-        },
-        {
-          "idx": 13,
-          "ts": "2026-03-27T18:05:00",
-          "equity": 97960.20497750043
-        },
-        {
-          "idx": 14,
-          "ts": "2026-03-27T19:15:00",
-          "equity": 97678.85770371887
-        },
-        {
-          "idx": 15,
-          "ts": "2026-03-30T18:00:00",
-          "equity": 97463.60714128503
-        },
-        {
-          "idx": 16,
-          "ts": "2026-03-30T19:10:00",
-          "equity": 97441.76798759517
-        },
-        {
-          "idx": 17,
-          "ts": "2026-04-07T15:15:00",
-          "equity": 97004.23900497078
-        },
-        {
-          "idx": 18,
-          "ts": "2026-04-13T16:30:00",
-          "equity": 96847.70578928047
-        },
-        {
-          "idx": 19,
-          "ts": "2026-04-13T19:05:00",
-          "equity": 96678.95061389705
-        },
-        {
-          "idx": 20,
-          "ts": "2026-04-13T19:40:00",
-          "equity": 96502.67548355433
-        },
-        {
-          "idx": 21,
-          "ts": "2026-04-14T15:30:00",
-          "equity": 96435.18784930409
-        },
-        {
-          "idx": 22,
-          "ts": "2026-04-14T15:40:00",
-          "equity": 96319.9115441358
-        },
-        {
-          "idx": 23,
-          "ts": "2026-04-14T16:50:00",
-          "equity": 96183.20823135746
-        },
-        {
-          "idx": 24,
-          "ts": "2026-04-15T19:40:00",
-          "equity": 95999.0754614842
-        },
-        {
-          "idx": 25,
-          "ts": "2026-04-16T15:05:00",
-          "equity": 96030.15763936526
+          "ts": "2026-04-23T17:05:00",
+          "equity": 99309.78195288165
         }
       ],
       "drawdown_curve": [
@@ -4544,203 +5089,58 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T15:00:00",
-          "drawdown": 0.0
+          "ts": "2026-03-24T18:00:00",
+          "drawdown": 0.004513228453191841
         },
         {
           "idx": 2,
-          "ts": "2026-03-04T16:10:00",
-          "drawdown": 0.002350261558317369
+          "ts": "2026-04-08T18:55:00",
+          "drawdown": 0.01011589478306123
         },
         {
           "idx": 3,
-          "ts": "2026-03-09T19:30:00",
-          "drawdown": 0.0024338326769074723
+          "ts": "2026-04-14T14:30:00",
+          "drawdown": 0.0
         },
         {
           "idx": 4,
-          "ts": "2026-03-09T19:40:00",
-          "drawdown": 0.006857071060872545
+          "ts": "2026-04-21T17:10:00",
+          "drawdown": 0.004874795850633518
         },
         {
           "idx": 5,
-          "ts": "2026-03-10T17:30:00",
-          "drawdown": 0.010345992144158996
-        },
-        {
-          "idx": 6,
-          "ts": "2026-03-20T14:55:00",
-          "drawdown": 0.013212434251033753
-        },
-        {
-          "idx": 7,
-          "ts": "2026-03-20T18:25:00",
-          "drawdown": 0.01562129099067842
-        },
-        {
-          "idx": 8,
-          "ts": "2026-03-20T19:00:00",
-          "drawdown": 0.016843286434729182
-        },
-        {
-          "idx": 9,
-          "ts": "2026-03-24T17:30:00",
-          "drawdown": 0.017879433337370354
-        },
-        {
-          "idx": 10,
-          "ts": "2026-03-26T14:55:00",
-          "drawdown": 0.01906473303516498
-        },
-        {
-          "idx": 11,
-          "ts": "2026-03-26T18:30:00",
-          "drawdown": 0.021377208164616808
-        },
-        {
-          "idx": 12,
-          "ts": "2026-03-26T19:30:00",
-          "drawdown": 0.022231814416333203
-        },
-        {
-          "idx": 13,
-          "ts": "2026-03-27T18:05:00",
-          "drawdown": 0.021842104579848073
-        },
-        {
-          "idx": 14,
-          "ts": "2026-03-27T19:15:00",
-          "drawdown": 0.024651429624314627
-        },
-        {
-          "idx": 15,
-          "ts": "2026-03-30T18:00:00",
-          "drawdown": 0.02680076196989971
-        },
-        {
-          "idx": 16,
-          "ts": "2026-03-30T19:10:00",
-          "drawdown": 0.027018831548418182
-        },
-        {
-          "idx": 17,
-          "ts": "2026-04-07T15:15:00",
-          "drawdown": 0.03138767121068203
-        },
-        {
-          "idx": 18,
-          "ts": "2026-04-13T16:30:00",
-          "drawdown": 0.032950695714950295
-        },
-        {
-          "idx": 19,
-          "ts": "2026-04-13T19:05:00",
-          "drawdown": 0.03463575963689926
-        },
-        {
-          "idx": 20,
-          "ts": "2026-04-13T19:40:00",
-          "drawdown": 0.03639591224734502
-        },
-        {
-          "idx": 21,
-          "ts": "2026-04-14T15:30:00",
-          "drawdown": 0.03706979366991106
-        },
-        {
-          "idx": 22,
-          "ts": "2026-04-14T15:40:00",
-          "drawdown": 0.03822085728886857
-        },
-        {
-          "idx": 23,
-          "ts": "2026-04-14T16:50:00",
-          "drawdown": 0.039585875101509245
-        },
-        {
-          "idx": 24,
-          "ts": "2026-04-15T19:40:00",
-          "drawdown": 0.04142448826793211
-        },
-        {
-          "idx": 25,
-          "ts": "2026-04-16T15:05:00",
-          "drawdown": 0.04111412471052429
+          "ts": "2026-04-23T17:05:00",
+          "drawdown": 0.011706527474108535
         }
       ],
       "trades_over_time": [
         {
-          "date": "2026-02-18",
+          "date": "2026-03-24",
           "count": 1,
           "cum_count": 1
         },
         {
-          "date": "2026-03-04",
+          "date": "2026-04-08",
           "count": 1,
           "cum_count": 2
         },
         {
-          "date": "2026-03-09",
-          "count": 2,
+          "date": "2026-04-14",
+          "count": 1,
+          "cum_count": 3
+        },
+        {
+          "date": "2026-04-21",
+          "count": 1,
           "cum_count": 4
         },
         {
-          "date": "2026-03-10",
+          "date": "2026-04-23",
           "count": 1,
           "cum_count": 5
-        },
-        {
-          "date": "2026-03-20",
-          "count": 3,
-          "cum_count": 8
-        },
-        {
-          "date": "2026-03-24",
-          "count": 1,
-          "cum_count": 9
-        },
-        {
-          "date": "2026-03-26",
-          "count": 3,
-          "cum_count": 12
-        },
-        {
-          "date": "2026-03-27",
-          "count": 2,
-          "cum_count": 14
-        },
-        {
-          "date": "2026-03-30",
-          "count": 2,
-          "cum_count": 16
-        },
-        {
-          "date": "2026-04-07",
-          "count": 1,
-          "cum_count": 17
-        },
-        {
-          "date": "2026-04-13",
-          "count": 3,
-          "cum_count": 20
-        },
-        {
-          "date": "2026-04-14",
-          "count": 3,
-          "cum_count": 23
-        },
-        {
-          "date": "2026-04-15",
-          "count": 1,
-          "cum_count": 24
-        },
-        {
-          "date": "2026-04-16",
-          "count": 1,
-          "cum_count": 25
         }
       ],
-      "trend_performance": "\u2193",
+      "trend_performance": "\u2192",
       "low_sample": true,
       "low_sample_threshold": 30,
       "sample_size_suggestions": [
@@ -4749,19 +5149,19 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 40,
+      "experiment_score": 34,
       "experiment_label": "WATCH",
       "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
-        "pf30": 0.0,
+        "pf30": 3.61,
         "pf90": 0.0,
-        "ret30": 2.3,
-        "ret90": 3.02,
+        "ret30": 5.71,
+        "ret90": 4.65,
         "dd": 15.0,
-        "sample_total": 7.5,
-        "sample_30d": 8.0,
-        "sample_90d": 3.75,
-        "trend": 0.0,
+        "sample_total": 1.5,
+        "sample_30d": 2.13,
+        "sample_90d": 0.75,
+        "trend": 1.0,
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
@@ -4774,32 +5174,32 @@
       "instrument": "QQQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "start": "2026-02-17",
-      "end": "2026-04-16",
-      "period_days": 58,
-      "total_return": -0.024737563096661617,
-      "net_profit": -2473.7563096661615,
-      "return_usd": -2473.7563096661615,
-      "max_drawdown": 0.024737563096661617,
+      "start": "2026-02-27",
+      "end": "2026-04-24",
+      "period_days": 56,
+      "total_return": -0.023624856551273988,
+      "net_profit": -2362.485655127399,
+      "return_usd": -2362.485655127399,
+      "max_drawdown": 0.026765539722228383,
       "win_rate": 0.08333333333333333,
-      "profit_factor": 0.09454090672890188,
+      "profit_factor": 0.09909601356351727,
       "trades": 12,
-      "average_trade": -206.1463591388468,
-      "final_equity": 97526.24369033384,
+      "average_trade": -196.8738045939499,
+      "final_equity": 97637.5143448726,
       "trades_count_total": 12,
-      "trades_count_30d": 4,
+      "trades_count_30d": 5,
       "trades_count_90d": 12,
       "rolling_30d": {
-        "total_return": -0.009408548124451481,
+        "total_return": -0.014258808857832336,
         "profit_factor": 0.0,
         "win_rate": 0.0,
-        "max_drawdown": 0.009408548124451481
+        "max_drawdown": 0.014258808857832336
       },
       "rolling_90d": {
-        "total_return": -0.024737563096661617,
-        "profit_factor": 0.09454090672890188,
+        "total_return": -0.023624856551273988,
+        "profit_factor": 0.09909601356351727,
         "win_rate": 0.08333333333333333,
-        "max_drawdown": 0.024737563096661617
+        "max_drawdown": 0.023624856551273988
       },
       "equity_curve": [
         {
@@ -4808,63 +5208,63 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T19:35:00",
-          "equity": 99661.26190411394
+          "ts": "2026-03-05T15:25:00",
+          "equity": 99750.15426840186
         },
         {
           "idx": 2,
-          "ts": "2026-02-23T19:40:00",
-          "equity": 99394.18752945437
+          "ts": "2026-03-12T19:40:00",
+          "equity": 99447.74743247002
         },
         {
           "idx": 3,
-          "ts": "2026-03-05T15:25:00",
-          "equity": 99145.85539445539
+          "ts": "2026-03-13T14:35:00",
+          "equity": 99707.6118731305
         },
         {
           "idx": 4,
-          "ts": "2026-03-12T19:40:00",
-          "equity": 98845.28057684739
+          "ts": "2026-03-13T15:00:00",
+          "equity": 99494.20123490784
         },
         {
           "idx": 5,
-          "ts": "2026-03-13T14:35:00",
-          "equity": 99103.57072631984
+          "ts": "2026-03-13T19:05:00",
+          "equity": 99307.10123948069
         },
         {
           "idx": 6,
-          "ts": "2026-03-13T15:00:00",
-          "equity": 98891.45295635698
+          "ts": "2026-03-13T19:25:00",
+          "equity": 99067.26032002563
         },
         {
           "idx": 7,
-          "ts": "2026-03-13T19:05:00",
-          "equity": 98705.48643603451
+          "ts": "2026-03-24T18:40:00",
+          "equity": 99063.39523065583
         },
         {
           "idx": 8,
-          "ts": "2026-03-13T19:25:00",
-          "equity": 98467.09850277899
+          "ts": "2026-04-07T19:50:00",
+          "equity": 98526.9296425123
         },
         {
           "idx": 9,
-          "ts": "2026-03-24T18:40:00",
-          "equity": 98463.25682860258
+          "ts": "2026-04-08T18:45:00",
+          "equity": 98269.0677136847
         },
         {
           "idx": 10,
-          "ts": "2026-04-07T19:50:00",
-          "equity": 97930.04121589221
+          "ts": "2026-04-08T19:00:00",
+          "equity": 98120.6709511389
         },
         {
           "idx": 11,
-          "ts": "2026-04-08T18:45:00",
-          "equity": 97673.74144678624
+          "ts": "2026-04-20T14:45:00",
+          "equity": 97993.63348656849
         },
         {
           "idx": 12,
-          "ts": "2026-04-08T19:00:00",
-          "equity": 97526.24369033384
+          "ts": "2026-04-21T15:00:00",
+          "equity": 97637.5143448726
         }
       ],
       "drawdown_curve": [
@@ -4874,108 +5274,108 @@
         },
         {
           "idx": 1,
-          "ts": "2026-02-18T19:35:00",
-          "drawdown": 0.0033873809588605944
+          "ts": "2026-03-05T15:25:00",
+          "drawdown": 0.002498457315981359
         },
         {
           "idx": 2,
-          "ts": "2026-02-23T19:40:00",
-          "drawdown": 0.006058124705456284
+          "ts": "2026-03-12T19:40:00",
+          "drawdown": 0.005522525675299839
         },
         {
           "idx": 3,
-          "ts": "2026-03-05T15:25:00",
-          "drawdown": 0.00854144605544614
+          "ts": "2026-03-13T14:35:00",
+          "drawdown": 0.002923881268694968
         },
         {
           "idx": 4,
-          "ts": "2026-03-12T19:40:00",
-          "drawdown": 0.011547194231526082
+          "ts": "2026-03-13T15:00:00",
+          "drawdown": 0.005057987650921568
         },
         {
           "idx": 5,
-          "ts": "2026-03-13T14:35:00",
-          "drawdown": 0.00896429273680158
+          "ts": "2026-03-13T19:05:00",
+          "drawdown": 0.006928987605193106
         },
         {
           "idx": 6,
-          "ts": "2026-03-13T15:00:00",
-          "drawdown": 0.011085470436430187
+          "ts": "2026-03-13T19:25:00",
+          "drawdown": 0.009327396799743728
         },
         {
           "idx": 7,
-          "ts": "2026-03-13T19:05:00",
-          "drawdown": 0.012945135639654909
+          "ts": "2026-03-24T18:40:00",
+          "drawdown": 0.00936604769344165
         },
         {
           "idx": 8,
-          "ts": "2026-03-13T19:25:00",
-          "drawdown": 0.015329014972210134
+          "ts": "2026-04-07T19:50:00",
+          "drawdown": 0.01473070357487697
         },
         {
           "idx": 9,
-          "ts": "2026-03-24T18:40:00",
-          "drawdown": 0.015367431713974219
+          "ts": "2026-04-08T18:45:00",
+          "drawdown": 0.017309322863153065
         },
         {
           "idx": 10,
-          "ts": "2026-04-07T19:50:00",
-          "drawdown": 0.020699587841077883
+          "ts": "2026-04-08T19:00:00",
+          "drawdown": 0.018793290488610948
         },
         {
           "idx": 11,
-          "ts": "2026-04-08T18:45:00",
-          "drawdown": 0.0232625855321376
+          "ts": "2026-04-20T14:45:00",
+          "drawdown": 0.020063665134315088
         },
         {
           "idx": 12,
-          "ts": "2026-04-08T19:00:00",
-          "drawdown": 0.024737563096661617
+          "ts": "2026-04-21T15:00:00",
+          "drawdown": 0.023624856551273988
         }
       ],
       "trades_over_time": [
         {
-          "date": "2026-02-18",
+          "date": "2026-03-05",
           "count": 1,
           "cum_count": 1
         },
         {
-          "date": "2026-02-23",
+          "date": "2026-03-12",
           "count": 1,
           "cum_count": 2
         },
         {
-          "date": "2026-03-05",
-          "count": 1,
-          "cum_count": 3
-        },
-        {
-          "date": "2026-03-12",
-          "count": 1,
-          "cum_count": 4
-        },
-        {
           "date": "2026-03-13",
           "count": 4,
-          "cum_count": 8
+          "cum_count": 6
         },
         {
           "date": "2026-03-24",
           "count": 1,
-          "cum_count": 9
+          "cum_count": 7
         },
         {
           "date": "2026-04-07",
           "count": 1,
-          "cum_count": 10
+          "cum_count": 8
         },
         {
           "date": "2026-04-08",
           "count": 2,
+          "cum_count": 10
+        },
+        {
+          "date": "2026-04-20",
+          "count": 1,
+          "cum_count": 11
+        },
+        {
+          "date": "2026-04-21",
+          "count": 1,
           "cum_count": 12
         }
       ],
-      "trend_performance": "\u2192",
+      "trend_performance": "\u2193",
       "low_sample": true,
       "low_sample_threshold": 30,
       "sample_size_suggestions": [
@@ -4984,19 +5384,19 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 32,
+      "experiment_score": 31,
       "experiment_label": "WATCH",
       "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
         "pf30": 0.0,
         "pf90": 0.0,
-        "ret30": 4.87,
-        "ret90": 3.76,
+        "ret30": 4.29,
+        "ret90": 3.82,
         "dd": 15.0,
         "sample_total": 3.6,
-        "sample_30d": 2.13,
+        "sample_30d": 2.67,
         "sample_90d": 1.8,
-        "trend": 1.0,
+        "trend": 0.0,
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
@@ -5009,32 +5409,32 @@
       "instrument": "QQQ",
       "timeframe": "d",
       "initial_cash": 100000.0,
-      "start": "2025-04-17",
-      "end": "2026-04-16",
-      "period_days": 364,
-      "total_return": -0.013342469595519069,
-      "net_profit": -1334.246959551907,
-      "return_usd": -1334.246959551907,
-      "max_drawdown": 0.025664364297366796,
-      "win_rate": 0.3333333333333333,
-      "profit_factor": 0.4866094592485314,
-      "trades": 3,
-      "average_trade": -444.7489865173023,
-      "final_equity": 98665.7530404481,
-      "trades_count_total": 3,
-      "trades_count_30d": 1,
-      "trades_count_90d": 3,
+      "start": "2025-04-28",
+      "end": "2026-04-24",
+      "period_days": 361,
+      "total_return": -0.025664364297366845,
+      "net_profit": -2566.4364297366847,
+      "return_usd": -2566.4364297366847,
+      "max_drawdown": 0.025664364297366845,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "trades": 2,
+      "average_trade": -1283.2182148683423,
+      "final_equity": 97433.56357026332,
+      "trades_count_total": 2,
+      "trades_count_30d": 0,
+      "trades_count_90d": 2,
       "rolling_30d": {
-        "total_return": -0.01928241110807852,
+        "total_return": 0.0,
         "profit_factor": 0.0,
         "win_rate": 0.0,
-        "max_drawdown": 0.01928241110807852
+        "max_drawdown": 0.0
       },
       "rolling_90d": {
-        "total_return": -0.013342469595519069,
-        "profit_factor": 0.4866094592485314,
-        "win_rate": 0.3333333333333333,
-        "max_drawdown": 0.025664364297366796
+        "total_return": -0.025664364297366845,
+        "profit_factor": 0.0,
+        "win_rate": 0.0,
+        "max_drawdown": 0.025664364297366845
       },
       "equity_curve": [
         {
@@ -5043,18 +5443,13 @@
         },
         {
           "idx": 1,
-          "ts": "2026-03-09T00:00:00",
-          "equity": 101264.64580072163
+          "ts": "2026-03-13T00:00:00",
+          "equity": 99337.7237987032
         },
         {
           "idx": 2,
-          "ts": "2026-03-13T00:00:00",
-          "equity": 100593.99415125595
-        },
-        {
-          "idx": 3,
           "ts": "2026-03-20T00:00:00",
-          "equity": 98665.7530404481
+          "equity": 97433.56357026332
         }
       ],
       "drawdown_curve": [
@@ -5064,38 +5459,28 @@
         },
         {
           "idx": 1,
-          "ts": "2026-03-09T00:00:00",
-          "drawdown": 0.0
+          "ts": "2026-03-13T00:00:00",
+          "drawdown": 0.006622762012968015
         },
         {
           "idx": 2,
-          "ts": "2026-03-13T00:00:00",
-          "drawdown": 0.006622762012968038
-        },
-        {
-          "idx": 3,
           "ts": "2026-03-20T00:00:00",
-          "drawdown": 0.025664364297366796
+          "drawdown": 0.025664364297366845
         }
       ],
       "trades_over_time": [
         {
-          "date": "2026-03-09",
+          "date": "2026-03-13",
           "count": 1,
           "cum_count": 1
         },
         {
-          "date": "2026-03-13",
-          "count": 1,
-          "cum_count": 2
-        },
-        {
           "date": "2026-03-20",
           "count": 1,
-          "cum_count": 3
+          "cum_count": 2
         }
       ],
-      "trend_performance": "\u2193",
+      "trend_performance": "\u2192",
       "low_sample": true,
       "low_sample_threshold": 12,
       "sample_size_suggestions": [
@@ -5104,353 +5489,28 @@
         "Pou\u017e\u00edt alternativn\u00ed proxy instrument (MNQ/NQ nebo QQQ/TQQQ dle stylu).",
         "Otestovat alternativn\u00ed timeframe (1m/5m/15m intraday, D/2D swing)."
       ],
-      "experiment_score": 27,
+      "experiment_score": 28,
       "experiment_label": "WATCH",
       "experiment_reason": "insufficient sample",
       "experiment_breakdown": {
         "pf30": 0.0,
         "pf90": 0.0,
-        "ret30": 3.69,
-        "ret90": 4.33,
+        "ret30": 6.0,
+        "ret90": 3.72,
         "dd": 15.0,
-        "sample_total": 1.8,
-        "sample_30d": 1.33,
-        "sample_90d": 0.9,
-        "trend": 0.0,
+        "sample_total": 1.2,
+        "sample_30d": 0.0,
+        "sample_90d": 0.6,
+        "trend": 1.0,
         "penalty_low_sample": 0
       },
       "experiment_state": "INSUFFICIENT_DATA",
       "high_potential_low_sample": false
-    },
-    {
-      "id": "QQQ_POSITION_200DMA_ROTATION",
-      "name": "QQQ_POSITION_200DMA_ROTATION",
-      "status": "WEAK",
-      "instrument": "QQQ",
-      "timeframe": "d",
-      "initial_cash": 100000.0,
-      "start": "2024-04-17",
-      "end": "2026-04-16",
-      "period_days": 729,
-      "total_return": -0.07313890784302755,
-      "net_profit": -7313.8907843027555,
-      "return_usd": -7313.8907843027555,
-      "max_drawdown": 0.21724638766937768,
-      "win_rate": 0.6470588235294118,
-      "profit_factor": 0.6327635024216085,
-      "trades": 17,
-      "average_trade": -430.22886966486794,
-      "final_equity": 92686.10921569724,
-      "trades_count_total": 17,
-      "trades_count_30d": 3,
-      "trades_count_90d": 7,
-      "rolling_30d": {
-        "total_return": -0.024557916432271596,
-        "profit_factor": 0.2751723484539254,
-        "win_rate": 0.6666666666666666,
-        "max_drawdown": 0.03369792607757723
-      },
-      "rolling_90d": {
-        "total_return": -0.026386115434377133,
-        "profit_factor": 0.5081513643140081,
-        "win_rate": 0.5714285714285714,
-        "max_drawdown": 0.035902333337697365
-      },
-      "equity_curve": [
-        {
-          "idx": 0,
-          "equity": 100000.0
-        },
-        {
-          "idx": 1,
-          "ts": "2025-04-09T00:00:00",
-          "equity": 100570.54027933948
-        },
-        {
-          "idx": 2,
-          "ts": "2025-04-25T00:00:00",
-          "equity": 94899.37200902861
-        },
-        {
-          "idx": 3,
-          "ts": "2025-05-12T00:00:00",
-          "equity": 88223.92626393514
-        },
-        {
-          "idx": 4,
-          "ts": "2025-06-20T00:00:00",
-          "equity": 89516.74757203183
-        },
-        {
-          "idx": 5,
-          "ts": "2025-08-01T00:00:00",
-          "equity": 91565.89284163795
-        },
-        {
-          "idx": 6,
-          "ts": "2025-08-20T00:00:00",
-          "equity": 91802.98117782453
-        },
-        {
-          "idx": 7,
-          "ts": "2025-10-10T00:00:00",
-          "equity": 96018.6640807975
-        },
-        {
-          "idx": 8,
-          "ts": "2025-11-06T00:00:00",
-          "equity": 97500.87970711569
-        },
-        {
-          "idx": 9,
-          "ts": "2025-11-18T00:00:00",
-          "equity": 95296.1520784511
-        },
-        {
-          "idx": 10,
-          "ts": "2025-12-17T00:00:00",
-          "equity": 95324.72075913496
-        },
-        {
-          "idx": 11,
-          "ts": "2026-01-20T00:00:00",
-          "equity": 95103.31943760671
-        },
-        {
-          "idx": 12,
-          "ts": "2026-01-30T00:00:00",
-          "equity": 95908.39052594459
-        },
-        {
-          "idx": 13,
-          "ts": "2026-02-12T00:00:00",
-          "equity": 94153.21405026484
-        },
-        {
-          "idx": 14,
-          "ts": "2026-03-02T00:00:00",
-          "equity": 95141.9008589244
-        },
-        {
-          "idx": 15,
-          "ts": "2026-04-01T00:00:00",
-          "equity": 95685.30633082779
-        },
-        {
-          "idx": 16,
-          "ts": "2026-04-08T00:00:00",
-          "equity": 92297.20208564772
-        },
-        {
-          "idx": 17,
-          "ts": "2026-04-16T00:00:00",
-          "equity": 92686.10921569724
-        }
-      ],
-      "drawdown_curve": [
-        {
-          "idx": 0,
-          "drawdown": 0.0
-        },
-        {
-          "idx": 1,
-          "ts": "2025-04-09T00:00:00",
-          "drawdown": 0.0
-        },
-        {
-          "idx": 2,
-          "ts": "2025-04-25T00:00:00",
-          "drawdown": 0.05638995529465116
-        },
-        {
-          "idx": 3,
-          "ts": "2025-05-12T00:00:00",
-          "drawdown": 0.12276571231606223
-        },
-        {
-          "idx": 4,
-          "ts": "2025-06-20T00:00:00",
-          "drawdown": 0.10991084145123617
-        },
-        {
-          "idx": 5,
-          "ts": "2025-08-01T00:00:00",
-          "drawdown": 0.08953563750071032
-        },
-        {
-          "idx": 6,
-          "ts": "2025-08-20T00:00:00",
-          "drawdown": 0.08717820424512612
-        },
-        {
-          "idx": 7,
-          "ts": "2025-10-10T00:00:00",
-          "drawdown": 0.0452605324173353
-        },
-        {
-          "idx": 8,
-          "ts": "2025-11-06T00:00:00",
-          "drawdown": 0.030522462777843876
-        },
-        {
-          "idx": 9,
-          "ts": "2025-11-18T00:00:00",
-          "drawdown": 0.052444664075966145
-        },
-        {
-          "idx": 10,
-          "ts": "2025-12-17T00:00:00",
-          "drawdown": 0.05216059798062139
-        },
-        {
-          "idx": 11,
-          "ts": "2026-01-20T00:00:00",
-          "drawdown": 0.05436205101958583
-        },
-        {
-          "idx": 12,
-          "ts": "2026-01-30T00:00:00",
-          "drawdown": 0.04635701210757685
-        },
-        {
-          "idx": 13,
-          "ts": "2026-02-12T00:00:00",
-          "drawdown": 0.06380920507387358
-        },
-        {
-          "idx": 14,
-          "ts": "2026-03-02T00:00:00",
-          "drawdown": 0.0539784255442674
-        },
-        {
-          "idx": 15,
-          "ts": "2026-04-01T00:00:00",
-          "drawdown": 0.048575198412404985
-        },
-        {
-          "idx": 16,
-          "ts": "2026-04-08T00:00:00",
-          "drawdown": 0.0822640324961183
-        },
-        {
-          "idx": 17,
-          "ts": "2026-04-16T00:00:00",
-          "drawdown": 0.07839702403649068
-        }
-      ],
-      "trades_over_time": [
-        {
-          "date": "2025-04-09",
-          "count": 1,
-          "cum_count": 1
-        },
-        {
-          "date": "2025-04-25",
-          "count": 1,
-          "cum_count": 2
-        },
-        {
-          "date": "2025-05-12",
-          "count": 1,
-          "cum_count": 3
-        },
-        {
-          "date": "2025-06-20",
-          "count": 1,
-          "cum_count": 4
-        },
-        {
-          "date": "2025-08-01",
-          "count": 1,
-          "cum_count": 5
-        },
-        {
-          "date": "2025-08-20",
-          "count": 1,
-          "cum_count": 6
-        },
-        {
-          "date": "2025-10-10",
-          "count": 1,
-          "cum_count": 7
-        },
-        {
-          "date": "2025-11-06",
-          "count": 1,
-          "cum_count": 8
-        },
-        {
-          "date": "2025-11-18",
-          "count": 1,
-          "cum_count": 9
-        },
-        {
-          "date": "2025-12-17",
-          "count": 1,
-          "cum_count": 10
-        },
-        {
-          "date": "2026-01-20",
-          "count": 1,
-          "cum_count": 11
-        },
-        {
-          "date": "2026-01-30",
-          "count": 1,
-          "cum_count": 12
-        },
-        {
-          "date": "2026-02-12",
-          "count": 1,
-          "cum_count": 13
-        },
-        {
-          "date": "2026-03-02",
-          "count": 1,
-          "cum_count": 14
-        },
-        {
-          "date": "2026-04-01",
-          "count": 1,
-          "cum_count": 15
-        },
-        {
-          "date": "2026-04-08",
-          "count": 1,
-          "cum_count": 16
-        },
-        {
-          "date": "2026-04-16",
-          "count": 1,
-          "cum_count": 17
-        }
-      ],
-      "trend_performance": "\u2193",
-      "low_sample": false,
-      "low_sample_threshold": 12,
-      "sample_size_suggestions": [],
-      "experiment_score": 25,
-      "experiment_label": "KILL",
-      "experiment_reason": "weak rolling PF and negative return trend",
-      "experiment_breakdown": {
-        "pf30": 0.0,
-        "pf90": 0.0,
-        "ret30": 3.05,
-        "ret90": 3.68,
-        "dd": 2.46,
-        "sample_total": 10.2,
-        "sample_30d": 4.0,
-        "sample_90d": 2.1,
-        "trend": 0.0,
-        "penalty_low_sample": 0
-      },
-      "experiment_state": "OK",
-      "high_potential_low_sample": false
     }
   ],
   "rg_nasdaq_snapshots_meta": {
-    "count": 10,
-    "last_timestamp": "2026-04-17T08:30:02.080085Z"
+    "count": 11,
+    "last_timestamp": "2026-04-27T11:22:13.858934Z"
   },
   "signals_by_instrument": {
     "NASDAQ": [
@@ -8338,11 +8398,11 @@
     "strategies_count": 3,
     "initial_cash_per_strategy": 100000.0,
     "total_allocated_cash": 300000.0,
-    "total_net_profit": -6907.046623847462,
-    "avg_return": -0.02302348874615821,
-    "avg_win_rate": 0.2680851063829787,
-    "avg_profit_factor": 0.3206423824122167,
-    "max_drawdown_worst": 0.04618319872117369
+    "total_net_profit": -6619.484146215371,
+    "avg_return": -0.022064947154051235,
+    "avg_win_rate": 0.26373626373626374,
+    "avg_profit_factor": 0.32152904912551966,
+    "max_drawdown_worst": 0.04394155609111171
   },
   "top_vibe_strategies": [
     {
@@ -8369,61 +8429,61 @@
       "instrument": "NASDAQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "total_return": -0.025049493938796224,
-      "net_profit": -2504.949393879622,
-      "max_drawdown": 0.027316378870985546,
-      "profit_factor": 0.43884244643400094,
-      "win_rate": 0.4,
-      "expectancy": -62.623734846990544,
-      "trades": 40,
-      "average_trade": -62.62373484699056,
-      "rolling_pf": 0.8012741024379062,
+      "total_return": -0.024821323853633077,
+      "net_profit": -2482.1323853633075,
+      "max_drawdown": 0.025177012865396392,
+      "profit_factor": 0.4298763727202929,
+      "win_rate": 0.38461538461538464,
+      "expectancy": -63.64442013752071,
+      "trades": 39,
+      "average_trade": -63.644420137520704,
+      "rolling_pf": 0.6117107190824662,
       "results_by_vibe_regime": {
         "trend": {
-          "total_return": -0.022320921552093205,
-          "net_profit": -2232.0921552093205,
-          "max_drawdown": 0.02459415076493201,
-          "profit_factor": 0.4189593210243749,
-          "win_rate": 0.38235294117647056,
-          "expectancy": -65.64976927086238,
-          "trades_count": 34,
-          "average_trade": -65.64976927086236,
-          "rolling_pf": 0.6440582127072907
+          "total_return": -0.018647260929176845,
+          "net_profit": -1864.7260929176846,
+          "max_drawdown": 0.01900294994094016,
+          "profit_factor": 0.44921582356053996,
+          "win_rate": 0.3870967741935484,
+          "expectancy": -60.15245461024789,
+          "trades_count": 31,
+          "average_trade": -60.15245461024789,
+          "rolling_pf": 0.6877166763594673
         },
         "balanced": {
-          "total_return": -0.0027285723867030176,
-          "net_profit": -272.85723867030174,
-          "max_drawdown": 0.005328026088302285,
-          "profit_factor": 0.5615728572004655,
-          "win_rate": 0.5,
-          "expectancy": -45.47620644505029,
-          "trades_count": 6,
-          "average_trade": -45.47620644505029,
-          "rolling_pf": 0.5615728572004655
+          "total_return": -0.00617406292445623,
+          "net_profit": -617.406292445623,
+          "max_drawdown": 0.00617406292445623,
+          "profit_factor": 0.3622428487343073,
+          "win_rate": 0.375,
+          "expectancy": -77.17578655570287,
+          "trades_count": 8,
+          "average_trade": -77.17578655570287,
+          "rolling_pf": 0.3622428487343073
         }
       },
       "results_by_time_of_day": {
-        "open": {
-          "total_return": -0.00846362213895336,
-          "net_profit": -846.362213895336,
-          "max_drawdown": 0.01087714443507851,
-          "profit_factor": 0.60038818503152,
-          "win_rate": 0.45,
-          "expectancy": -42.31811069476682,
-          "trades_count": 20,
-          "average_trade": -42.3181106947668,
-          "rolling_pf": 0.60038818503152
-        },
         "midday": {
-          "total_return": -0.01658587179984286,
-          "net_profit": -1658.5871799842862,
-          "max_drawdown": 0.01658587179984286,
-          "profit_factor": 0.2929955063134081,
-          "win_rate": 0.35,
-          "expectancy": -82.92935899921432,
-          "trades_count": 20,
-          "average_trade": -82.92935899921432,
-          "rolling_pf": 0.2929955063134081
+          "total_return": -0.012530576244659024,
+          "net_profit": -1253.0576244659023,
+          "max_drawdown": 0.012530576244659024,
+          "profit_factor": 0.335213450175159,
+          "win_rate": 0.35294117647058826,
+          "expectancy": -73.709272027406,
+          "trades_count": 17,
+          "average_trade": -73.70927202740602,
+          "rolling_pf": 0.335213450175159
+        },
+        "open": {
+          "total_return": -0.012290747608974053,
+          "net_profit": -1229.0747608974052,
+          "max_drawdown": 0.014267032113097666,
+          "profit_factor": 0.5021513205252628,
+          "win_rate": 0.4090909090909091,
+          "expectancy": -55.86703458624569,
+          "trades_count": 22,
+          "average_trade": -55.867034586245694,
+          "rolling_pf": 0.5859273840481846
         }
       }
     },
@@ -8433,72 +8493,72 @@
       "instrument": "NASDAQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "total_return": -0.0440209722996784,
-      "net_profit": -4402.09722996784,
-      "max_drawdown": 0.04618319872117369,
-      "profit_factor": 0.5230847008026492,
-      "win_rate": 0.40425531914893614,
-      "expectancy": -46.83082159540255,
-      "trades": 94,
-      "average_trade": -46.83082159540255,
-      "rolling_pf": 0.4709981497585695,
+      "total_return": -0.041373517608520635,
+      "net_profit": -4137.351760852063,
+      "max_drawdown": 0.04394155609111171,
+      "profit_factor": 0.5347107746562662,
+      "win_rate": 0.4065934065934066,
+      "expectancy": -45.4654039654073,
+      "trades": 91,
+      "average_trade": -45.46540396540729,
+      "rolling_pf": 0.5697221379429114,
       "results_by_vibe_regime": {
         "trend": {
-          "total_return": -0.03305363476148399,
-          "net_profit": -3305.363476148399,
-          "max_drawdown": 0.03524066702736647,
-          "profit_factor": 0.5416959590285452,
-          "win_rate": 0.40789473684210525,
-          "expectancy": -43.49162468616315,
-          "trades_count": 76,
-          "average_trade": -43.49162468616314,
-          "rolling_pf": 0.4839173393459851
+          "total_return": -0.027404790432118024,
+          "net_profit": -2740.4790432118025,
+          "max_drawdown": 0.029972828914709097,
+          "profit_factor": 0.5901425616807401,
+          "win_rate": 0.4246575342465753,
+          "expectancy": -37.5408088111206,
+          "trades_count": 73,
+          "average_trade": -37.540808811120584,
+          "rolling_pf": 0.7421773274047718
         },
         "balanced": {
-          "total_return": -0.010967337538194406,
-          "net_profit": -1096.7337538194406,
-          "max_drawdown": 0.015667932825193506,
-          "profit_factor": 0.456575927936906,
-          "win_rate": 0.3888888888888889,
-          "expectancy": -60.929652989968936,
+          "total_return": -0.013968727176402608,
+          "net_profit": -1396.8727176402608,
+          "max_drawdown": 0.015704328403542567,
+          "profit_factor": 0.3666641569908665,
+          "win_rate": 0.3333333333333333,
+          "expectancy": -77.60403986890339,
           "trades_count": 18,
-          "average_trade": -60.92965298996892,
-          "rolling_pf": 0.456575927936906
+          "average_trade": -77.60403986890339,
+          "rolling_pf": 0.3666641569908665
         }
       },
       "results_by_time_of_day": {
-        "open": {
-          "total_return": -0.005648631903897767,
-          "net_profit": -564.8631903897767,
-          "max_drawdown": 0.01439735620870267,
-          "profit_factor": 0.7948791258178761,
-          "win_rate": 0.4827586206896552,
-          "expectancy": -19.478041047923313,
-          "trades_count": 29,
-          "average_trade": -19.478041047923334,
-          "rolling_pf": 0.6424412003722044
-        },
         "midday": {
-          "total_return": -0.019567105713301863,
-          "net_profit": -1956.7105713301862,
-          "max_drawdown": 0.019567105713301863,
-          "profit_factor": 0.3441584203217474,
-          "win_rate": 0.3103448275862069,
-          "expectancy": -67.47277832173057,
-          "trades_count": 29,
-          "average_trade": -67.47277832173056,
-          "rolling_pf": 0.23339077057953703
+          "total_return": -0.01470772569215318,
+          "net_profit": -1470.772569215318,
+          "max_drawdown": 0.01683462569927161,
+          "profit_factor": 0.4306468324032854,
+          "win_rate": 0.3333333333333333,
+          "expectancy": -54.47305811908587,
+          "trades_count": 27,
+          "average_trade": -54.473058119085856,
+          "rolling_pf": 0.37136381598873286
         },
         "late": {
-          "total_return": -0.01880523468247877,
-          "net_profit": -1880.5234682478767,
-          "max_drawdown": 0.021068866735912597,
-          "profit_factor": 0.46163653302597546,
-          "win_rate": 0.4166666666666667,
-          "expectancy": -52.23676300688545,
-          "trades_count": 36,
-          "average_trade": -52.23676300688547,
-          "rolling_pf": 0.9197045657040223
+          "total_return": -0.017005544145144522,
+          "net_profit": -1700.5544145144522,
+          "max_drawdown": 0.019945483456540077,
+          "profit_factor": 0.4691844620910459,
+          "win_rate": 0.42424242424242425,
+          "expectancy": -51.53195195498338,
+          "trades_count": 33,
+          "average_trade": -51.5319519549834,
+          "rolling_pf": 0.9197045657039506
+        },
+        "open": {
+          "total_return": -0.00966024777122293,
+          "net_profit": -966.024777122293,
+          "max_drawdown": 0.01609218889341024,
+          "profit_factor": 0.6888911439301079,
+          "win_rate": 0.45161290322580644,
+          "expectancy": -31.162089584590106,
+          "trades_count": 31,
+          "average_trade": -31.1620895845901,
+          "rolling_pf": 0.6476529166945397
         }
       }
     }
@@ -8528,61 +8588,61 @@
       "instrument": "NASDAQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "total_return": -0.025049493938796224,
-      "net_profit": -2504.949393879622,
-      "max_drawdown": 0.027316378870985546,
-      "profit_factor": 0.43884244643400094,
-      "win_rate": 0.4,
-      "expectancy": -62.623734846990544,
-      "trades": 40,
-      "average_trade": -62.62373484699056,
-      "rolling_pf": 0.8012741024379062,
+      "total_return": -0.024821323853633077,
+      "net_profit": -2482.1323853633075,
+      "max_drawdown": 0.025177012865396392,
+      "profit_factor": 0.4298763727202929,
+      "win_rate": 0.38461538461538464,
+      "expectancy": -63.64442013752071,
+      "trades": 39,
+      "average_trade": -63.644420137520704,
+      "rolling_pf": 0.6117107190824662,
       "results_by_vibe_regime": {
         "trend": {
-          "total_return": -0.022320921552093205,
-          "net_profit": -2232.0921552093205,
-          "max_drawdown": 0.02459415076493201,
-          "profit_factor": 0.4189593210243749,
-          "win_rate": 0.38235294117647056,
-          "expectancy": -65.64976927086238,
-          "trades_count": 34,
-          "average_trade": -65.64976927086236,
-          "rolling_pf": 0.6440582127072907
+          "total_return": -0.018647260929176845,
+          "net_profit": -1864.7260929176846,
+          "max_drawdown": 0.01900294994094016,
+          "profit_factor": 0.44921582356053996,
+          "win_rate": 0.3870967741935484,
+          "expectancy": -60.15245461024789,
+          "trades_count": 31,
+          "average_trade": -60.15245461024789,
+          "rolling_pf": 0.6877166763594673
         },
         "balanced": {
-          "total_return": -0.0027285723867030176,
-          "net_profit": -272.85723867030174,
-          "max_drawdown": 0.005328026088302285,
-          "profit_factor": 0.5615728572004655,
-          "win_rate": 0.5,
-          "expectancy": -45.47620644505029,
-          "trades_count": 6,
-          "average_trade": -45.47620644505029,
-          "rolling_pf": 0.5615728572004655
+          "total_return": -0.00617406292445623,
+          "net_profit": -617.406292445623,
+          "max_drawdown": 0.00617406292445623,
+          "profit_factor": 0.3622428487343073,
+          "win_rate": 0.375,
+          "expectancy": -77.17578655570287,
+          "trades_count": 8,
+          "average_trade": -77.17578655570287,
+          "rolling_pf": 0.3622428487343073
         }
       },
       "results_by_time_of_day": {
-        "open": {
-          "total_return": -0.00846362213895336,
-          "net_profit": -846.362213895336,
-          "max_drawdown": 0.01087714443507851,
-          "profit_factor": 0.60038818503152,
-          "win_rate": 0.45,
-          "expectancy": -42.31811069476682,
-          "trades_count": 20,
-          "average_trade": -42.3181106947668,
-          "rolling_pf": 0.60038818503152
-        },
         "midday": {
-          "total_return": -0.01658587179984286,
-          "net_profit": -1658.5871799842862,
-          "max_drawdown": 0.01658587179984286,
-          "profit_factor": 0.2929955063134081,
-          "win_rate": 0.35,
-          "expectancy": -82.92935899921432,
-          "trades_count": 20,
-          "average_trade": -82.92935899921432,
-          "rolling_pf": 0.2929955063134081
+          "total_return": -0.012530576244659024,
+          "net_profit": -1253.0576244659023,
+          "max_drawdown": 0.012530576244659024,
+          "profit_factor": 0.335213450175159,
+          "win_rate": 0.35294117647058826,
+          "expectancy": -73.709272027406,
+          "trades_count": 17,
+          "average_trade": -73.70927202740602,
+          "rolling_pf": 0.335213450175159
+        },
+        "open": {
+          "total_return": -0.012290747608974053,
+          "net_profit": -1229.0747608974052,
+          "max_drawdown": 0.014267032113097666,
+          "profit_factor": 0.5021513205252628,
+          "win_rate": 0.4090909090909091,
+          "expectancy": -55.86703458624569,
+          "trades_count": 22,
+          "average_trade": -55.867034586245694,
+          "rolling_pf": 0.5859273840481846
         }
       }
     },
@@ -8592,72 +8652,72 @@
       "instrument": "NASDAQ",
       "timeframe": "5m",
       "initial_cash": 100000.0,
-      "total_return": -0.0440209722996784,
-      "net_profit": -4402.09722996784,
-      "max_drawdown": 0.04618319872117369,
-      "profit_factor": 0.5230847008026492,
-      "win_rate": 0.40425531914893614,
-      "expectancy": -46.83082159540255,
-      "trades": 94,
-      "average_trade": -46.83082159540255,
-      "rolling_pf": 0.4709981497585695,
+      "total_return": -0.041373517608520635,
+      "net_profit": -4137.351760852063,
+      "max_drawdown": 0.04394155609111171,
+      "profit_factor": 0.5347107746562662,
+      "win_rate": 0.4065934065934066,
+      "expectancy": -45.4654039654073,
+      "trades": 91,
+      "average_trade": -45.46540396540729,
+      "rolling_pf": 0.5697221379429114,
       "results_by_vibe_regime": {
         "trend": {
-          "total_return": -0.03305363476148399,
-          "net_profit": -3305.363476148399,
-          "max_drawdown": 0.03524066702736647,
-          "profit_factor": 0.5416959590285452,
-          "win_rate": 0.40789473684210525,
-          "expectancy": -43.49162468616315,
-          "trades_count": 76,
-          "average_trade": -43.49162468616314,
-          "rolling_pf": 0.4839173393459851
+          "total_return": -0.027404790432118024,
+          "net_profit": -2740.4790432118025,
+          "max_drawdown": 0.029972828914709097,
+          "profit_factor": 0.5901425616807401,
+          "win_rate": 0.4246575342465753,
+          "expectancy": -37.5408088111206,
+          "trades_count": 73,
+          "average_trade": -37.540808811120584,
+          "rolling_pf": 0.7421773274047718
         },
         "balanced": {
-          "total_return": -0.010967337538194406,
-          "net_profit": -1096.7337538194406,
-          "max_drawdown": 0.015667932825193506,
-          "profit_factor": 0.456575927936906,
-          "win_rate": 0.3888888888888889,
-          "expectancy": -60.929652989968936,
+          "total_return": -0.013968727176402608,
+          "net_profit": -1396.8727176402608,
+          "max_drawdown": 0.015704328403542567,
+          "profit_factor": 0.3666641569908665,
+          "win_rate": 0.3333333333333333,
+          "expectancy": -77.60403986890339,
           "trades_count": 18,
-          "average_trade": -60.92965298996892,
-          "rolling_pf": 0.456575927936906
+          "average_trade": -77.60403986890339,
+          "rolling_pf": 0.3666641569908665
         }
       },
       "results_by_time_of_day": {
-        "open": {
-          "total_return": -0.005648631903897767,
-          "net_profit": -564.8631903897767,
-          "max_drawdown": 0.01439735620870267,
-          "profit_factor": 0.7948791258178761,
-          "win_rate": 0.4827586206896552,
-          "expectancy": -19.478041047923313,
-          "trades_count": 29,
-          "average_trade": -19.478041047923334,
-          "rolling_pf": 0.6424412003722044
-        },
         "midday": {
-          "total_return": -0.019567105713301863,
-          "net_profit": -1956.7105713301862,
-          "max_drawdown": 0.019567105713301863,
-          "profit_factor": 0.3441584203217474,
-          "win_rate": 0.3103448275862069,
-          "expectancy": -67.47277832173057,
-          "trades_count": 29,
-          "average_trade": -67.47277832173056,
-          "rolling_pf": 0.23339077057953703
+          "total_return": -0.01470772569215318,
+          "net_profit": -1470.772569215318,
+          "max_drawdown": 0.01683462569927161,
+          "profit_factor": 0.4306468324032854,
+          "win_rate": 0.3333333333333333,
+          "expectancy": -54.47305811908587,
+          "trades_count": 27,
+          "average_trade": -54.473058119085856,
+          "rolling_pf": 0.37136381598873286
         },
         "late": {
-          "total_return": -0.01880523468247877,
-          "net_profit": -1880.5234682478767,
-          "max_drawdown": 0.021068866735912597,
-          "profit_factor": 0.46163653302597546,
-          "win_rate": 0.4166666666666667,
-          "expectancy": -52.23676300688545,
-          "trades_count": 36,
-          "average_trade": -52.23676300688547,
-          "rolling_pf": 0.9197045657040223
+          "total_return": -0.017005544145144522,
+          "net_profit": -1700.5544145144522,
+          "max_drawdown": 0.019945483456540077,
+          "profit_factor": 0.4691844620910459,
+          "win_rate": 0.42424242424242425,
+          "expectancy": -51.53195195498338,
+          "trades_count": 33,
+          "average_trade": -51.5319519549834,
+          "rolling_pf": 0.9197045657039506
+        },
+        "open": {
+          "total_return": -0.00966024777122293,
+          "net_profit": -966.024777122293,
+          "max_drawdown": 0.01609218889341024,
+          "profit_factor": 0.6888911439301079,
+          "win_rate": 0.45161290322580644,
+          "expectancy": -31.162089584590106,
+          "trades_count": 31,
+          "average_trade": -31.1620895845901,
+          "rolling_pf": 0.6476529166945397
         }
       }
     }
@@ -8674,9 +8734,9 @@
       },
       "vibe": {
         "strategies_count": 3,
-        "total_return": -0.02302348874615821,
-        "avg_profit_factor": 0.3206423824122167,
-        "avg_win_rate": 0.2680851063829787
+        "total_return": -0.022064947154051235,
+        "avg_profit_factor": 0.32152904912551966,
+        "avg_win_rate": 0.26373626373626374
       }
     }
   }
