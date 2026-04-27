@@ -472,7 +472,21 @@
       const n = Math.round(v ?? 0).toString();
       return n.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
-    const fmtUsd = (v) => `$ ${fmtInt(v ?? 0)}`;
+    const fmtNum = (v, decimals = 2) => {
+      const n = Number(v ?? 0);
+      if (!Number.isFinite(n)) return '0';
+      return n.toFixed(decimals).replace('.', ',');
+    };
+    const fmtUsd = (v) => {
+      const n = Number(v ?? 0);
+      if (!Number.isFinite(n)) return '$ 0';
+      return `$ ${n.toLocaleString('cs-CZ', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    };
+    const fmtUsd2 = (v) => {
+      const n = Number(v ?? 0);
+      if (!Number.isFinite(n)) return '$ 0,00';
+      return `$ ${n.toLocaleString('cs-CZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    };
 
     const posClass = (v) => (v ?? 0) >= 0 ? 'pos' : 'neg';
     const winClass = (v) => (v ?? 0) >= 0.5 ? 'pos' : 'neg';
@@ -684,10 +698,13 @@
           <td>${r.strategy || r.strategy_id || '—'}</td>
           <td>${r.instrument || '—'}</td>
           <td>${(r.side || '').toUpperCase()}</td>
-          <td>${r.qty ?? '—'}</td>
+          <td>${fmtNum(r.qty ?? 0, 4)}</td>
           <td>${r.order_type || '—'}</td>
-          <td>${r.status || '—'}</td>
-          <td>${r.created_at || '—'}</td>
+          <td>${fmtUsd2(r.filled_avg_price || 0)}</td>
+          <td>${fmtNum(r.filled_qty || 0, 4)}</td>
+          <td class="${(r.status || '').toLowerCase() === 'filled' ? 'pos' : ''}">${r.status || '—'}</td>
+          <td>${r.submitted_at || r.created_at || '—'}</td>
+          <td>${r.filled_at || '—'}</td>
         </tr>
       `).join('');
       return `
@@ -700,12 +717,93 @@
                 <th>Side</th>
                 <th>Qty</th>
                 <th>Type</th>
+                <th>Fill Price</th>
+                <th>Fill Qty</th>
                 <th>Status</th>
-                <th>Timestamp</th>
+                <th>Submitted</th>
+                <th>Filled</th>
               </tr>
             </thead>
             <tbody>${body}</tbody>
           </table>
+        </div>
+      `;
+    }
+
+    function renderPositionsTable(rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">Active Positions</div><div class="muted">No active positions.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td data-label="Symbol"><strong>${r.symbol || '—'}</strong></td>
+          <td data-label="Side">${(r.side || '').toUpperCase()}</td>
+          <td data-label="Qty">${fmtNum(r.qty || 0, 4)}</td>
+          <td data-label="Avg Entry">${fmtUsd2(r.avg_entry_price || 0)}</td>
+          <td data-label="Current">${fmtUsd2(r.current_price || 0)}</td>
+          <td data-label="Market Value">${fmtUsd2(r.market_value || 0)}</td>
+          <td data-label="Unrealized PnL" class="${posClass(r.unrealized_pl || 0)}"><strong>${fmtUsd2(r.unrealized_pl || 0)}</strong></td>
+          <td data-label="Intraday PnL" class="${posClass(r.unrealized_intraday_pl || 0)}"><strong>${fmtUsd2(r.unrealized_intraday_pl || 0)}</strong></td>
+        </tr>
+      `).join('');
+      return `
+        <div class="table-block">
+          <div class="table-title">Active Positions</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Side</th>
+                  <th>Qty</th>
+                  <th>Avg Entry</th>
+                  <th>Current</th>
+                  <th>Market Value</th>
+                  <th>Unrealized PnL</th>
+                  <th>Intraday PnL</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderRecentTradesTable(rows) {
+      if (!rows || !rows.length) {
+        return `<div class="table-block"><div class="table-title">Last Closed Trades</div><div class="muted">No closed trades yet.</div></div>`;
+      }
+      const body = rows.map(r => `
+        <tr>
+          <td data-label="Symbol"><strong>${r.symbol || '—'}</strong></td>
+          <td data-label="Close Side">${r.close_side || '—'}</td>
+          <td data-label="Qty">${fmtNum(r.qty || 0, 4)}</td>
+          <td data-label="Entry">${fmtUsd2(r.entry_price || 0)}</td>
+          <td data-label="Exit">${fmtUsd2(r.exit_price || 0)}</td>
+          <td data-label="P/L" class="${posClass(r.realized_pnl || 0)}"><strong>${fmtUsd2(r.realized_pnl || 0)}</strong></td>
+          <td data-label="Timestamp">${r.timestamp || '—'}</td>
+        </tr>
+      `).join('');
+      return `
+        <div class="table-block">
+          <div class="table-title">Last Closed Trades</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Close Side</th>
+                  <th>Qty</th>
+                  <th>Entry</th>
+                  <th>Exit</th>
+                  <th>P/L</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>${body}</tbody>
+            </table>
+          </div>
         </div>
       `;
     }
@@ -718,10 +816,10 @@
       return `
         <div class="note-banner">
           <div class="muted">Status: <strong>${account.status || '—'}</strong></div>
-          <div class="muted">Equity: <strong class="${posClass(pnl)}">${fmtUsd(account.equity || 0)}</strong></div>
-          <div class="muted">PnL Today: <strong class="${posClass(pnl)}">${fmtUsd(pnl)}</strong></div>
-          <div class="muted">Cash: <strong>${fmtUsd(account.cash || 0)}</strong></div>
-          <div class="muted">Buying Power: <strong>${fmtUsd(account.buying_power || 0)}</strong></div>
+          <div class="muted">Equity: <strong>${fmtUsd2(account.equity || 0)}</strong></div>
+          <div class="muted">PnL Today: <strong class="${posClass(pnl)}">${fmtUsd2(pnl)}</strong></div>
+          <div class="muted">Cash: <strong>${fmtUsd2(account.cash || 0)}</strong></div>
+          <div class="muted">Buying Power: <strong>${fmtUsd2(account.buying_power || 0)}</strong></div>
         </div>
       `;
     }
@@ -775,6 +873,9 @@
     function renderLiveOverview(data) {
       const account = data.paper_account || null;
       const orders = data.paper_orders || [];
+      const positions = data.paper_positions || [];
+      const recentTrades = data.paper_recent_trades || [];
+      const summary = data.paper_summary || {};
       const signals = data.signals_by_instrument || {};
       const health = data.live_health || {};
       const filled = orders.filter(o => (o.status || '').toLowerCase() === 'filled').length;
@@ -798,10 +899,20 @@
         </div>
         ${renderPaperAccount(account)}
         <div class="note-banner" style="margin-top:12px;">
-          <div class="muted">Orders (last ${orders.length}): <strong>${fmtInt(orders.length)}</strong></div>
+          <div class="muted">Initial capital: <strong>${fmtUsd2(summary.initial_capital || 100000)}</strong></div>
+          <div class="muted">Total PnL: <strong class="${posClass(summary.total_pnl || 0)}">${fmtUsd2(summary.total_pnl || 0)}</strong></div>
+          <div class="muted">Total return: <strong class="${posClass(summary.total_return || 0)}">${fmtPct(summary.total_return || 0)}</strong></div>
+          <div class="muted">Orders (last ${orders.length}): <strong>${fmtInt(summary.orders_total ?? orders.length)}</strong></div>
           <div class="muted">Filled: <strong class="pos">${fmtInt(filled)}</strong></div>
           <div class="muted">Pending: <strong>${fmtInt(pending)}</strong></div>
           <div class="muted">Rejected/Cancelled: <strong class="${rejected > 0 ? 'neg' : ''}">${fmtInt(rejected)}</strong></div>
+        </div>
+        <div class="note-banner" style="margin-top:12px;">
+          <div class="muted">Open positions: <strong>${fmtInt(summary.positions_open ?? positions.length)}</strong></div>
+          <div class="muted">Unrealized PnL: <strong class="${posClass(summary.unrealized_pnl_total || 0)}">${fmtUsd2(summary.unrealized_pnl_total || 0)}</strong></div>
+          <div class="muted">Recent closed trades: <strong>${fmtInt(summary.recent_trades_count ?? recentTrades.length)}</strong></div>
+          <div class="muted">Recent realized PnL: <strong class="${posClass(summary.recent_realized_pnl || 0)}">${fmtUsd2(summary.recent_realized_pnl || 0)}</strong></div>
+          <div class="muted">Recent win rate: <strong class="${winClass(summary.recent_win_rate || 0)}">${fmtPct(summary.recent_win_rate || 0)}</strong></div>
         </div>
         <div style="margin-top:12px;">
           ${renderLiveCoverage(signals)}
@@ -1456,13 +1567,20 @@
         if (isLive) {
           const orders = data.paper_orders || [];
           const account = data.paper_account || null;
+          const positions = data.paper_positions || [];
+          const recentTrades = data.paper_recent_trades || [];
           document.getElementById('paperOrders').innerHTML = `
             <div class="section-head">
               <h2>Paper Trading (Orders)</h2>
               <div class="muted">BTC direct + NASDAQ/Gold/EURUSD ETF proxy execution via Alpaca</div>
             </div>
             ${renderPaperAccount(account)}
-            ${renderOrdersTable(orders)}
+            ${renderPositionsTable(positions)}
+            ${renderRecentTradesTable(recentTrades)}
+            <div class="table-block">
+              <div class="table-title">Recent Orders</div>
+              ${renderOrdersTable(orders)}
+            </div>
           `;
 
           const journal = data.journal_strategies || [];
