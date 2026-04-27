@@ -434,6 +434,14 @@
       <div class="muted">Loading…</div>
     </section>
 
+    <section class="section" id="nasdaqTop10">
+      <div class="section-head">
+        <h2>Top 10 NASDAQ Stocks</h2>
+        <div class="muted">NASDAQ shortlist, best strategy per stock.</div>
+      </div>
+      <div class="muted">Loading…</div>
+    </section>
+
     <section class="section hidden" id="signalsSection">
       <div class="section-head">
         <h2>Live Signals</h2>
@@ -1236,6 +1244,7 @@
         'rgNasdaqStrategies',
         'globalTop10',
         'sp500Top10',
+        'nasdaqTop10',
         'signalsSection',
         'journalSection',
         'notes'
@@ -1407,8 +1416,18 @@
           ${renderMarketTable('Top 10 S&P 500 (Best Strategy)', spRows)}
         `;
 
+        const nqRows = data.nasdaq_top10 || [];
+        const nqMeta = data.nasdaq_meta || {};
+        document.getElementById('nasdaqTop10').innerHTML = `
+          <div class="section-head">
+            <h2>Top 10 NASDAQ Stocks</h2>
+            <div class="muted">Universe: ${nqMeta.tested_count || 0} tested out of ${nqMeta.universe_count || 0}.</div>
+          </div>
+          ${renderMarketTable('Top 10 NASDAQ (Best Strategy)', nqRows)}
+        `;
 
-        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'vibeSummary', 'vibeTop', 'globalTop10', 'sp500Top10'];
+
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'vibeSummary', 'vibeTop', 'globalTop10', 'sp500Top10', 'nasdaqTop10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
           if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
