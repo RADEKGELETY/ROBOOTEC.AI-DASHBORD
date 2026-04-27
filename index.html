@@ -776,14 +776,25 @@
       const account = data.paper_account || null;
       const orders = data.paper_orders || [];
       const signals = data.signals_by_instrument || {};
+      const health = data.live_health || {};
       const filled = orders.filter(o => (o.status || '').toLowerCase() === 'filled').length;
       const pending = orders.filter(o => ['new', 'accepted', 'pending_new', 'partially_filled'].includes((o.status || '').toLowerCase())).length;
       const rejected = orders.filter(o => ['rejected', 'canceled', 'expired'].includes((o.status || '').toLowerCase())).length;
+      const connected = health.alpaca_connected === true;
+      const lastSigTs = health.last_signal_timestamp || '—';
+      const lastOrdTs = health.last_order_timestamp || '—';
+      const signalsTotal = health.signals_count_total ?? Object.values(signals).flat().length;
 
       return `
         <div class="section-head">
           <h2>Overview</h2>
           <div class="muted">Live paper trading overview</div>
+        </div>
+        <div class="note-banner">
+          <div class="muted">Alpaca: <strong class="${connected ? 'pos' : 'neg'}">${connected ? 'CONNECTED' : 'DISCONNECTED'}</strong></div>
+          <div class="muted">Signals total: <strong>${fmtInt(signalsTotal)}</strong></div>
+          <div class="muted">Last signal: <strong>${lastSigTs}</strong></div>
+          <div class="muted">Last order: <strong>${lastOrdTs}</strong></div>
         </div>
         ${renderPaperAccount(account)}
         <div class="note-banner" style="margin-top:12px;">
@@ -1430,7 +1441,7 @@
         const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10', 'nasdaqTop10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
-          if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
+          if (el) el.classList.toggle('hidden', !isBacktest);
         });
         // Keep experimental strategy blocks hidden to keep backtest dashboard clean.
         ['rgNasdaqStrategies', 'vibeSummary', 'vibeTop'].forEach(id => {
@@ -1440,7 +1451,7 @@
 
         document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
         document.getElementById('journalSection').classList.toggle('hidden', !isLive);
-        document.getElementById('signalsSection').classList.toggle('hidden', !isSignals);
+        document.getElementById('signalsSection').classList.toggle('hidden', !(isSignals || isLive));
 
         if (isLive) {
           const orders = data.paper_orders || [];
@@ -1461,6 +1472,21 @@
               <div class="muted">Open and closed trades per strategy</div>
             </div>
             ${renderJournal(journal)}
+          `;
+
+          const sigs = data.signals_by_instrument || {};
+          const sigHtml = [
+            renderSignalsTable('NASDAQ Signals', sigs.NASDAQ || []),
+            renderSignalsTable('Gold Signals', sigs.GOLD || []),
+            renderSignalsTable('Bitcoin Signals', sigs.BTC || []),
+            renderSignalsTable('EUR/USD Signals', sigs.EURUSD || []),
+          ].join('');
+          document.getElementById('signalsSection').innerHTML = `
+            <div class="section-head">
+              <h2>Live Signals</h2>
+              <div class="muted">NASDAQ, Gold, Bitcoin, EUR/USD</div>
+            </div>
+            <div class="market-grid">${sigHtml}</div>
           `;
         }
 
