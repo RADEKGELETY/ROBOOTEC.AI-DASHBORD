@@ -1427,10 +1427,15 @@
         `;
 
 
-        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'rgNasdaqStrategies', 'vibeSummary', 'vibeTop', 'globalTop10', 'sp500Top10', 'nasdaqTop10'];
+        const backtestOnly = ['top10Overall', 'topPerMarket', 'topByMarket', 'globalTop10', 'sp500Top10', 'nasdaqTop10'];
         backtestOnly.forEach(id => {
           const el = document.getElementById(id);
           if (el) el.classList.toggle('hidden', !(isBacktest || isLive));
+        });
+        // Keep experimental strategy blocks hidden to keep backtest dashboard clean.
+        ['rgNasdaqStrategies', 'vibeSummary', 'vibeTop'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
         });
 
         document.getElementById('paperOrders').classList.toggle('hidden', !isLive);
